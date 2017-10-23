@@ -7,5 +7,9 @@
 </ion-header>
 
 <ion-content padding>
-
+<ul>
+  <li *ngFor="let cat of items | async">
+    {{cat.Name}}
+  </li>
+</ul>
 </ion-content>
