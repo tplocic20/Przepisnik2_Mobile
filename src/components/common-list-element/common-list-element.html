@@ -1,0 +1,13 @@
+<ion-item-sliding>
+  <button ion-item (click)="itemClicked()">
+  {{item.Name}}
+  </button>
+  <ion-item-options side="right">
+    <button ion-button color="primary" (click)="editItem()">
+      Edytuj
+    </button>
+    <button ion-button color="danger" (click)="removeItem()">
+      Usuń
+    </button>
+  </ion-item-options>
+</ion-item-sliding>
