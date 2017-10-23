@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire/fire";
 import {Observable} from "rxjs/Observable";
 
@@ -18,7 +18,7 @@ export class CategoriesPage {
 
   items: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider) {
+  constructor(public navCtrl: NavController, private srv: FireProvider, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -26,13 +26,44 @@ export class CategoriesPage {
   }
 
   categoryClicked(category) {
-    alert("Category clicked");
   }
   categoryEdit(category) {
-    alert("Category edit");
   }
   categoryRemove(category) {
-    alert("Category remove");
+    const removeAlert = this.alertCtrl.create({
+      title: 'Usuń '+ category.Name,
+      message: 'Czy na pewno chcesz usunąć kategorię?' +
+      'Operacji nie można cofnąć',
+      buttons: [
+        {
+          text: 'Nie',
+          role: 'cancel'
+        },
+        {
+          text: 'Tak',
+          handler: () => {
+            console.log('Buy clicked');
+          }
+        }
+      ]
+    });
+    removeAlert.present();
+  }
+  categoryAdd(){
+    const createAlert = this.alertCtrl.create({
+      title: "Nowa kategoria",
+      inputs: [
+        {
+          name: 'categoryName',
+          placeholder: 'Nazwa kategorii',
+        }
+      ],
+      buttons: [
+        {text: "Anuluj", role: "cancel"},
+        {text: "Dodaj", handler: () =>{console.log("aaa")}}
+      ]
+    });
+    createAlert.present();
   }
 
 }
