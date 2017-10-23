@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-list>
     <common-list-element *ngFor="let cat of items | async" [item]="cat" (click)="categoryClicked(cat)" (edit)="categoryEdit(cat)" (remove)="categoryRemove(cat)"></common-list-element>
   </ion-list>

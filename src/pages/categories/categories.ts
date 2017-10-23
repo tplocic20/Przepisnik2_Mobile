@@ -16,7 +16,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class CategoriesPage {
 
-  items: Observable<any[]>;
+  items: Observable<any>;
 
   constructor(public navCtrl: NavController, private srv: FireProvider, private alertCtrl: AlertController) {
   }
@@ -42,7 +42,7 @@ export class CategoriesPage {
         {
           text: 'Tak',
           handler: () => {
-            console.log('Buy clicked');
+            this.srv.removeCategory(category)
           }
         }
       ]
@@ -60,7 +60,7 @@ export class CategoriesPage {
       ],
       buttons: [
         {text: "Anuluj", role: "cancel"},
-        {text: "Dodaj", handler: () =>{console.log("aaa")}}
+        {text: "Dodaj", handler: data =>{this.srv.addCategory(data.categoryName)}}
       ]
     });
     createAlert.present();
