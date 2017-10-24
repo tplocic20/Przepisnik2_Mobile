@@ -13,23 +13,23 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class CommonListElementComponent {
 
   @Input() item;
-  @Output() click = new EventEmitter();
-  @Output() edit = new EventEmitter();
-  @Output() remove = new EventEmitter();
+  @Output() onClick = new EventEmitter();
+  @Output() onEdit = new EventEmitter();
+  @Output() onRemove = new EventEmitter();
 
   constructor() {
   }
 
   itemClicked() {
-    this.click.emit();
+    this.onClick.emit();
   }
 
   editItem() {
-    this.edit.emit();
+    this.onEdit.emit();
   }
 
   removeItem(){
-    this.remove.emit();
+    this.onRemove.emit();
   }
 
 }

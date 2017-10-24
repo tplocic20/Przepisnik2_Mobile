@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire/fire";
 import {Observable} from "rxjs/Observable";
+import {RecipeListPage} from "../recipe-list/recipe-list";
 
 /**
  * Generated class for the CategoriesPage page.
@@ -26,6 +27,7 @@ export class CategoriesPage {
   }
 
   categoryClicked(category) {
+    this.navCtrl.push(RecipeListPage, {catId: category.$key});
   }
   categoryEdit(category) {
   }
@@ -49,7 +51,7 @@ export class CategoriesPage {
     });
     removeAlert.present();
   }
-  categoryAdd(){
+  categoryAdd() {
     const createAlert = this.alertCtrl.create({
       title: "Nowa kategoria",
       inputs: [

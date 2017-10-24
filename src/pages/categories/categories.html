@@ -15,7 +15,7 @@
 
 <ion-content>
   <ion-list>
-    <common-list-element *ngFor="let cat of items | async" [item]="cat" (click)="categoryClicked(cat)" (edit)="categoryEdit(cat)" (remove)="categoryRemove(cat)"></common-list-element>
+    <common-list-element *ngFor="let cat of items | async" [item]="cat" (onClick)="categoryClicked(cat)" (onEdit)="categoryEdit(cat)" (onRemove)="categoryRemove(cat)"></common-list-element>
   </ion-list>
   <ion-fab bottom right>
     <button ion-fab (click)="categoryAdd()"><ion-icon name="add"></ion-icon></button>

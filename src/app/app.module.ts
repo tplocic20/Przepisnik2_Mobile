@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,6 +13,9 @@ import {AngularFireAuthModule} from "angularfire2/auth";
 import {ComponentsModule} from "../components/components.module";
 import { FireProvider } from '../providers/fire/fire';
 import {CategoriesPage} from "../pages/categories/categories";
+import {FavouritesPage} from "../pages/favourites/favourites";
+import {NoteListPage} from "../pages/note-list/note-list";
+import {RecipeListPage} from "../pages/recipe-list/recipe-list";
 
 
 var fireBaseConfig = {
@@ -29,10 +30,11 @@ var fireBaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    ContactPage,
-    HomePage,
     TabsPage,
-    CategoriesPage
+    CategoriesPage,
+    FavouritesPage,
+    NoteListPage,
+    RecipeListPage
   ],
   imports: [
     BrowserModule,
@@ -45,10 +47,11 @@ var fireBaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ContactPage,
-    HomePage,
     TabsPage,
-    CategoriesPage
+    CategoriesPage,
+    FavouritesPage,
+    NoteListPage,
+    RecipeListPage
   ],
   providers: [
     StatusBar,
