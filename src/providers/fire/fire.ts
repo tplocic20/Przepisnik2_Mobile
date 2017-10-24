@@ -15,9 +15,6 @@ export class FireProvider {
 
   private loader: any;
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private toastCtrl: ToastController, private loadingCtrl: LoadingController) {
-    this.loader = this.loadingCtrl.create({
-      content: "Pobieranie danych"
-    });
     this.signIn();
   }
 
@@ -55,10 +52,15 @@ export class FireProvider {
     return list;
   }
 
-  getCategories() {
+  private showLoader(){
+    this.loader = this.loadingCtrl.create({content: "Pobieranie danych"});
     this.loader.present();
+  }
+
+  getCategories() {
+    this.showLoader();
     return this.categoriesList.map(res => {
-      this.loader.hide();
+      this.loader.dismiss();
       return res;
     })
   }
@@ -72,9 +74,9 @@ export class FireProvider {
   }
 
   getFavourites() {
-    this.loader.present();
+    this.showLoader();
     return this.favouritesList.map(res=>{
-      this.loader.hide();
+      this.loader.dismiss();
       return res;
     });
   }
