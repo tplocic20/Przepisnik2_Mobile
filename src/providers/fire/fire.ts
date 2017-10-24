@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase} from "angularfire2/database";
-import {ToastController} from "ionic-angular";
+import {LoadingController, ToastController} from "ionic-angular";
 
 /*
   Generated class for the FireProvider provider.
@@ -13,7 +13,11 @@ import {ToastController} from "ionic-angular";
 @Injectable()
 export class FireProvider {
 
-  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private toastCtrl: ToastController) {
+  private loader: any;
+  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private toastCtrl: ToastController, private loadingCtrl: LoadingController) {
+    this.loader = this.loadingCtrl.create({
+      content: "Pobieranie danych"
+    });
     this.signIn();
   }
 
@@ -25,12 +29,12 @@ export class FireProvider {
 
   private favouritesRef = this.db.list("Recipes", query => query.orderByChild('Favourite').equalTo(true));
   private favouritesList = this.favouritesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
-
+//Consider adding ".indexOn": "Favourite" at /Recipes to your security rules for better per
   private signIn() {
     return this.auth.auth.signInAnonymously();
   }
 
-  private successCallback(message: string):void{
+  private successCallback(message: string): void {
     this.toastCtrl.create({
       message: message,
       duration: 3000,
@@ -38,7 +42,7 @@ export class FireProvider {
     }).present();
   }
 
-  private errorCallback(error){
+  private errorCallback(error) {
     console.log(error);
   }
 
@@ -52,7 +56,11 @@ export class FireProvider {
   }
 
   getCategories() {
-    return this.categoriesList;
+    this.loader.present();
+    return this.categoriesList.map(res => {
+      this.loader.hide();
+      return res;
+    })
   }
 
   addCategory(data) {
@@ -64,10 +72,14 @@ export class FireProvider {
   }
 
   getFavourites() {
-    return this.favouritesList;
+    this.loader.present();
+    return this.favouritesList.map(res=>{
+      this.loader.hide();
+      return res;
+    });
   }
 
-  getRecipes(categoryId){
+  getRecipes(categoryId) {
     return this.recipesList.map(data => data.filter(x => x.Categories.indexOf(categoryId) > -1));
   }
 
