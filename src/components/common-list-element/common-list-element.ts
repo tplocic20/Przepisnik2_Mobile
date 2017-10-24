@@ -12,7 +12,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class CommonListElementComponent {
 
-  @Input() item;
+  @Input() item = {Name: "Wszystkie"};
+  @Input() blockSlide = false;
   @Output() onClick = new EventEmitter();
   @Output() onEdit = new EventEmitter();
   @Output() onRemove = new EventEmitter();

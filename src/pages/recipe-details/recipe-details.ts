@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {NavController, NavParams, Slides} from 'ionic-angular';
 
 /**
  * Generated class for the RecipeDetailsPage page.
@@ -14,11 +14,21 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class RecipeDetailsPage {
 
+  @ViewChild(Slides) slides: Slides;
+  activeSlide: string = "0";
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RecipeDetailsPage');
   }
 
+  onSlideChanged(){
+    const idx = this.slides.getActiveIndex();
+    this.activeSlide = idx.toString();
+  }
+
+  onSegmentChanged(ev) {
+    this.slides.slideTo(ev.value);
+  }
 }

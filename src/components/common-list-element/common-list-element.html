@@ -2,7 +2,7 @@
   <button ion-item detail-push (click)="itemClicked()">
   {{item.Name}}
   </button>
-  <ion-item-options side="left">
+  <ion-item-options side="left" *ngIf="blockSlide == false">
     <button ion-button color="primary" (click)="editItem()">
       Edytuj
     </button>

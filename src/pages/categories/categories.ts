@@ -27,8 +27,9 @@ export class CategoriesPage {
   }
 
   categoryClicked(category) {
-    this.navCtrl.push(RecipeListPage, {catId: category.$key});
+    this.navCtrl.push(RecipeListPage, {catId: category.$key, catName: category.Name});
   }
+
   categoryEdit(category) {
   }
   categoryRemove(category) {
@@ -51,6 +52,7 @@ export class CategoriesPage {
     });
     removeAlert.present();
   }
+
   categoryAdd() {
     const createAlert = this.alertCtrl.create({
       title: "Nowa kategoria",

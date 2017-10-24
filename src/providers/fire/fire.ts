@@ -82,7 +82,7 @@ export class FireProvider {
   }
 
   getRecipes(categoryId) {
-    return this.recipesList.map(data => data.filter(x => x.Categories.indexOf(categoryId) > -1));
+    return this.recipesList.map(data => data.filter(x => x.Categories.indexOf(categoryId || "") > -1));
   }
 
 }

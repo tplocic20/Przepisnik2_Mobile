@@ -16,6 +16,7 @@ import {CategoriesPage} from "../pages/categories/categories";
 import {FavouritesPage} from "../pages/favourites/favourites";
 import {NoteListPage} from "../pages/note-list/note-list";
 import {RecipeListPage} from "../pages/recipe-list/recipe-list";
+import {RecipeDetailsPage} from "../pages/recipe-details/recipe-details";
 
 
 var fireBaseConfig = {
@@ -34,7 +35,8 @@ var fireBaseConfig = {
     CategoriesPage,
     FavouritesPage,
     NoteListPage,
-    RecipeListPage
+    RecipeListPage,
+    RecipeDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ var fireBaseConfig = {
     CategoriesPage,
     FavouritesPage,
     NoteListPage,
-    RecipeListPage
+    RecipeListPage,
+    RecipeDetailsPage
   ],
   providers: [
     StatusBar,

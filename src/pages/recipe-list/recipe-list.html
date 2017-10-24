@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>RecipeList</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,6 +15,6 @@
 
 <ion-content>
 <ion-list>
-  <common-list-element *ngFor="let rec of recipes | async" [item]="rec" ></common-list-element>
+  <common-list-element *ngFor="let rec of recipes | async" [item]="rec" (onClick)="recipeClicked(rec)"></common-list-element>
 </ion-list>
 </ion-content>

@@ -13,6 +13,31 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-segment [(ngModel)]="activeSlide" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="0">
+      Informacje
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      Przepis
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      Galeria
+    </ion-segment-button>
+  </ion-segment>
+  <ion-slides pager (ionSlideWillChange)="onSlideChanged()">
 
+    <ion-slide style="background-color: green">
+      <h2>Slide 1</h2>
+    </ion-slide>
+
+    <ion-slide style="background-color: blue">
+      <h2>Slide 2</h2>
+    </ion-slide>
+
+    <ion-slide style="background-color: red">
+      <h2>Slide 3</h2>
+    </ion-slide>
+
+  </ion-slides>
 </ion-content>
