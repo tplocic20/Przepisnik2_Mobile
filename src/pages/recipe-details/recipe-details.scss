@@ -1,3 +1,8 @@
 page-recipe-details {
 
 }
+
+page-recipe-details .swiper-slide {
+  overflow-y: scroll;
+  display: block;
+}

@@ -14,6 +14,7 @@ import {LoadingController, ToastController} from "ionic-angular";
 export class FireProvider {
 
   private loader: any;
+
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private toastCtrl: ToastController, private loadingCtrl: LoadingController) {
     this.signIn();
   }
@@ -26,7 +27,7 @@ export class FireProvider {
 
   private favouritesRef = this.db.list("Recipes", query => query.orderByChild('Favourite').equalTo(true));
   private favouritesList = this.favouritesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
-//Consider adding ".indexOn": "Favourite" at /Recipes to your security rules for better per
+
   private signIn() {
     return this.auth.auth.signInAnonymously();
   }
@@ -52,7 +53,7 @@ export class FireProvider {
     return list;
   }
 
-  private showLoader(){
+  private showLoader() {
     this.loader = this.loadingCtrl.create({content: "Pobieranie danych"});
     this.loader.present();
   }
@@ -75,14 +76,21 @@ export class FireProvider {
 
   getFavourites() {
     this.showLoader();
-    return this.favouritesList.map(res=>{
+    return this.favouritesList.map(res => {
       this.loader.dismiss();
       return res;
     });
   }
 
   getRecipes(categoryId) {
-    return this.recipesList.map(data => data.filter(x => x.Categories.indexOf(categoryId || "") > -1));
+    this.showLoader();
+    return this.recipesList.map(data => {
+      this.loader.dismiss();
+      return data.filter(x => x.Categories.indexOf(categoryId || "") > -1)
+    })
   }
 
+  getRecipe(recipeId){
+    return this.db.object(`Recipes/${recipeId}`).valueChanges();
+  }
 }

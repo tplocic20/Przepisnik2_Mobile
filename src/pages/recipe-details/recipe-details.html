@@ -9,30 +9,56 @@
   <ion-navbar>
     <ion-title>RecipeDetails</ion-title>
   </ion-navbar>
-
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="activeSlide" (ionChange)="onSegmentChanged($event)">
+      <ion-segment-button value="0">
+        Informacje
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        Przepis
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        Galeria
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <ion-segment [(ngModel)]="activeSlide" (ionChange)="onSegmentChanged($event)">
-    <ion-segment-button value="0">
-      Informacje
-    </ion-segment-button>
-    <ion-segment-button value="1">
-      Przepis
-    </ion-segment-button>
-    <ion-segment-button value="2">
-      Galeria
-    </ion-segment-button>
-  </ion-segment>
-  <ion-slides pager (ionSlideWillChange)="onSlideChanged()">
 
-    <ion-slide style="background-color: green">
-      <h2>Slide 1</h2>
+  <ion-slides (ionSlideWillChange)="onSlideChanged()">
+
+    <ion-slide>
+          <ion-list>
+            <ion-item>
+              <ion-label>Temperatura:</ion-label>
+              <ion-label>{{recipe?.Temperature}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Czas pieczenia:</ion-label>
+              <ion-label>{{recipe?.Time}}</ion-label>
+            </ion-item>
+            <ion-card-header>
+              Składniki
+            </ion-card-header>
+            <ion-list *ngFor="let group of recipe?.Engredients">
+              <ion-item-divider>
+                <p>{{group.Name}}</p>
+              </ion-item-divider>
+              <ion-item *ngFor="let eng of group.Positions">
+                <p>{{eng.Name}}</p>
+              </ion-item>
+            </ion-list>
+          </ion-list>
     </ion-slide>
 
-    <ion-slide style="background-color: blue">
-      <h2>Slide 2</h2>
+    <ion-slide>
+      <ion-card>
+        <ion-card-content>
+          {{recipe?.Recipe}}
+        </ion-card-content>
+      </ion-card>
     </ion-slide>
 
     <ion-slide style="background-color: red">

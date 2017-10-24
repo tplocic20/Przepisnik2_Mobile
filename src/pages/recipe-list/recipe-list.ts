@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
-import {FireProvider} from "../../providers/fire/fire";
+import {FireProvider} from "../../providers/fire";
 import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 
 /**

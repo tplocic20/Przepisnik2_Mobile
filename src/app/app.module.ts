@@ -11,7 +11,7 @@ import {AngularFireModule} from "angularfire2";
 import {AngularFireDatabase, AngularFireDatabaseModule} from "angularfire2/database";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {ComponentsModule} from "../components/components.module";
-import { FireProvider } from '../providers/fire/fire';
+import { FireProvider } from '../providers/fire';
 import {CategoriesPage} from "../pages/categories/categories";
 import {FavouritesPage} from "../pages/favourites/favourites";
 import {NoteListPage} from "../pages/note-list/note-list";

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
-import {FireProvider} from "../../providers/fire/fire";
+import {FireProvider} from "../../providers/fire";
 import {Observable} from "rxjs/Observable";
 import {RecipeListPage} from "../recipe-list/recipe-list";
 
