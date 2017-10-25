@@ -19,6 +19,8 @@ import {RecipeListPage} from "../pages/recipe-list/recipe-list";
 import {RecipeDetailsPage} from "../pages/recipe-details/recipe-details";
 import {ImagePreviewPage} from "../pages/image-preview/image-preview";
 import {Camera} from "@ionic-native/camera";
+import {FileChooser} from "@ionic-native/file-chooser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 var fireBaseConfig = {
@@ -43,6 +45,7 @@ var fireBaseConfig = {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(fireBaseConfig),
     AngularFireDatabaseModule,
@@ -66,7 +69,8 @@ var fireBaseConfig = {
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FireProvider,
-    Camera
+    Camera,
+    FileChooser
   ]
 })
 export class AppModule {}

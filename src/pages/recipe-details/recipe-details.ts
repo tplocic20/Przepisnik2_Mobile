@@ -13,7 +13,7 @@ import {Camera, CameraOptions} from "@ionic-native/camera";
 
 @Component({
   selector: 'page-recipe-details',
-  templateUrl: 'recipe-details.html',
+  templateUrl: 'recipe-details.html'
 })
 export class RecipeDetailsPage {
 
@@ -47,8 +47,10 @@ export class RecipeDetailsPage {
   }
 
   addImageUrl() {
-    this.recipe.Gallery = [{url: "test"}];
-    this.srv.updateRecipe(this.recipe, this.recId).then(()=> alert("zapisano"));
+  }
+
+  addImageFile() {
+
   }
 
   addImageCamera() {
@@ -59,11 +61,19 @@ export class RecipeDetailsPage {
       mediaType: this.cam.MediaType.PICTURE
     }
     this.cam.getPicture(options).then(imageData => {
+      let newPhoto = {url: "", isUploading: true};
+      if (this.recipe.Gallery) {
+        this.recipe.Gallery = [newPhoto, ...this.recipe.Gallery];
+      }
+      else {
+        this.recipe.Gallery = [newPhoto];
+      }
       this.srv.uploadImage(imageData, "image/jpeg").then(savedPicture => {
-          this.recipe.Gallery = [{url: savedPicture.downloadURL}];
+          newPhoto.url = savedPicture.downloadURL;
+          delete newPhoto.isUploading;
           this.srv.updateRecipe(this.recipe, this.recId);
         }
       )
-    })
+    }, err => this.cam.cleanup()).catch(err => this.cam.cleanup());
   }
 }
