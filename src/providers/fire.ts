@@ -33,7 +33,7 @@ export class FireProvider {
   private notesRef = this.db.list("Notes");
  // private notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
 
-  private imagesRef = firebase.storage().ref('/images/');
+  private imagesRef = firebase.storage();
 
 
 
@@ -65,6 +65,13 @@ export class FireProvider {
   private showLoader() {
     this.loader = this.loadingCtrl.create({content: "Pobieranie danych"});
     this.loader.present();
+  }
+
+  private newGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+      return v.toString(16);
+    });
   }
 
   getCategories() {
@@ -99,7 +106,15 @@ export class FireProvider {
     })
   }
 
+  updateRecipe(recipe, key){
+    return this.recipesRef.update(key, recipe);
+  }
+
   getRecipe(recipeId){
     return this.db.object(`Recipes/${recipeId}`).valueChanges();
+  }
+
+  uploadImage(imageData, contentType) {
+    return this.imagesRef.ref(this.newGuid()).putString(imageData, 'base64', { contentType: contentType });
   }
 }

@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {ModalController, NavController, NavParams, Slides} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {ImagePreviewPage} from "../image-preview/image-preview";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 
 /**
  * Generated class for the RecipeDetailsPage page.
@@ -21,11 +22,8 @@ export class RecipeDetailsPage {
   recipe: any;
   recId: any;
   title: any;
-  gallery = ["https://www.bettys.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/h/a/happy-birthday-chocolate-cake-2000130_6.jpg",
-    "https://www.bettys.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/h/a/happy-birthday-chocolate-cake-2000130_6.jpg",
-    "https://www.bettys.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/h/a/happy-birthday-chocolate-cake-2000130_6.jpg"];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera) {
   }
 
   ionViewDidLoad() {
@@ -43,12 +41,29 @@ export class RecipeDetailsPage {
     this.slides.slideTo(ev.value);
   }
 
-  showImage(image){
+  showImage(image) {
     const modal = this.modalCtrl.create(ImagePreviewPage, {url: image});
     modal.present();
   }
 
-  addImageCamera(){
+  addImageUrl() {
+    this.recipe.Gallery = [{url: "test"}];
+    this.srv.updateRecipe(this.recipe, this.recId).then(()=> alert("zapisano"));
+  }
 
+  addImageCamera() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.cam.DestinationType.DATA_URL,
+      encodingType: this.cam.EncodingType.JPEG,
+      mediaType: this.cam.MediaType.PICTURE
+    }
+    this.cam.getPicture(options).then(imageData => {
+      this.srv.uploadImage(imageData, "image/jpeg").then(savedPicture => {
+          this.recipe.Gallery = [{url: savedPicture.downloadURL}];
+          this.srv.updateRecipe(this.recipe, this.recId);
+        }
+      )
+    })
   }
 }

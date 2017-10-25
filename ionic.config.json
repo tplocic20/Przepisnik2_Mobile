@@ -2,5 +2,7 @@
   "name": "Przepisnik-v2",
   "app_id": "f25d7645",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }

@@ -18,6 +18,7 @@ import {NoteListPage} from "../pages/note-list/note-list";
 import {RecipeListPage} from "../pages/recipe-list/recipe-list";
 import {RecipeDetailsPage} from "../pages/recipe-details/recipe-details";
 import {ImagePreviewPage} from "../pages/image-preview/image-preview";
+import {Camera} from "@ionic-native/camera";
 
 
 var fireBaseConfig = {
@@ -38,7 +39,7 @@ var fireBaseConfig = {
     NoteListPage,
     RecipeListPage,
     RecipeDetailsPage,
-    ImagePreviewPage
+    ImagePreviewPage,
   ],
   imports: [
     BrowserModule,
@@ -57,14 +58,15 @@ var fireBaseConfig = {
     NoteListPage,
     RecipeListPage,
     RecipeDetailsPage,
-    ImagePreviewPage
+    ImagePreviewPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FireProvider
+    FireProvider,
+    Camera
   ]
 })
 export class AppModule {}
