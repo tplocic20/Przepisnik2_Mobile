@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, NavParams, Slides} from 'ionic-angular';
+import {ModalController, NavController, NavParams, Slides} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
+import {ImagePreviewPage} from "../image-preview/image-preview";
 
 /**
  * Generated class for the RecipeDetailsPage page.
@@ -20,8 +21,11 @@ export class RecipeDetailsPage {
   recipe: any;
   recId: any;
   title: any;
+  gallery = ["https://www.bettys.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/h/a/happy-birthday-chocolate-cake-2000130_6.jpg",
+    "https://www.bettys.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/h/a/happy-birthday-chocolate-cake-2000130_6.jpg",
+    "https://www.bettys.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/h/a/happy-birthday-chocolate-cake-2000130_6.jpg"];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -37,5 +41,14 @@ export class RecipeDetailsPage {
 
   onSegmentChanged(ev) {
     this.slides.slideTo(ev.value);
+  }
+
+  showImage(image){
+    const modal = this.modalCtrl.create(ImagePreviewPage, {url: image});
+    modal.present();
+  }
+
+  addImageCamera(){
+
   }
 }

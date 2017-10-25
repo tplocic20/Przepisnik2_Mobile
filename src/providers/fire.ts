@@ -3,6 +3,8 @@ import 'rxjs/add/operator/map';
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase} from "angularfire2/database";
 import {LoadingController, ToastController} from "ionic-angular";
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
 
 /*
   Generated class for the FireProvider provider.
@@ -27,6 +29,13 @@ export class FireProvider {
 
   private favouritesRef = this.db.list("Recipes", query => query.orderByChild('Favourite').equalTo(true));
   private favouritesList = this.favouritesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+
+  private notesRef = this.db.list("Notes");
+ // private notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+
+  private imagesRef = firebase.storage().ref('/images/');
+
+
 
   private signIn() {
     return this.auth.auth.signInAnonymously();
