@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {FireProvider} from "../../providers/fire";
 
 /**
  * Generated class for the NoteListPage page.
@@ -14,11 +15,24 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class NoteListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  notes: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NoteListPage');
+    this.notes = this.srv.getNotes();
+  }
+
+  noteClicked(note){
+
+  }
+
+  noteEdit(note){
+
+  }
+
+  noteRemove(note) {
+
   }
 
 }

@@ -31,10 +31,9 @@ export class FireProvider {
   private favouritesList = this.favouritesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
 
   private notesRef = this.db.list("Notes");
- // private notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
 
   private imagesRef = firebase.storage();
-
 
 
   private signIn() {
@@ -68,8 +67,8 @@ export class FireProvider {
   }
 
   private newGuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }
@@ -90,6 +89,14 @@ export class FireProvider {
     this.categoriesRef.remove(data.$key).then(() => this.successCallback(`Kategoria ${data.Name} została usunięta`), error => this.errorCallback(error));
   }
 
+  getNotes() {
+    this.showLoader();
+    return this.notesList.map(res => {
+      this.loader.dismiss();
+      return res;
+    })
+  }
+
   getFavourites() {
     this.showLoader();
     return this.favouritesList.map(res => {
@@ -106,19 +113,19 @@ export class FireProvider {
     })
   }
 
-  updateRecipe(recipe, key){
+  updateRecipe(recipe, key) {
     return this.recipesRef.update(key, recipe);
   }
 
-  getRecipe(recipeId){
+  getRecipe(recipeId) {
     return this.db.object(`Recipes/${recipeId}`).valueChanges();
   }
 
   uploadImage(imageData, contentType) {
-    return this.imagesRef.ref(this.newGuid()).putString(imageData, 'base64', { contentType: contentType });
+    return this.imagesRef.ref(this.newGuid()).putString(imageData, 'base64', {contentType: contentType});
   }
 
-  removeImage(imageKey: string){
+  removeImage(imageKey: string) {
     return this.imagesRef.ref(imageKey).delete();
   }
 }

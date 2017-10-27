@@ -7,12 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>NoteList</ion-title>
+    <ion-title>Notatki</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <common-list-element *ngFor="let note of notes | async" [item]="note" (onClick)="noteClicked(note)" (onEdit)="noteEdit(note)" (onRemove)="noteRemove(note)"></common-list-element>
+  </ion-list>
+  <ion-fab bottom right>
+    <button ion-fab (click)="categoryAdd()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

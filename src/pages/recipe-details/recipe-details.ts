@@ -1,8 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import {ModalController, NavController, NavParams, Slides} from 'ionic-angular';
+import {ModalController, NavParams, Slides} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {ImagePreviewPage} from "../image-preview/image-preview";
 import {Camera, CameraOptions} from "@ionic-native/camera";
+import {FileChooser} from "@ionic-native/file-chooser";
 
 /**
  * Generated class for the RecipeDetailsPage page.
@@ -24,7 +25,7 @@ export class RecipeDetailsPage {
   title: any;
   selectedImages = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera) {
+  constructor(public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser) {
   }
 
   ionViewDidLoad() {
@@ -52,7 +53,9 @@ export class RecipeDetailsPage {
   }
 
   addImageFile() {
-
+    this.fileChooser.open().then(uri => {
+      alert(uri);
+    }).catch(e=>alert(e));
   }
 
   addImageCamera() {
