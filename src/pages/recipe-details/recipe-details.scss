@@ -27,6 +27,14 @@ page-recipe-details {
       color: #fff;
     }
   }
+
+  .image-selected img {
+    opacity: 0.4;
+    transition: opacity 500ms;
+  }
+  .image-selected ion-icon {
+    color: greenyellow;
+  }
 }
 
 

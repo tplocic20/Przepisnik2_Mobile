@@ -117,4 +117,8 @@ export class FireProvider {
   uploadImage(imageData, contentType) {
     return this.imagesRef.ref(this.newGuid()).putString(imageData, 'base64', { contentType: contentType });
   }
+
+  removeImage(imageKey: string){
+    return this.imagesRef.ref(imageKey).delete();
+  }
 }
