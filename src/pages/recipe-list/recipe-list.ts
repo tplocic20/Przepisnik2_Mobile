@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
 import {FireProvider} from "../../providers/fire";
 import {RecipeDetailsPage} from "../recipe-details/recipe-details";
+import {AddEditRecipePage} from "../add-edit-recipe/add-edit-recipe";
 
 /**
  * Generated class for the RecipeListPage page.
@@ -18,18 +19,23 @@ import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 export class RecipeListPage {
 
   title: string;
+  cat: string;
   recipes: Observable<any[]>
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider) {
   }
 
   ionViewDidLoad() {
-    const cat = this.navParams.get('catId');
+    this.cat = this.navParams.get('catId');
     this.title = this.navParams.get('catName') || "Wszystkie";
-    this.recipes = this.srv.getRecipes(cat);
+    this.recipes = this.srv.getRecipes(this.cat);
   }
 
   recipeClicked(recipe){
     this.navCtrl.push(RecipeDetailsPage, {recId: recipe.$key, recName: recipe.Name});
+  }
+
+  recipeAdd(){
+    this.navCtrl.push(AddEditRecipePage, {selectedCategory: this.cat});
   }
 
 }

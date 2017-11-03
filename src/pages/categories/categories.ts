@@ -3,6 +3,7 @@ import {AlertController, NavController} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {Observable} from "rxjs/Observable";
 import {RecipeListPage} from "../recipe-list/recipe-list";
+import {MessagesProvider} from "../../providers/messages";
 
 /**
  * Generated class for the CategoriesPage page.
@@ -19,7 +20,7 @@ export class CategoriesPage {
 
   items: Observable<any>;
 
-  constructor(public navCtrl: NavController, private srv: FireProvider, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private srv: FireProvider, private msg: MessagesProvider, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -31,43 +32,15 @@ export class CategoriesPage {
   }
 
   categoryEdit(category) {
+    this.msg.alert.input("Edycja "+category.Name, data => this.srv.editCategory({...category, Name: data}), "Nazwa kategorii", category.Name, "Zapisz");
   }
   categoryRemove(category) {
-    const removeAlert = this.alertCtrl.create({
-      title: 'Usuń '+ category.Name,
-      message: 'Czy na pewno chcesz usunąć kategorię?' +
-      'Operacji nie można cofnąć',
-      buttons: [
-        {
-          text: 'Nie',
-          role: 'cancel'
-        },
-        {
-          text: 'Tak',
-          handler: () => {
-            this.srv.removeCategory(category)
-          }
-        }
-      ]
-    });
-    removeAlert.present();
+    this.msg.alert.confirm('Usuń '+ category.Name, ()=>this.srv.removeCategory(category), 'Czy na pewno chcesz usunąć kategorię?' +
+      '\nOperacji nie można cofnąć');
   }
 
   categoryAdd() {
-    const createAlert = this.alertCtrl.create({
-      title: "Nowa kategoria",
-      inputs: [
-        {
-          name: 'categoryName',
-          placeholder: 'Nazwa kategorii',
-        }
-      ],
-      buttons: [
-        {text: "Anuluj", role: "cancel"},
-        {text: "Dodaj", handler: data =>{this.srv.addCategory(data.categoryName)}}
-      ]
-    });
-    createAlert.present();
+  this.msg.alert.input("Nowa kategoria", data => this.srv.addCategory(data), "Nazwa kategorii");
   }
 
 }

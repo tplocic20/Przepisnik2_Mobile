@@ -21,15 +21,17 @@ import {ImagePreviewPage} from "../pages/image-preview/image-preview";
 import {Camera} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { MessagesProvider } from '../providers/messages';
+import {AddEditRecipePage} from "../pages/add-edit-recipe/add-edit-recipe";
 
 
 var fireBaseConfig = {
-  apiKey: "AIzaSyAIHYAHC6ykzoTnO25vEpxwkXm9_fS_Jeo",
-  authDomain: "przepisnik.firebaseapp.com",
-  databaseURL: "https://przepisnik.firebaseio.com",
-  projectId: "firebase-przepisnik",
-  storageBucket: "firebase-przepisnik.appspot.com",
-  messagingSenderId: "457833981759"
+  apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
+  authDomain: "przepisnik-v2.firebaseapp.com",
+  databaseURL: "https://przepisnik-v2.firebaseio.com",
+  projectId: "przepisnik-v2",
+  storageBucket: "przepisnik-v2.appspot.com",
+  messagingSenderId: "529215752695"
 };
 
 @NgModule({
@@ -42,6 +44,7 @@ var fireBaseConfig = {
     RecipeListPage,
     RecipeDetailsPage,
     ImagePreviewPage,
+    AddEditRecipePage,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ var fireBaseConfig = {
     RecipeListPage,
     RecipeDetailsPage,
     ImagePreviewPage,
+    AddEditRecipePage,
   ],
   providers: [
     StatusBar,
@@ -70,7 +74,8 @@ var fireBaseConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FireProvider,
     Camera,
-    FileChooser
+    MessagesProvider,
+    FileChooser,
   ]
 })
 export class AppModule {}

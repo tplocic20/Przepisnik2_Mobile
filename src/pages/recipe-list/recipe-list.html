@@ -17,4 +17,7 @@
 <ion-list>
   <common-list-element *ngFor="let rec of recipes | async" [item]="rec" (onClick)="recipeClicked(rec)"></common-list-element>
 </ion-list>
+  <ion-fab bottom right>
+    <button ion-fab (click)="recipeAdd()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

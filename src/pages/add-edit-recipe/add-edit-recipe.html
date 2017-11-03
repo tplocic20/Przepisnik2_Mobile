@@ -1,0 +1,81 @@
+<!--
+  Generated template for the AddEditRecipePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-navbar>
+      <ion-title>AddEditRecipe</ion-title>
+    </ion-navbar>
+    <ion-segment [(ngModel)]="activeSlide" (ionChange)="onSegmentChanged($event)">
+      <ion-segment-button value="0">
+        Kategorie
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        Składniki
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        Przepis
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-slides (ionSlideWillChange)="onSlideChanged()">
+    <ion-slide>
+      <ion-list no-lines>
+        <ion-item *ngFor="let cat of categories | async">
+          <ion-label>{{cat.Name}}</ion-label>
+          <ion-checkbox [checked]="selectedCategories.indexOf(cat.$key)>-1"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list *ngFor="let group of recipe?.Engredients; let i = index">
+        <ion-list-header>
+          {{group?.Name}}
+          <button item-end clear ion-button icon-only >
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button  item-end	clear ion-button icon-only color="danger" >
+          <ion-icon name="trash"></ion-icon>
+        </button>
+        </ion-list-header>
+        <ion-item *ngFor="let eng of group?.Positions">
+          {{eng.Name}}
+        </ion-item>
+        <ion-item *ngIf="addingToGroup === i">
+          <ion-input type="text" item-start placeholder="Nazwa" [(ngModel)]="newEngredient.Name"></ion-input>
+          <ion-input type="number" placeholder="Ilość" [(ngModel)]="newEngredient.Qty"></ion-input>
+          <ion-input type="text" item-end placeholder="Jednostka" [(ngModel)]="newEngredient.Unit"></ion-input>
+          <button item-end clear ion-button icon-only color="success" (click)="saveEngredient(i)"><ion-icon name="add"></ion-icon></button>
+          <button item-end clear ion-button icon-only color="danger" (click)="cancelAddingEngredient()"><ion-icon name="close"></ion-icon></button>
+        </ion-item>
+        <ion-item padding *ngIf="addingToGroup !== i">
+          <button ion-button icon-left small round item-right (click)="addEngredient(i)">
+            <ion-icon name="add"></ion-icon>
+            Dodaj składnik
+          </button>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+      <button ion-button icon-left small round item-right (click)="addEngredientCategory()">
+        <ion-icon name="add"></ion-icon>
+        Dodaj kategorię
+      </button>
+      </ion-item>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
+  <ion-fab bottom right>
+    <button ion-fab color="positive">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

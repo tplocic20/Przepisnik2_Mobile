@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase} from "angularfire2/database";
-import {LoadingController, ToastController} from "ionic-angular";
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
+import {MessagesProvider} from "./messages";
 
 /*
   Generated class for the FireProvider provider.
@@ -15,9 +15,8 @@ import 'firebase/storage';
 @Injectable()
 export class FireProvider {
 
-  private loader: any;
 
-  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private toastCtrl: ToastController, private loadingCtrl: LoadingController) {
+  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private msg: MessagesProvider) {
     this.signIn();
   }
 
@@ -40,18 +39,6 @@ export class FireProvider {
     return this.auth.auth.signInAnonymously();
   }
 
-  private successCallback(message: string): void {
-    this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: 'bottom'
-    }).present();
-  }
-
-  private errorCallback(error) {
-    console.log(error);
-  }
-
   private mapWithKey(actions) {
     let list = [];
     actions.forEach(action => {
@@ -61,10 +48,6 @@ export class FireProvider {
     return list;
   }
 
-  private showLoader() {
-    this.loader = this.loadingCtrl.create({content: "Pobieranie danych"});
-    this.loader.present();
-  }
 
   private newGuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -74,41 +57,39 @@ export class FireProvider {
   }
 
   getCategories() {
-    this.showLoader();
+    this.msg.loading.show("Pobieranie danych");
     return this.categoriesList.map(res => {
-      this.loader.dismiss();
+      this.msg.loading.close();
       return res;
     })
   }
 
   addCategory(data) {
-    this.categoriesRef.push({Name: data}).then(() => this.successCallback(`Kategoria ${data} została dodana`), error => this.errorCallback(error));
+    this.categoriesRef.push({Name: data}).then(() => this.msg.toast.info(`Kategoria ${data} została dodana`), error => this.msg.toast.error(error));
   }
 
   removeCategory(data) {
-    this.categoriesRef.remove(data.$key).then(() => this.successCallback(`Kategoria ${data.Name} została usunięta`), error => this.errorCallback(error));
+    this.categoriesRef.remove(data.$key).then(() => this.msg.toast.info(`Kategoria ${data.Name} została usunięta`), error => this.msg.toast.error(error));
+  }
+
+  editCategory(data) {
+    this.categoriesRef.update(data.$key, {Name: data.Name}).then(()=> this.msg.toast.info(`Kategoria ${data.Name} została zapisana`), error => this.msg.toast.error(error));
   }
 
   getNotes() {
-    this.showLoader();
     return this.notesList.map(res => {
-      this.loader.dismiss();
       return res;
     })
   }
 
   getFavourites() {
-    this.showLoader();
     return this.favouritesList.map(res => {
-      this.loader.dismiss();
       return res;
     });
   }
 
   getRecipes(categoryId) {
-    this.showLoader();
     return this.recipesList.map(data => {
-      this.loader.dismiss();
       return data.filter(x => x.Categories.indexOf(categoryId || "") > -1)
     })
   }
