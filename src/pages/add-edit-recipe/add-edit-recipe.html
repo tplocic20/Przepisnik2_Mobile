@@ -38,10 +38,10 @@
       <ion-list *ngFor="let group of recipe?.Engredients; let i = index">
         <ion-list-header>
           {{group?.Name}}
-          <button item-end clear ion-button icon-only >
-            <ion-icon name="create"></ion-icon>
+          <button item-end clear ion-button icon-only (click)="editEngredientCategory(group)">
+            <ion-icon name="create" ></ion-icon>
           </button>
-          <button  item-end	clear ion-button icon-only color="danger" >
+          <button item-end clear ion-button icon-only color="danger" *ngIf="recipe?.Engredients?.length > 1" (click)="removeEngredientCategori(group, i)">
           <ion-icon name="trash"></ion-icon>
         </button>
         </ion-list-header>

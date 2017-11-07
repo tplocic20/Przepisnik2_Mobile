@@ -16,9 +16,9 @@ export class MessagesProvider {
   public loading = {
     /**
      * Show loading popover
-     * @param {string} m Loading message
+     * @param {string} message Loading message
      */
-    show: (m) => this.showLoading(m),
+    show: (message: string) => this.showLoading(message),
     /**
      * Hides loading popover
      */
@@ -28,29 +28,29 @@ export class MessagesProvider {
   public toast = {
     /**
      * Shows information toast
-     * @param {string} m Loading message
-     * @param {number} d Optional - Toast delay
-     * @param {string} p Optional - Toast position
+     * @param {string} message Loading message
+     * @param {number} delay Optional - Toast delay
+     * @param {string} position Optional - Toast position
      */
-    info: (m, d?, p?) => this.showInfoToast(m, d, p),
+    info: (message, delay?, position?) => this.showInfoToast(message, delay, position),
     /**
      * Shows error toast in the middle of the screen with OK button
-     * @param {string} m Error message
+     * @param {string} message Error message
      */
-    error: (m) => this.showErrorToast(m)
+    error: (message) => this.showErrorToast(message)
   };
 
   public alert = {
     /**
      * Show alert with input field. See below for options.
-     * @param {string} [t] Alert title
-     * @param {any} [c] Callback function
-     * @param {string} [p] Optional - Input placeholder
-     * @param {any} [i] Optional - Input original value
-     * @param {string} [s] Optional - Success button text
+     * @param {string} [title] Alert title
+     * @param {any} [callback] Callback function
+     * @param {string} [placeholder] Optional - Input placeholder
+     * @param {any} [initialInputValue] Optional - Input original value
+     * @param {string} [successBtnText] Optional - Success button text
      */
-    input: (t, c, p?, i?, s?) => this.showInputAlert(t, c, p, i, s),
-    confirm: (t, c, m?) => this.showConfirmAlert(t, c, m)
+    input: (title, callback, placeholder?, initialInputValue?, successBtnText?) => this.showInputAlert(title, callback, placeholder, initialInputValue, successBtnText),
+    confirm: (title, callback, message?) => this.showConfirmAlert(title, callback, message)
   };
 
   constructor(private toastCtrl: ToastController, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {

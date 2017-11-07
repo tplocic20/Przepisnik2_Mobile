@@ -54,6 +54,14 @@ export class AddEditRecipePage {
     this.msg.alert.input("Nowa kategorie", data => this.recipe.Engredients.push({Name: data, Positions: []}), "Nazwa kategorii");
   }
 
+  editEngredientCategory(cat) {
+    this.msg.alert.input("Edycja "+cat.Name, data => cat.Name = data, "Nazwa kategorii", cat.Name, "Zapisz");
+  }
+
+  removeEngredientCategori(cat, index) {
+    this.msg.alert.confirm("Usuwanie "+ cat.Name, () => this.recipe.Engredients.splice(index, 1), "Czy na pewno chcesz usunąc kategorię? Operacji nie da się cofnąć");
+  }
+
   addEngredient(index){
     this.addingToGroup = index;
     this.newEngredient = {Name: null, Qty: null, Unit: null};
