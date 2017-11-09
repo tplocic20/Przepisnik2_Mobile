@@ -1,7 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, NavParams, Slides} from 'ionic-angular';
+import {ModalController, NavController, NavParams, Slides} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {MessagesProvider} from "../../providers/messages";
+import {AddEditEngredientGroupModalPage} from "../../modals/add-edit-engredient-group-modal/add-edit-engredient-group-modal";
+import {AddEditEngredientModalPage} from "../../modals/add-edit-engredient-modal/add-edit-engredient-modal";
 
 /**
  * Generated class for the AddEditRecipePage page.
@@ -21,10 +23,9 @@ export class AddEditRecipePage {
   selectedCategories = [];
   categories:any;
   activeSlide:string = "0";
-  addingToGroup: number;
   newEngredient: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController) {
     this.categories = this.srv.getCategories();
   }
 
@@ -51,11 +52,23 @@ export class AddEditRecipePage {
   }
 
   addEngredientCategory(){
-    this.msg.alert.input("Nowa kategorie", data => this.recipe.Engredients.push({Name: data, Positions: []}), "Nazwa kategorii");
+    const modal = this.modalCtrl.create(AddEditEngredientGroupModalPage, null, {cssClass: 'modal-xsmall'});
+    modal.onDidDismiss(data => {
+      if (data){
+        this.recipe.Engredients.push({Name: data, Positions: []});
+      }
+    })
+    modal.present();
   }
 
   editEngredientCategory(cat) {
-    this.msg.alert.input("Edycja "+cat.Name, data => cat.Name = data, "Nazwa kategorii", cat.Name, "Zapisz");
+    const modal = this.modalCtrl.create(AddEditEngredientGroupModalPage, {value: cat.Name}, {cssClass: 'modal-xsmall'});
+    modal.onDidDismiss(data => {
+      if (data){
+        cat.Name = data;
+      }
+    })
+    modal.present();
   }
 
   removeEngredientCategori(cat, index) {
@@ -63,7 +76,8 @@ export class AddEditRecipePage {
   }
 
   addEngredient(index){
-    this.addingToGroup = index;
+    const modal = this.modalCtrl.create(AddEditEngredientModalPage, null, {cssClass: 'modal-small'});
+    modal.present();
     this.newEngredient = {Name: null, Qty: null, Unit: null};
   }
 
@@ -74,7 +88,6 @@ export class AddEditRecipePage {
 
   cancelAddingEngredient() {
     this.newEngredient = null;
-    this.addingToGroup = null;
   }
 
 }

@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -18,3 +17,56 @@
   overflow-y: scroll;
   display: block;
 }
+
+.modal-xsmall {
+  .modal-wrapper {
+    position: absolute !important;
+    width: 270px !important;
+    height: 130px !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: auto !important;
+    -webkit-box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 10px !important;
+  }
+}
+
+.modal-small {
+  .modal-wrapper {
+    position: absolute !important;
+    width: 270px !important;
+    height: 270px !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: auto !important;
+    -webkit-box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 10px !important;
+  }
+}
+
+.modal-full {
+  .modal-wrapper{
+    position: absolute !important;
+    width: 100vw;
+    height: 100vh;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: auto !important;
+  }
+}
+
+.modal .backdrop {
+  display: block !important;
+}
+ion-modal ion-backdrop {
+  visibility: visible;
+}
+

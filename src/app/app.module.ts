@@ -17,12 +17,15 @@ import {FavouritesPage} from "../pages/favourites/favourites";
 import {NoteListPage} from "../pages/note-list/note-list";
 import {RecipeListPage} from "../pages/recipe-list/recipe-list";
 import {RecipeDetailsPage} from "../pages/recipe-details/recipe-details";
-import {ImagePreviewPage} from "../pages/image-preview/image-preview";
+import {ImagePreviewPage} from "../modals/image-preview/image-preview";
 import {Camera} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { MessagesProvider } from '../providers/messages';
 import {AddEditRecipePage} from "../pages/add-edit-recipe/add-edit-recipe";
+import {AddEditEngredientGroupModalPage} from "../modals/add-edit-engredient-group-modal/add-edit-engredient-group-modal";
+import {AddEditEngredientModalPage} from "../modals/add-edit-engredient-modal/add-edit-engredient-modal";
+import {DirectivesModule} from "../directives/directives.module";
 
 
 var fireBaseConfig = {
@@ -45,6 +48,8 @@ var fireBaseConfig = {
     RecipeDetailsPage,
     ImagePreviewPage,
     AddEditRecipePage,
+    AddEditEngredientGroupModalPage,
+    AddEditEngredientModalPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,8 @@ var fireBaseConfig = {
     AngularFireModule.initializeApp(fireBaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    ComponentsModule
+    ComponentsModule,
+    DirectivesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -68,6 +74,8 @@ var fireBaseConfig = {
     RecipeDetailsPage,
     ImagePreviewPage,
     AddEditRecipePage,
+    AddEditEngredientGroupModalPage,
+    AddEditEngredientModalPage
   ],
   providers: [
     StatusBar,

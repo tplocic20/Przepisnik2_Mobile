@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModalController, NavParams, Slides} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
-import {ImagePreviewPage} from "../image-preview/image-preview";
+import {ImagePreviewPage} from "../../modals/image-preview/image-preview";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 
@@ -45,7 +45,7 @@ export class RecipeDetailsPage {
 
   showImage(image) {
     if (this.selectedImages.length> 0) return;
-    const modal = this.modalCtrl.create(ImagePreviewPage, {url: image});
+    const modal = this.modalCtrl.create(ImagePreviewPage, {url: image}, {cssClass: 'modal-full'});
     modal.present();
   }
 
@@ -61,7 +61,6 @@ export class RecipeDetailsPage {
   addImageCamera() {
     const options: CameraOptions = {
       quality: 50,
-      allowEdit: true,
       targetWidth: 1080,
       destinationType: this.cam.DestinationType.DATA_URL,
       encodingType: this.cam.EncodingType.JPEG,

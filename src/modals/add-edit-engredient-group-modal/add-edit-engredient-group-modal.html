@@ -1,0 +1,17 @@
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Nazwa</ion-label>
+      <ion-input [(ngModel)]="inputValue"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button item-end clear color="danger" (click)="close()">
+        Anuluj
+      </button>
+      <button ion-button item-end clear color="secondary" (click)="save()">
+        Zapisz
+      </button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
