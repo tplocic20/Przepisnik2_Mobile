@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, Renderer} from '@angular/core';
 import {NavController, NavParams, ViewController} from 'ionic-angular';
 
 /**
@@ -15,9 +15,13 @@ import {NavController, NavParams, ViewController} from 'ionic-angular';
 export class AddEditEngredientGroupModalPage {
 
   inputValue: "";
+  title: string = "Nowa kategoria";
 
-  constructor(private viewCtrl: ViewController, private navParams: NavParams) {
+  constructor(private viewCtrl: ViewController, private navParams: NavParams, private renderer: Renderer) {
     this.inputValue = this.navParams.get('value');
+    if (this.inputValue) {
+      this.title = 'Edycja "' + this.inputValue + ' "';
+    }
   }
 
   save() {

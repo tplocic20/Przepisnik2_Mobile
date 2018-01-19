@@ -26,6 +26,9 @@ import {AddEditRecipePage} from "../pages/add-edit-recipe/add-edit-recipe";
 import {AddEditEngredientGroupModalPage} from "../modals/add-edit-engredient-group-modal/add-edit-engredient-group-modal";
 import {AddEditEngredientModalPage} from "../modals/add-edit-engredient-modal/add-edit-engredient-modal";
 import {DirectivesModule} from "../directives/directives.module";
+import {StartPage} from "../pages/start/start";
+import {LoginPage} from "../pages/login/login";
+import { SettingsProvider } from '../providers/settings';
 
 
 var fireBaseConfig = {
@@ -49,7 +52,9 @@ var fireBaseConfig = {
     ImagePreviewPage,
     AddEditRecipePage,
     AddEditEngredientGroupModalPage,
-    AddEditEngredientModalPage
+    AddEditEngredientModalPage,
+    StartPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,9 @@ var fireBaseConfig = {
     ImagePreviewPage,
     AddEditRecipePage,
     AddEditEngredientGroupModalPage,
-    AddEditEngredientModalPage
+    AddEditEngredientModalPage,
+    StartPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
@@ -86,6 +93,7 @@ var fireBaseConfig = {
     Camera,
     MessagesProvider,
     FileChooser,
+    SettingsProvider,
   ]
 })
 export class AppModule {}

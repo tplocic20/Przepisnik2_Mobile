@@ -24,6 +24,7 @@ export class AddEditRecipePage {
   categories:any;
   activeSlide:string = "0";
   newEngredient: any;
+  selectedEngredientGroup: number = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController) {
     this.categories = this.srv.getCategories();
@@ -57,7 +58,7 @@ export class AddEditRecipePage {
       if (data){
         this.recipe.Engredients.push({Name: data, Positions: []});
       }
-    })
+    });
     modal.present();
   }
 
@@ -71,23 +72,28 @@ export class AddEditRecipePage {
     modal.present();
   }
 
-  removeEngredientCategori(cat, index) {
+  removeEngredientCategory(cat, index) {
     this.msg.alert.confirm("Usuwanie "+ cat.Name, () => this.recipe.Engredients.splice(index, 1), "Czy na pewno chcesz usunąc kategorię? Operacji nie da się cofnąć");
   }
 
-  addEngredient(index){
+  addEngredient(){
     const modal = this.modalCtrl.create(AddEditEngredientModalPage, null, {cssClass: 'modal-small'});
+    modal.onDidDismiss(data => {
+      if (data){
+        this.recipe.Engredients[this.selectedEngredientGroup].Positions.push(data);
+      }
+    });
     modal.present();
-    this.newEngredient = {Name: null, Qty: null, Unit: null};
+
   }
 
-  saveEngredient(index){
-    this.recipe.Engredients[index].Positions.push(this.newEngredient);
-    this.addEngredient(index)
-  }
-
-  cancelAddingEngredient() {
-    this.newEngredient = null;
-  }
+  // saveEngredient(index){
+  //   this.recipe.Engredients[index].Positions.push(this.newEngredient);
+  //   this.addEngredient(index)
+  // }
+  //
+  // cancelAddingEngredient() {
+  //   this.newEngredient = null;
+  // }
 
 }

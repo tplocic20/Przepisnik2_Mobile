@@ -36,32 +36,21 @@
     </ion-slide>
     <ion-slide>
       <ion-list *ngFor="let group of recipe?.Engredients; let i = index">
-        <ion-list-header>
+        <ion-list-header (tap)="selectedCategoryGroup = i">
           {{group?.Name}}
           <button item-end clear ion-button icon-only (click)="editEngredientCategory(group)">
             <ion-icon name="create"></ion-icon>
           </button>
           <button item-end clear ion-button icon-only color="danger" *ngIf="recipe?.Engredients?.length > 1"
-                  (click)="removeEngredientCategori(group, i)">
+                  (click)="removeEngredientCategory(group, i)">
             <ion-icon name="trash"></ion-icon>
           </button>
         </ion-list-header>
         <ion-item *ngFor="let eng of group?.Positions">
-          {{eng.Name}}
-        </ion-item>
-        <ion-item padding>
-          <button ion-button icon-left small round item-right (click)="addEngredient(i)">
-            <ion-icon name="add"></ion-icon>
-            Dodaj składnik
-          </button>
+          <h2>{{eng.Name}}</h2>
+          <p>{{eng.Qty}} {{eng.Unit}}</p>
         </ion-item>
       </ion-list>
-      <ion-item>
-        <button ion-button icon-left small round item-right (click)="addEngredientCategory()">
-          <ion-icon name="add"></ion-icon>
-          Dodaj kategorię
-        </button>
-      </ion-item>
     </ion-slide>
     <ion-slide>
       <ion-list>
@@ -79,9 +68,9 @@
       </ion-list>
     </ion-slide>
   </ion-slides>
-  <ion-fab bottom right>
+  <ion-fab bottom right (tap)="addEngredient()" (press)="addEngredientCategory()">
     <button ion-fab color="positive">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="add" ></ion-icon>
     </button>
   </ion-fab>
 </ion-content>

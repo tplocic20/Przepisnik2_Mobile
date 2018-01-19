@@ -1,0 +1,30 @@
+.dark-theme {
+  ion-content {
+    background-color: #000000;
+    color: #ffffff;
+    .item,
+    .card {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .card {
+      box-shadow:
+        0 2px 2px 0 rgba(255, 255, 255, 0.14),
+        0 3px 1px -2px rgba(255, 255, 255, 0.2),
+        0 1px 5px 0 rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  ion-tabs {
+    background-color: #000000;
+  }
+
+  .toolbar-title {
+    color: #ffffff;
+  }
+
+  .header .toolbar-background {
+    border-color: #ffffff;
+    background-color: #000000;
+  }
+}

@@ -15,9 +15,13 @@ import {MessagesProvider} from "./messages";
 @Injectable()
 export class FireProvider {
 
+  private authState = null;
 
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private msg: MessagesProvider) {
-    this.signIn();
+    this.auth.authState.subscribe(user => {
+      this.authState = user
+    });
+    // this.auth.auth.signInWithCredential(this.authState);
   }
 
   private categoriesRef = this.db.list("Categories");
@@ -34,9 +38,21 @@ export class FireProvider {
 
   private imagesRef = firebase.storage();
 
+  get isSignedIn(){
+    return this.authState != null;
+  }
 
-  private signIn() {
-    return this.auth.auth.signInAnonymously();
+  get userName() {
+    return this.authState != null ? this.authState.userName : null;
+  }
+
+  public signIn(email, pass) {
+    return this.auth.auth.signInWithEmailAndPassword(email, pass);
+  }
+
+  public signOut(){
+    this.authState = null;
+    return this.auth.auth.signOut();
   }
 
   private mapWithKey(actions) {
