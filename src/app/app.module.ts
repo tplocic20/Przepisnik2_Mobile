@@ -29,6 +29,9 @@ import {DirectivesModule} from "../directives/directives.module";
 import {StartPage} from "../pages/start/start";
 import {LoginPage} from "../pages/login/login";
 import { SettingsProvider } from '../providers/settings';
+import {HeaderPopoverButtonPage} from "../pages/header-popover-button/header-popover-button";
+import {HeaderPopoverPage} from "../pages/header-popover/header-popover";
+import {IonicStorageModule} from "@ionic/storage";
 
 
 var fireBaseConfig = {
@@ -54,7 +57,9 @@ var fireBaseConfig = {
     AddEditEngredientGroupModalPage,
     AddEditEngredientModalPage,
     StartPage,
-    LoginPage
+    LoginPage,
+    HeaderPopoverButtonPage,
+    HeaderPopoverPage
   ],
   imports: [
     BrowserModule,
@@ -62,6 +67,7 @@ var fireBaseConfig = {
     IonicModule.forRoot(MyApp, {
       scrollAssist: false
     }),
+    IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(fireBaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -82,7 +88,9 @@ var fireBaseConfig = {
     AddEditEngredientGroupModalPage,
     AddEditEngredientModalPage,
     StartPage,
-    LoginPage
+    LoginPage,
+    HeaderPopoverButtonPage,
+    HeaderPopoverPage
   ],
   providers: [
     StatusBar,

@@ -19,6 +19,7 @@ export class LoginPage {
   loginForm: FormGroup;
   submitAttempt: boolean = false;
   failedAttempt: boolean = false;
+  rememberMe: boolean = false;
 
   constructor(private viewCtrl: ViewController, private navParams: NavParams, private formBuilder: FormBuilder, private srv: FireProvider) {
     this.loginForm = this.formBuilder.group({
@@ -30,8 +31,13 @@ export class LoginPage {
   submit(){
     this.submitAttempt = true;
     this.failedAttempt = false;
+    const email = this.loginForm.controls.login.value;
+    const pass = this.loginForm.controls.password.value;
     if (!this.loginForm.invalid){
-      this.srv.signIn(this.loginForm.controls.login.value, this.loginForm.controls.password.value).then(res =>{
+      this.srv.signIn(email, pass).then(() => {
+        if (this.rememberMe){
+          this.srv.rememberMe(email, pass);
+        }
         this.viewCtrl.dismiss(true);
       }, (err) => {
         this.failedAttempt = true;

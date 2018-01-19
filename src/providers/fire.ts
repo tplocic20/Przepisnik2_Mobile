@@ -5,6 +5,7 @@ import {AngularFireDatabase} from "angularfire2/database";
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
 import {MessagesProvider} from "./messages";
+import {Storage} from "@ionic/storage";
 
 /*
   Generated class for the FireProvider provider.
@@ -17,11 +18,10 @@ export class FireProvider {
 
   private authState = null;
 
-  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private msg: MessagesProvider) {
+  constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private msg: MessagesProvider, private storage: Storage) {
     this.auth.authState.subscribe(user => {
-      this.authState = user
+      this.authState = user;
     });
-    // this.auth.auth.signInWithCredential(this.authState);
   }
 
   private categoriesRef = this.db.list("Categories");
@@ -38,7 +38,7 @@ export class FireProvider {
 
   private imagesRef = firebase.storage();
 
-  get isSignedIn(){
+  get isSignedIn() {
     return this.authState != null;
   }
 
@@ -46,11 +46,36 @@ export class FireProvider {
     return this.authState != null ? this.authState.userName : null;
   }
 
+  public autoSignIn() {
+    return this.storage.get('credentials').then(c => {
+      if (c) {
+        const d = JSON.parse(atob(c));
+        return this.signIn(d.e, d.p).then(() => {
+          return true;
+        }, err => {
+          return false
+        });
+      }
+    }, err => {
+      return false;
+    });
+  }
+
+  public rememberMe(email, pass) {
+    const credentials = {
+      e: email,
+      p: pass
+    };
+    const encoded = btoa(JSON.stringify(credentials));
+    console.log(encoded);
+    this.storage.set('credentials', encoded);
+  }
+
   public signIn(email, pass) {
     return this.auth.auth.signInWithEmailAndPassword(email, pass);
   }
 
-  public signOut(){
+  public signOut() {
     this.authState = null;
     return this.auth.auth.signOut();
   }
@@ -64,6 +89,9 @@ export class FireProvider {
     return list;
   }
 
+  private saveCredentials(email, pass) {
+
+  }
 
   private newGuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -89,7 +117,7 @@ export class FireProvider {
   }
 
   editCategory(data) {
-    this.categoriesRef.update(data.$key, {Name: data.Name}).then(()=> this.msg.toast.info(`Kategoria ${data.Name} została zapisana`), error => this.msg.toast.error(error));
+    this.categoriesRef.update(data.$key, {Name: data.Name}).then(() => this.msg.toast.info(`Kategoria ${data.Name} została zapisana`), error => this.msg.toast.error(error));
   }
 
   getNotes() {

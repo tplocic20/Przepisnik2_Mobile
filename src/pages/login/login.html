@@ -1,29 +1,37 @@
 <ion-content padding>
-  <ion-list no-lines>
+  <ion-list>
 
     <form [formGroup]="loginForm">
 
       <ion-item>
         <ion-label floating>Email</ion-label>
         <ion-input formControlName="login" type="text"></ion-input>
-
       </ion-item>
-      <ion-item  *ngIf="!loginForm.controls.login.valid  && (loginForm.controls.login.touched || submitAttempt)">
+      <ion-item no-lines *ngIf="!loginForm.controls.login.valid  && (loginForm.controls.login.touched || submitAttempt)">
         <p ion-text color="danger">
-          <ion-icon name="warning"></ion-icon> Uzupełnij poprawny adres email
+          <ion-icon name="warning"></ion-icon>
+          Uzupełnij poprawny adres email
         </p>
       </ion-item>
       <ion-item>
         <ion-label floating>Hasło</ion-label>
         <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
-      <ion-item  *ngIf="!loginForm.controls.password.valid  && (loginForm.controls.password.touched || submitAttempt)">
-        <p ion-text color="danger">
-          <ion-icon name="warning"></ion-icon> Uzupełnij hasło
+      <ion-item no-lines >
+        <p *ngIf="!loginForm.controls.password.valid  && (loginForm.controls.password.touched || submitAttempt)" ion-text color="danger">
+          <ion-icon name="warning"></ion-icon>
+          Uzupełnij hasło
         </p>
       </ion-item>
+
     </form>
+    <ion-item>
+      <ion-label>Zaloguj mnie automatycznie</ion-label>
+      <ion-checkbox [(ngModel)]="rememberMe" ></ion-checkbox>
+    </ion-item>
   </ion-list>
+
+
   <button ion-button full (click)="submit()">Zaloguj</button>
 
   <ion-list no-lines *ngIf="failedAttempt">
