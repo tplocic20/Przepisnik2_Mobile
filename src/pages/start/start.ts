@@ -38,6 +38,7 @@ export class StartPage {
         }
       })
     }
+    this.msg.loading.close();
   }
 
   logIn() {
