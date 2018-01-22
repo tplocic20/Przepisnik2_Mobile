@@ -27,6 +27,10 @@ export class CategoriesPage {
     this.items = this.srv.getCategories();
   }
 
+  viewWillUnload() {
+    console.log("categories unload");
+  }
+
   categoryClicked(category) {
     this.navCtrl.push(RecipeListPage, {catId: category.$key, catName: category.Name});
   }

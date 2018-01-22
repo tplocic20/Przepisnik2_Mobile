@@ -1,5 +1,10 @@
 <ion-content padding>
 
-  <h2 text-center>Witaj w przepisniku</h2>
-  <button ion-button full (click)="logIn()">Zaloguj się</button>
+  <div *ngIf="!needsSignIn">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+  <div *ngIf="needsSignIn">
+    <h2 text-center>Witaj w przepisniku</h2>
+    <button ion-button full (click)="signIn()">Zaloguj się</button>
+  </div>
 </ion-content>

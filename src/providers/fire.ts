@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {AngularFireAuth} from "angularfire2/auth";
-import {AngularFireDatabase} from "angularfire2/database";
+import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
 import {MessagesProvider} from "./messages";
@@ -20,7 +20,9 @@ export class FireProvider {
 
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private msg: MessagesProvider, private storage: Storage) {
     this.auth.authState.subscribe(user => {
-      this.authState = user;
+      if (user) {
+        this.authState = user;
+      }
     });
   }
 
@@ -52,11 +54,11 @@ export class FireProvider {
         const d = JSON.parse(atob(c));
         return this.signIn(d.e, d.p).then(() => {
           return true;
-        }, err => {
+        }, () => {
           return false
         });
       }
-    }, err => {
+    }, () => {
       return false;
     });
   }
@@ -76,6 +78,7 @@ export class FireProvider {
   }
 
   public signOut() {
+    this.storage.remove('credentials');
     this.authState = null;
     return this.auth.auth.signOut();
   }
@@ -89,10 +92,6 @@ export class FireProvider {
     return list;
   }
 
-  private saveCredentials(email, pass) {
-
-  }
-
   private newGuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -101,6 +100,7 @@ export class FireProvider {
   }
 
   getCategories() {
+    if (!this.categoriesList) return null;
     this.msg.loading.show("Pobieranie danych");
     return this.categoriesList.map(res => {
       this.msg.loading.close();

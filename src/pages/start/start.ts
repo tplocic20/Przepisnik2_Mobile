@@ -20,28 +20,33 @@ import {MessagesProvider} from "../../providers/messages";
 export class StartPage {
 
   selectedTheme: string;
+  needsSignIn: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private srv: FireProvider, private settings: SettingsProvider, private msg: MessagesProvider) {
     settings.getActiveTheme().subscribe(theme => this.selectedTheme = theme);
   }
 
   ionViewWillEnter() {
-    this.msg.loading.show("Ładowanie");
+     this.autoSignIn();
+  }
+
+  autoSignIn() {
     if (this.srv.isSignedIn) {
-      this.msg.loading.close();
       this.navCtrl.setRoot(TabsPage);
     } else {
       this.srv.autoSignIn().then(val => {
         if (val) {
-          this.msg.loading.close();
           this.navCtrl.setRoot(TabsPage);
+        } else {
+          this.needsSignIn = true;
         }
+      }, () =>{
+        this.needsSignIn = true;
       })
     }
-    this.msg.loading.close();
   }
 
-  logIn() {
+  signIn() {
     const modal = this.modalCtrl.create(LoginPage, null, {cssClass: 'modal-full ' + this.selectedTheme});
     modal.onDidDismiss(res => {
       if (res) {

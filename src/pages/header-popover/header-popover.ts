@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, NavParams, ViewController} from 'ionic-angular';
+import {FireProvider} from "../../providers/fire";
+import {SettingsProvider} from "../../providers/settings";
+import {StartPage} from "../start/start";
 
 /**
  * Generated class for the HeaderPopoverPage page.
@@ -14,11 +17,21 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class HeaderPopoverPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  name: string;
+  selectedTheme: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private srv: FireProvider, private settings: SettingsProvider) {
+    this.name = this.srv.userName;
+    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HeaderPopoverPage');
+  changeBackground(color) {
+    this.settings.setActiveTheme(color);
+  }
+
+  signOut() {
+    this.viewCtrl.dismiss(true);
+
   }
 
 }

@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, NavParams, PopoverController} from 'ionic-angular';
+import {HeaderPopoverPage} from "../header-popover/header-popover";
+import {StartPage} from "../start/start";
+import {MessagesProvider} from "../../providers/messages";
+import {FireProvider} from "../../providers/fire";
 
 /**
  * Generated class for the HeaderPopoverButtonPage page.
@@ -14,11 +18,21 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class HeaderPopoverButtonPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private srv: FireProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HeaderPopoverButtonPage');
+  popoverClicked(ev) {
+    let popover = this.popoverCtrl.create(HeaderPopoverPage);
+
+    popover.onDidDismiss((logOut) => {
+      if (logOut) {
+        this.srv.signOut()
+        this.navCtrl.setRoot(StartPage);
+      }
+    });
+    popover.present({
+      ev: ev
+    });
   }
 
 }
