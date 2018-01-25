@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {ModalController, NavController, NavParams} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
 import {FireProvider} from "../../providers/fire";
 import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 import {AddEditRecipePage} from "../add-edit-recipe/add-edit-recipe";
+import {Recipe} from "../../models/Recipe";
 
 /**
  * Generated class for the RecipeListPage page.
@@ -20,22 +21,34 @@ export class RecipeListPage {
 
   title: string;
   cat: string;
-  recipes: Observable<any[]>
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider) {
+  recipes: Observable<Recipe[]>
+  searchValue: string = "";
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
     this.cat = this.navParams.get('catId');
     this.title = this.navParams.get('catName') || "Wszystkie";
+    this.searchValue = this.navParams.get('search');
     this.recipes = this.srv.getRecipes(this.cat);
+
   }
 
-  recipeClicked(recipe){
+  recipeClicked(recipe) {
     this.navCtrl.push(RecipeDetailsPage, {recId: recipe.$key, recName: recipe.Name});
   }
 
-  recipeAdd(){
-    this.navCtrl.push(AddEditRecipePage, {selectedCategory: this.cat});
+  recipeAdd() {
+    const modal = this.modalCtrl.create(AddEditRecipePage, {selectedCategory: this.cat}, {cssClass: 'modal-full'});
+    modal.present();
+    // this.navCtrl.push(AddEditRecipePage, {selectedCategory: this.cat});
+  }
+
+  recipeEdit(key) {
+    const modal = this.modalCtrl.create(AddEditRecipePage, {recId: key}, {cssClass: 'modal-full'});
+    modal.present();
+    // this.navCtrl.push(AddEditRecipePage, {recId: key});
   }
 
 }

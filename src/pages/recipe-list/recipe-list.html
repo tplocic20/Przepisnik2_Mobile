@@ -12,13 +12,13 @@
       <page-header-popover-button></page-header-popover-button>
     </ion-buttons>
   </ion-navbar>
-
+  <ion-searchbar [animated]="true" placeholder="Szukaj przepisu" [(ngModel)]="searchValue"></ion-searchbar>
 </ion-header>
 
 
 <ion-content>
 <ion-list>
-  <common-list-element *ngFor="let rec of recipes | async" [item]="rec" (onClick)="recipeClicked(rec)"></common-list-element>
+  <common-list-element *ngFor="let rec of recipes | async | filter:searchValue" [item]="rec" (onClick)="recipeClicked(rec)" (onEdit)="recipeEdit(rec.$key)"></common-list-element>
 </ion-list>
   <ion-fab bottom right>
     <button ion-fab (click)="recipeAdd()"><ion-icon name="add"></ion-icon></button>

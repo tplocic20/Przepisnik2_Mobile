@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Keyboard, ModalController, NavController, NavParams, Slides} from 'ionic-angular';
+import {Keyboard, ModalController, NavController, NavParams, Slides, ViewController} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {MessagesProvider} from "../../providers/messages";
 import {AddEditEngredientGroupModalPage} from "../../modals/add-edit-engredient-group-modal/add-edit-engredient-group-modal";
@@ -34,20 +34,23 @@ export class AddEditRecipePage {
   private nameValid: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController,
-              private keyboard: Keyboard) {
+              private keyboard: Keyboard, private viewCtrl: ViewController) {
     this.categories = this.srv.getCategories();
   }
 
   ionViewDidLoad() {
-    this.selectedCategories.push(this.navParams.get('selectedCategory'));
     this.recipeId = this.navParams.get('recId');
     if (this.recipeId) {
       this.srv.getRecipe(this.recipeId).subscribe((res: Recipe) => {
         this.recipe = res;
-        this.selectedCategories.push(this.recipe.Categories.split(';'))
+        this.selectedCategories = this.recipe.Categories.split(',');
       });
     }
     else {
+      const cat = this.navParams.get('selectedCategory');
+      if (cat) {
+        this.selectedCategories.push(cat);
+      }
       this.recipe.Engredients = [{Name: "Składniki", Positions: []}];
     }
   }
@@ -65,6 +68,10 @@ export class AddEditRecipePage {
 
   onSegmentChanged(ev) {
     this.slides.slideTo(ev.value);
+  }
+
+  addCategory() {
+    this.msg.alert.input("Nowa kategoria", data => this.srv.addCategory(data), "Nazwa kategorii");
   }
 
   addEngredientCategory() {
@@ -100,6 +107,19 @@ export class AddEditRecipePage {
     });
     modal.present();
 
+  }
+  editEngredient(groupIdx, engIdx, eng) {
+    const modal = this.modalCtrl.create(AddEditEngredientModalPage, eng, {cssClass: 'modal-small'});
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.recipe.Engredients[groupIdx].Positions[engIdx] = data;
+      }
+    });
+    modal.present();
+  }
+
+  removeEngredient(groupIdx, engIdx, eng) {
+    this.msg.alert.confirm("Usuwanie " + eng.Name, () => this.recipe.Engredients[groupIdx].Positions.splice(engIdx, 1), "Czy na pewno chcesz usunąc składnik? Operacji nie da się cofnąć");
   }
 
   addRemoveCategory(key) {
@@ -152,7 +172,7 @@ export class AddEditRecipePage {
     if (this.recipeValid) {
       this.recipe.Categories = this.selectedCategories.toString();
       if (this.recipeId) {
-        this.srv.updateRecipe(this.recipeId, this.recipe).then(()=>{
+        this.srv.updateRecipe(this.recipeId, this.recipe).then(() => {
           this.msg.toast.info("Przepis zaaktualizowany");
           this.navCtrl.pop();
         });
@@ -163,6 +183,10 @@ export class AddEditRecipePage {
         });
       }
     }
+  }
+
+  discardChanges() {
+    this.msg.alert.confirm('', ()=>this.viewCtrl.dismiss(), 'Czy na pewno chcesz anulować zmiany');
 
   }
 }

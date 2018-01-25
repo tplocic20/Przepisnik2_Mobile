@@ -78,7 +78,11 @@
       </ion-grid>
     </ion-slide>
   </ion-slides>
-  <ion-fab bottom right ion-fixed>
+  <ion-fab bottom left border ion-fixed>
+    <button ion-fab color="secondary">
+      <ion-icon name="share"></ion-icon>
+    </button>
+  </ion-fab>  <ion-fab bottom right ion-fixed>
     <button ion-fab [color]="activeSlide === '2' && selectedImages.length > 0 ? 'danger' : 'primary'" (click)="removeImages()">
       <ion-icon name="add" *ngIf="activeSlide === '2' && !selectedImages.length > 0"></ion-icon>
       <ion-icon name="trash" *ngIf="activeSlide === '2' && selectedImages.length > 0"></ion-icon>

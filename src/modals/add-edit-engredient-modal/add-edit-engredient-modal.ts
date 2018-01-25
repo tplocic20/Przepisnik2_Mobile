@@ -20,9 +20,9 @@ export class AddEditEngredientModalPage {
   title: string = "Nowy składnik";
 
   constructor(private viewCtrl: ViewController, public navParams: NavParams) {
-    this.name = this.navParams.get('name');
-    this.qty = this.navParams.get('qty');
-    this.unit = this.navParams.get('unit');
+    this.name = this.navParams.get('Name');
+    this.qty = this.navParams.get('Qty');
+    this.unit = this.navParams.get('Unit');
 
     if (this.name) {
       this.title = 'Edycja "' + this.name + ' "';
@@ -34,7 +34,7 @@ export class AddEditEngredientModalPage {
   }
 
   save() {
-    this.viewCtrl.dismiss({Name: this.name, Qty: this.qty, Unit: this.unit});
+    this.viewCtrl.dismiss({Name: this.name, Qty: this.qty ? this.qty : "", Unit: this.unit ? this.unit : ""});
   }
 
 }

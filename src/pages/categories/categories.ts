@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
+import {ModalController, NavController} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {Observable} from "rxjs/Observable";
 import {RecipeListPage} from "../recipe-list/recipe-list";
 import {MessagesProvider} from "../../providers/messages";
+import {AddEditRecipePage} from "../add-edit-recipe/add-edit-recipe";
 
 /**
  * Generated class for the CategoriesPage page.
@@ -19,8 +20,9 @@ import {MessagesProvider} from "../../providers/messages";
 export class CategoriesPage {
 
   items: Observable<any>;
+  searchValue: "";
 
-  constructor(public navCtrl: NavController, private srv: FireProvider, private msg: MessagesProvider, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -43,8 +45,17 @@ export class CategoriesPage {
       '\nOperacji nie można cofnąć');
   }
 
+  recipeAdd(){
+    const modal = this.modalCtrl.create(AddEditRecipePage, {}, {cssClass: 'modal-full'});
+    modal.present();
+  }
+
   categoryAdd() {
   this.msg.alert.input("Nowa kategoria", data => this.srv.addCategory(data), "Nazwa kategorii");
+  }
+
+  onSearchInput(ev){
+    this.navCtrl.push(RecipeListPage, {search: this.searchValue});
   }
 
 }

@@ -88,7 +88,7 @@ export class FireProvider {
     actions.forEach(action => {
       const $key = action.payload.key;
       list.push({$key, ...action.payload.val()});
-    })
+    });
     return list;
   }
 
@@ -142,7 +142,7 @@ export class FireProvider {
     return this.recipesRef.push(recipe);
   }
 
-  updateRecipe(recipe, key) {
+  updateRecipe(key, recipe) {
     return this.recipesRef.update(key, recipe);
   }
 

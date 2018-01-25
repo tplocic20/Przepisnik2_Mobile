@@ -32,6 +32,7 @@ import { SettingsProvider } from '../providers/settings';
 import {HeaderPopoverButtonPage} from "../pages/header-popover-button/header-popover-button";
 import {HeaderPopoverPage} from "../pages/header-popover/header-popover";
 import {IonicStorageModule} from "@ionic/storage";
+import {PipesModule} from "../pipes/pipes.module";
 
 
 var fireBaseConfig = {
@@ -72,7 +73,8 @@ var fireBaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     ComponentsModule,
-    DirectivesModule
+    DirectivesModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -102,6 +104,7 @@ var fireBaseConfig = {
     MessagesProvider,
     FileChooser,
     SettingsProvider,
+
   ]
 })
 export class AppModule {}
