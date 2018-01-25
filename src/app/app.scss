@@ -77,3 +77,22 @@ ion-modal {
 .no-margin {
   margin: 0;
 }
+
+.no-scroll{
+  overflow: hidden;
+}
+.segment-warning{
+  color: #f53d3d !important;
+  ion-icon {
+    font-size: 20px !important;
+  }
+}
+
+.placeholder-warning
+{
+  input::placeholder {
+    color: #f53d3d !important;
+    text-decoration: underline;
+  }
+}
+

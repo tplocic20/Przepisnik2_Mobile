@@ -45,7 +45,7 @@ export class FireProvider {
   }
 
   get userName() {
-    return this.authState != null ? this.authState.userName : null;
+    return this.authState != null ? (this.authState.displayName ? this.authState.displayName : this.authState.email) : null;
   }
 
   public autoSignIn() {
@@ -136,6 +136,10 @@ export class FireProvider {
     return this.recipesList.map(data => {
       return data.filter(x => x.Categories.indexOf(categoryId || "") > -1)
     })
+  }
+
+  addRecipe(recipe) {
+    return this.recipesRef.push(recipe);
   }
 
   updateRecipe(recipe, key) {

@@ -16,7 +16,8 @@ export class ElasticDirective {
   }
 
   ngAfterViewInit(){
-    this.element.nativeElement.querySelector("textarea").style.height = "100%";
+    if ( this.element.nativeElement.querySelector("textarea").style)
+    this.element.nativeElement.querySelector("textarea").style.height = "calc(100vh - 360px)";
   }
 
 }

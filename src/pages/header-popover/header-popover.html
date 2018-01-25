@@ -2,14 +2,20 @@
   <ion-item>
     Witaj {{name}}
   </ion-item>
-  <ion-row>
-    <ion-col>
-      <button ion-item detail-none class="text-button text-smaller">A</button>
-    </ion-col>
-    <ion-col>
-      <button ion-item detail-none class="text-button text-larger">A</button>
-    </ion-col>
-  </ion-row>
+  <!--<ion-row>-->
+    <!--<ion-col>-->
+      <!--<button ion-item detail-none class="text-button text-smaller">A</button>-->
+    <!--</ion-col>-->
+    <!--<ion-col>-->
+      <!--<button ion-item detail-none class="text-button text-larger">A</button>-->
+    <!--</ion-col>-->
+  <!--</ion-row>-->
+  <ion-item>
+    <ion-range min="-100" step="10" snaps="true" [(ngModel)]="text">
+      <ion-label range-left class="text-smaller">A</ion-label>
+      <ion-label range-right class="text-larger">A</ion-label>
+    </ion-range>
+  </ion-item>
   <ion-row class="row-dots">
     <ion-col>
       <button ion-button="dot" (click)="changeBackground('light-theme')" class="dot-white"

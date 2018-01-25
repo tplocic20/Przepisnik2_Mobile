@@ -1,3 +1,21 @@
 page-add-edit-recipe {
+  textarea {
+    resize: none;
+    height: 80vh;
+  }
+
+  ion-textarea:not(.selected) {
+    textarea {
+      height: calc(100vh - 360px)
+    }
+  }
+
+  ion-list,
+  ion-item {
+    margin: 0;
+    padding: 0;
+  }
+
 
 }
+//#f53d3d

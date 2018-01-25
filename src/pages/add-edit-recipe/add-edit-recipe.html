@@ -7,16 +7,29 @@
 <ion-header no-border>
   <ion-toolbar>
     <ion-navbar>
-      <ion-title>AddEditRecipe</ion-title>
+      <ion-title>
+        <ion-input type="text" placeholder="Nazwa przepisu" [(ngModel)]="recipe.Name" [class.placeholder-warning]="!nameValid">
+        </ion-input>
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="saveChanges()">
+          <ion-icon name="checkmark"></ion-icon>
+          Zapisz
+        </button>
+        <page-header-popover-button></page-header-popover-button>
+      </ion-buttons>
     </ion-navbar>
     <ion-segment [(ngModel)]="activeSlide" (ionChange)="onSegmentChanged($event)">
-      <ion-segment-button value="0">
-        Kategorie
+      <ion-segment-button [class.segment-warning]="!firstSlideValid" value="0">
+        <ion-icon *ngIf="!firstSlideValid" name="warning"></ion-icon>
+       Kategorie
       </ion-segment-button>
-      <ion-segment-button value="1">
+      <ion-segment-button [class.segment-warning]="!secondSlideValid" value="1">
+        <ion-icon *ngIf="!secondSlideValid" color="danger" name="warning"></ion-icon>
         Składniki
       </ion-segment-button>
-      <ion-segment-button value="2">
+      <ion-segment-button [class.segment-warning]="!thirdSlideValid"  value="2">
+        <ion-icon *ngIf="!thirdSlideValid" color="danger" name="warning"></ion-icon>
         Przepis
       </ion-segment-button>
     </ion-segment>
@@ -26,18 +39,21 @@
 
 <ion-content>
   <ion-slides (ionSlideWillChange)="onSlideChanged()">
-    <ion-slide>
+    <ion-slide> <!-- Categories -->
       <ion-list no-lines>
         <ion-item *ngFor="let cat of categories | async">
           <ion-label>{{cat.Name}}</ion-label>
-          <ion-checkbox [checked]="selectedCategories.indexOf(cat.$key)>-1"></ion-checkbox>
+          <ion-checkbox [checked]="selectedCategories.indexOf(cat.$key)>-1" (ionChange)="addRemoveCategory(cat.$key)"></ion-checkbox>
         </ion-item>
       </ion-list>
     </ion-slide>
-    <ion-slide>
-      <ion-list *ngFor="let group of recipe?.Engredients; let i = index">
-        <ion-list-header (tap)="selectedCategoryGroup = i">
-          {{group?.Name}}
+    <ion-slide>  <!-- Engredients -->
+      <ion-list radio-group *ngFor="let group of recipe?.Engredients; let i = index"
+                [(ngModel)]="selectedEngredientGroup">
+        <ion-list-header>
+          <ion-radio [value]="i" item-left></ion-radio>
+          <ion-label>{{group?.Name}}</ion-label>
+
           <button item-end clear ion-button icon-only (click)="editEngredientCategory(group)">
             <ion-icon name="create"></ion-icon>
           </button>
@@ -52,25 +68,31 @@
         </ion-item>
       </ion-list>
     </ion-slide>
-    <ion-slide>
+    <ion-slide class="no-scroll">  <!-- Recipe details -->
       <ion-list>
-        <ion-item>
+        <ion-item *ngIf="!textareaFocused">
           <ion-label floating>Temperatura</ion-label>
-          <ion-input></ion-input>
+          <ion-input [(ngModel)]="recipe.Temperature"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="!textareaFocused">
           <ion-label floating>Czas gotowania</ion-label>
-          <ion-input></ion-input>
+          <ion-input [(ngModel)]="recipe.Time"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-textarea elastic></ion-textarea>
+          <ion-label floating>Przepis</ion-label>
+          <ion-textarea (focus)="textAreaFocus()" (blur)="textAreaBlur()" [(ngModel)]="recipe.Recipe" [class.selected]="textareaFocused"></ion-textarea>
         </ion-item>
       </ion-list>
     </ion-slide>
   </ion-slides>
-  <ion-fab bottom right (tap)="addEngredient()" (press)="addEngredientCategory()">
+  <ion-fab *ngIf="activeSlide == 1" bottom right (tap)="addEngredient()" (press)="addEngredientCategory()">
     <button ion-fab color="positive">
-      <ion-icon name="add" ></ion-icon>
+      <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
+  <!--<ion-fab bottom right (tap)="saveChanges()">-->
+    <!--<button ion-fab color="secondary">-->
+      <!--<ion-icon name="checkmark-circle-outline"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
 </ion-content>
