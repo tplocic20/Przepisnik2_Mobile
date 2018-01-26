@@ -40,6 +40,7 @@ export class CategoriesPage {
   categoryEdit(category) {
     this.msg.alert.input("Edycja "+category.Name, data => this.srv.editCategory({...category, Name: data}), "Nazwa kategorii", category.Name, "Zapisz");
   }
+
   categoryRemove(category) {
     this.msg.alert.confirm('Usuń '+ category.Name, ()=>this.srv.removeCategory(category), 'Czy na pewno chcesz usunąć kategorię?' +
       '\nOperacji nie można cofnąć');

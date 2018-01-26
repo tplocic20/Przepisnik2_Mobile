@@ -4,6 +4,10 @@ import {FireProvider} from "../../providers/fire";
 import {ImagePreviewPage} from "../../modals/image-preview/image-preview";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
+import {Collapse} from "../../theme/animations/animations";
+import {Recipe} from "../../models/Recipe";
+import {MessagesProvider} from "../../providers/messages";
+import {AddEditRecipePage} from "../add-edit-recipe/add-edit-recipe";
 
 /**
  * Generated class for the RecipeDetailsPage page.
@@ -14,18 +18,21 @@ import {FileChooser} from "@ionic-native/file-chooser";
 
 @Component({
   selector: 'page-recipe-details',
+  animations: [Collapse(500)],
   templateUrl: 'recipe-details.html'
 })
 export class RecipeDetailsPage {
 
   @ViewChild(Slides) slides: Slides;
   activeSlide: string = "0";
-  recipe: any;
+  recipe: Recipe;
   recId: any;
   title: any;
   selectedImages = [];
+  isCookMode: boolean = false;
+  isFavouritesDisabled: boolean = false;
 
-  constructor(public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser) {
+  constructor(public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser, private msg: MessagesProvider) {
   }
 
   ionViewDidLoad() {
@@ -43,8 +50,13 @@ export class RecipeDetailsPage {
     this.slides.slideTo(ev.value);
   }
 
+  switchCookMode() {
+    this.isCookMode = !this.isCookMode;
+    this.msg.toast.info("Tryb szefa kuchni " + (this.isCookMode ? "aktywny" : "nieaktywny"));
+  }
+
   showImage(image) {
-    if (this.selectedImages.length> 0) return;
+    if (this.selectedImages.length > 0) return;
     const modal = this.modalCtrl.create(ImagePreviewPage, {url: image}, {cssClass: 'modal-full'});
     modal.present();
   }
@@ -55,7 +67,7 @@ export class RecipeDetailsPage {
   addImageFile() {
     this.fileChooser.open().then(uri => {
       alert(uri);
-    }).catch(e=>alert(e));
+    }).catch(e => alert(e));
   }
 
   addImageCamera() {
@@ -107,18 +119,49 @@ export class RecipeDetailsPage {
       this.selectedImages.push(image.id);
     }
   }
-  removeImages(){
-    if (this.selectedImages.length > 0){
+
+  addRemoveFromFavourites() {
+    if (this.isFavouritesDisabled) return;
+    this.isFavouritesDisabled = true;
+    this.recipe.Favourite = !this.recipe.Favourite;
+    this.srv.updateRecipe(this.recId, this.recipe).then(() => {
+      if (this.recipe.Favourite) {
+        this.msg.toast.info("Dodano do ulubionych");
+      } else {
+        this.msg.toast.info("Usunęto z ulubionych");
+      }
+      this.isFavouritesDisabled = false;
+    }).catch(() =>{
+      this.isFavouritesDisabled = false;
+    });
+  }
+
+  removeImages() {
+    if (this.selectedImages.length > 0) {
       let newPhotos = this.recipe.Gallery.filter(item => {
         return this.selectedImages.indexOf(item.id) < 0;
       })
       this.recipe.Gallery = newPhotos;
-      this.srv.updateRecipe(this.recipe, this.recId).then(() =>{
+      this.srv.updateRecipe(this.recipe, this.recId).then(() => {
         this.selectedImages.forEach(image => {
           this.srv.removeImage(image);
         })
         this.selectedImages = [];
       })
     }
+  }
+
+  recipeEdit() {
+    const modal = this.modalCtrl.create(AddEditRecipePage, {recId: this.recId}, {cssClass: 'modal-full'});
+    modal.present();
+  }
+
+  recipeRemove(){
+    this.msg.alert.confirm('Usuń '+ this.recipe.Name, ()=>this.srv.removeRecipe(this.recId), 'Czy na pewno chcesz usunąć przepiss?' +
+      '\nOperacji nie można cofnąć');
+  }
+
+  createNote() {
+    
   }
 }

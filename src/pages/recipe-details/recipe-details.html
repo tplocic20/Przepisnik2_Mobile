@@ -1,13 +1,17 @@
-<!--
-  Generated template for the RecipeDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header no-border>
   <ion-toolbar>
     <ion-navbar>
       <ion-title>{{title}}</ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="switchCookMode()">
+          <ion-icon name="beaker" [color]="isCookMode ? 'primary' : ''"></ion-icon>
+        </button>
+        <button ion-button icon-only [disabled]="isFavouritesDisabled" (click)="addRemoveFromFavourites()">
+          <ion-icon *ngIf="!recipe?.Favourite" name="star-outline"></ion-icon>
+          <ion-icon *ngIf="recipe?.Favourite" name="star" color="secondary"></ion-icon>
+        </button>
+        <page-header-popover-button></page-header-popover-button>
+      </ion-buttons>
     </ion-navbar>
     <ion-segment [(ngModel)]="activeSlide" (ionChange)="onSegmentChanged($event)">
       <ion-segment-button value="0">
@@ -41,12 +45,32 @@
           Składniki
         </ion-card-header>
         <ion-list *ngFor="let group of recipe?.Engredients">
-          <ion-item-divider>
-            <p>{{group.Name}}</p>
-          </ion-item-divider>
-          <ion-item *ngFor="let eng of group.Positions">
-            <p>{{eng.Name}}</p>
-          </ion-item>
+          <div *ngVar="{isCollapsed: false} as scope">
+            <ion-item-divider>
+              <p>{{group.Name}}</p>
+              <button item-end ion-button icon-only clear color="dark" (click)="scope.isCollapsed = !scope.isCollapsed">
+                <ion-icon *ngIf="!scope.isCollapsed" name="arrow-dropup"></ion-icon>
+                <ion-icon *ngIf="scope.isCollapsed" name="arrow-dropdown"></ion-icon>
+              </button>
+            </ion-item-divider>
+            <div *ngIf="!scope.isCollapsed" [@collapse]>
+              <div *ngFor="let eng of group.Positions">
+                <div *ngIf="isCookMode">
+                  <ion-item *ngVar="{isUsed: false} as scope" (click)="scope.isUsed = !scope.isUsed">
+                    <p [class.disabled]="isCookMode && scope.isUsed">
+                      <ion-icon *ngIf="isCookMode && scope.isUsed" name="checkmark"></ion-icon>
+                      {{eng.Name}}
+                    </p>
+                  </ion-item>
+                </div>
+                <div *ngIf="!isCookMode">
+                  <ion-item>
+                    <p>{{eng.Name}}</p>
+                  </ion-item>
+                </div>
+              </div>
+            </div>
+          </div>
         </ion-list>
       </ion-list>
     </ion-slide>
@@ -63,7 +87,8 @@
       <ion-grid>
         <ion-row>
           <ion-col col-6 col-lg-4 *ngFor="let image of recipe?.Gallery">
-            <ion-card (press)="imagePressed(image)" (tap)="imageTapped(image)" [class.image-selected]="selectedImages.indexOf(image.id) > -1">
+            <ion-card (press)="imagePressed(image)" (tap)="imageTapped(image)"
+                      [class.image-selected]="selectedImages.indexOf(image.id) > -1">
               <img [src]="image.url">
               <div class="card-title" *ngIf="selectedImages.indexOf(image.id) > -1">
                 <ion-icon name="checkmark-circle-outline"></ion-icon>
@@ -78,12 +103,14 @@
       </ion-grid>
     </ion-slide>
   </ion-slides>
-  <ion-fab bottom left border ion-fixed>
+  <ion-fab bottom left ion-fixed *ngIf="!isCookMode">
     <button ion-fab color="secondary">
       <ion-icon name="share"></ion-icon>
     </button>
-  </ion-fab>  <ion-fab bottom right ion-fixed>
-    <button ion-fab [color]="activeSlide === '2' && selectedImages.length > 0 ? 'danger' : 'primary'" (click)="removeImages()">
+  </ion-fab>
+  <ion-fab bottom right ion-fixed *ngIf="!isCookMode">
+    <button ion-fab [color]="activeSlide === '2' && selectedImages.length > 0 ? 'danger' : 'primary'"
+            (click)="removeImages()">
       <ion-icon name="add" *ngIf="activeSlide === '2' && !selectedImages.length > 0"></ion-icon>
       <ion-icon name="trash" *ngIf="activeSlide === '2' && selectedImages.length > 0"></ion-icon>
       <ion-icon name="more" *ngIf="activeSlide !== '2'"></ion-icon>
@@ -101,11 +128,14 @@
         </button>
       </div>
       <div *ngIf="activeSlide !== '2'">
-        <button ion-fab>
+        <button ion-fab (click)="recipeRemove()">
           <ion-icon name="trash"></ion-icon>
         </button>
-        <button ion-fab>
+        <button ion-fab (click)="recipeEdit()">
           <ion-icon name="create"></ion-icon>
+        </button>
+        <button ion-fab (click)="createNote()">
+          <ion-icon name="bookmarks"></ion-icon>
         </button>
       </div>
     </ion-fab-list>

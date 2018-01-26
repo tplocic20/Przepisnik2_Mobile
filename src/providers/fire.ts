@@ -146,6 +146,10 @@ export class FireProvider {
     return this.recipesRef.update(key, recipe);
   }
 
+  removeRecipe(key){
+    return this.recipesRef.remove(key);
+  }
+
   getRecipe(recipeId) {
     return this.db.object(`Recipes/${recipeId}`).valueChanges();
   }

@@ -18,7 +18,8 @@
 
 <ion-content>
 <ion-list>
-  <common-list-element *ngFor="let rec of recipes | async | filter:searchValue" [item]="rec" (onClick)="recipeClicked(rec)" (onEdit)="recipeEdit(rec.$key)"></common-list-element>
+  <common-list-element *ngFor="let rec of recipes | async | filter:searchValue" [item]="rec" (onClick)="recipeClicked(rec)" (onEdit)="recipeEdit(rec.$key)"
+                       (onRemove)="recipeRemove(rec)"></common-list-element>
 </ion-list>
   <ion-fab bottom right>
     <button ion-fab (click)="recipeAdd()"><ion-icon name="add"></ion-icon></button>

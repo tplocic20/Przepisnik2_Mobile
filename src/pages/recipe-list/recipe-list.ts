@@ -5,6 +5,7 @@ import {FireProvider} from "../../providers/fire";
 import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 import {AddEditRecipePage} from "../add-edit-recipe/add-edit-recipe";
 import {Recipe} from "../../models/Recipe";
+import {MessagesProvider} from "../../providers/messages";
 
 /**
  * Generated class for the RecipeListPage page.
@@ -24,7 +25,7 @@ export class RecipeListPage {
   recipes: Observable<Recipe[]>
   searchValue: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private msg: MessagesProvider) {
   }
 
   ionViewDidLoad() {
@@ -49,6 +50,11 @@ export class RecipeListPage {
     const modal = this.modalCtrl.create(AddEditRecipePage, {recId: key}, {cssClass: 'modal-full'});
     modal.present();
     // this.navCtrl.push(AddEditRecipePage, {recId: key});
+  }
+
+  recipeRemove(recipe){
+    this.msg.alert.confirm('Usuń '+ recipe.Name, ()=>this.srv.removeRecipe(recipe.$key), 'Czy na pewno chcesz usunąć przepiss?' +
+      '\nOperacji nie można cofnąć');
   }
 
 }

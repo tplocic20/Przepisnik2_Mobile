@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {Observable} from "rxjs/Observable";
+import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 
 /**
  * Generated class for the FavouritesPage page.
@@ -24,7 +25,7 @@ export class FavouritesPage {
     this.favourites = this.srv.getFavourites();
   }
 
-  favouriteClicked(item){
-    console.log(item.Name + "  CLICKED");
+  favouriteClicked(recipe) {
+    this.navCtrl.push(RecipeDetailsPage, {recId: recipe.$key, recName: recipe.Name});
   }
 }

@@ -3,7 +3,8 @@ export interface Recipe {
     Temperature?: string;
     Time?: string;
     Recipe?: string;
-    Favourites?: boolean;
+    Favourite?: boolean;
     Categories?: string;
     Engredients?: any[];
+    Gallery?: any[];
 }
