@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,25 +13,26 @@ import {ComponentsModule} from "../components/components.module";
 import { FireProvider } from '../providers/fire';
 import {CategoriesPage} from "../pages/categories/categories";
 import {FavouritesPage} from "../pages/favourites/favourites";
-import {NoteListPage} from "../pages/note-list/note-list";
-import {RecipeListPage} from "../pages/recipe-list/recipe-list";
-import {RecipeDetailsPage} from "../pages/recipe-details/recipe-details";
-import {ImagePreviewPage} from "../modals/image-preview/image-preview";
 import {Camera} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { MessagesProvider } from '../providers/messages';
-import {AddEditRecipePage} from "../pages/add-edit-recipe/add-edit-recipe";
-import {AddEditEngredientGroupModalPage} from "../modals/add-edit-engredient-group-modal/add-edit-engredient-group-modal";
-import {AddEditEngredientModalPage} from "../modals/add-edit-engredient-modal/add-edit-engredient-modal";
 import {DirectivesModule} from "../directives/directives.module";
-import {StartPage} from "../pages/start/start";
-import {LoginPage} from "../pages/login/login";
+
 import { SettingsProvider } from '../providers/settings';
-import {HeaderPopoverButtonPage} from "../pages/header-popover-button/header-popover-button";
-import {HeaderPopoverPage} from "../pages/header-popover/header-popover";
 import {IonicStorageModule} from "@ionic/storage";
 import {PipesModule} from "../pipes/pipes.module";
+import {NoteListPage} from "../pages/Notes/note-list/note-list";
+import {RecipeListPage} from "../pages/Recipes/recipe-list/recipe-list";
+import {RecipeDetailsPage} from "../pages/Recipes/recipe-details/recipe-details";
+import {ImagePreviewModal} from "../pages/Recipes/modals/image-preview/image-preview";
+import {AddEditRecipeModal} from "../pages/Recipes/modals/add-edit-recipe/add-edit-recipe";
+import {AddEditEngredientGroupModal} from "../pages/Recipes/modals/add-edit-engredient-group-modal/add-edit-engredient-group-modal";
+import {AddEditEngredientModal} from "../pages/Recipes/modals/add-edit-engredient-modal/add-edit-engredient-modal";
+import {StartPage} from "../pages/Main/start/start";
+import {LoginPage} from "../pages/Main/login/login";
+import {TabsPage} from "../pages/Main/tabs/tabs";
+import { ShareProvider } from '../providers/share';
 
 
 var fireBaseConfig = {
@@ -53,14 +53,12 @@ var fireBaseConfig = {
     NoteListPage,
     RecipeListPage,
     RecipeDetailsPage,
-    ImagePreviewPage,
-    AddEditRecipePage,
-    AddEditEngredientGroupModalPage,
-    AddEditEngredientModalPage,
+    ImagePreviewModal,
+    AddEditRecipeModal,
+    AddEditEngredientGroupModal,
+    AddEditEngredientModal,
     StartPage,
-    LoginPage,
-    HeaderPopoverButtonPage,
-    HeaderPopoverPage
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -85,14 +83,12 @@ var fireBaseConfig = {
     NoteListPage,
     RecipeListPage,
     RecipeDetailsPage,
-    ImagePreviewPage,
-    AddEditRecipePage,
-    AddEditEngredientGroupModalPage,
-    AddEditEngredientModalPage,
+    ImagePreviewModal,
+    AddEditRecipeModal,
+    AddEditEngredientGroupModal,
+    AddEditEngredientModal,
     StartPage,
-    LoginPage,
-    HeaderPopoverButtonPage,
-    HeaderPopoverPage
+    LoginPage
   ],
   providers: [
     StatusBar,
@@ -104,6 +100,7 @@ var fireBaseConfig = {
     MessagesProvider,
     FileChooser,
     SettingsProvider,
+    ShareProvider,
 
   ]
 })

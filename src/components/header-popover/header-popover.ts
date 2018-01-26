@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, ViewController} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {SettingsProvider} from "../../providers/settings";
-import {StartPage} from "../start/start";
 
 /**
  * Generated class for the HeaderPopoverPage page.
@@ -15,7 +14,7 @@ import {StartPage} from "../start/start";
   selector: 'page-header-popover',
   templateUrl: 'header-popover.html',
 })
-export class HeaderPopoverPage {
+export class HeaderPopoverComponent {
 
   name: string;
   selectedTheme: string;

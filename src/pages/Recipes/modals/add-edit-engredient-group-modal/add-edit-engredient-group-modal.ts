@@ -12,7 +12,7 @@ import {NavController, NavParams, ViewController} from 'ionic-angular';
   selector: 'page-add-edit-engredient-group-modal',
   templateUrl: 'add-edit-engredient-group-modal.html',
 })
-export class AddEditEngredientGroupModalPage {
+export class AddEditEngredientGroupModal {
 
   inputValue: "";
   title: string = "Nowa kategoria";

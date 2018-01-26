@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {FireProvider} from "../../providers/fire";
+import {FireProvider} from "../../../providers/fire";
 
 /**
  * Generated class for the NoteListPage page.

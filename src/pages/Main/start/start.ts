@@ -2,9 +2,10 @@ import {Component} from '@angular/core';
 import {ModalController, NavController, NavParams} from 'ionic-angular';
 import {LoginPage} from "../login/login";
 import {TabsPage} from "../tabs/tabs";
-import {FireProvider} from "../../providers/fire";
-import {SettingsProvider} from "../../providers/settings";
-import {MessagesProvider} from "../../providers/messages";
+import {FireProvider} from "../../../providers/fire";
+import {SettingsProvider} from "../../../providers/settings";
+import {MessagesProvider} from "../../../providers/messages";
+
 
 /**
  * Generated class for the StartPage page.

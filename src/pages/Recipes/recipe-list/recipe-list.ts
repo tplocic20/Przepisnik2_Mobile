@@ -1,11 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModalController, NavController, NavParams} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
-import {FireProvider} from "../../providers/fire";
 import {RecipeDetailsPage} from "../recipe-details/recipe-details";
-import {AddEditRecipePage} from "../add-edit-recipe/add-edit-recipe";
-import {Recipe} from "../../models/Recipe";
-import {MessagesProvider} from "../../providers/messages";
+import {Recipe} from "../../../models/Recipe";
+import {FireProvider} from "../../../providers/fire";
+import {MessagesProvider} from "../../../providers/messages";
+import {AddEditRecipeModal} from "../modals/add-edit-recipe/add-edit-recipe";
+
 
 /**
  * Generated class for the RecipeListPage page.
@@ -41,13 +42,13 @@ export class RecipeListPage {
   }
 
   recipeAdd() {
-    const modal = this.modalCtrl.create(AddEditRecipePage, {selectedCategory: this.cat}, {cssClass: 'modal-full'});
+    const modal = this.modalCtrl.create(AddEditRecipeModal, {selectedCategory: this.cat}, {cssClass: 'modal-full'});
     modal.present();
     // this.navCtrl.push(AddEditRecipePage, {selectedCategory: this.cat});
   }
 
   recipeEdit(key) {
-    const modal = this.modalCtrl.create(AddEditRecipePage, {recId: key}, {cssClass: 'modal-full'});
+    const modal = this.modalCtrl.create(AddEditRecipeModal, {recId: key}, {cssClass: 'modal-full'});
     modal.present();
     // this.navCtrl.push(AddEditRecipePage, {recId: key});
   }

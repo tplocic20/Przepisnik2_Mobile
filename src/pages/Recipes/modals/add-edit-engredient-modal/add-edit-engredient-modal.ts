@@ -12,7 +12,7 @@ import {NavController, NavParams, ViewController} from 'ionic-angular';
   selector: 'page-add-edit-engredient-modal',
   templateUrl: 'add-edit-engredient-modal.html',
 })
-export class AddEditEngredientModalPage {
+export class AddEditEngredientModal {
 
   name: any;
   qty: any;

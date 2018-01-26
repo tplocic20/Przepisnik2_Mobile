@@ -1,23 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
 import {Keyboard, ModalController, NavController, NavParams, Slides, ViewController} from 'ionic-angular';
-import {FireProvider} from "../../providers/fire";
-import {MessagesProvider} from "../../providers/messages";
-import {AddEditEngredientGroupModalPage} from "../../modals/add-edit-engredient-group-modal/add-edit-engredient-group-modal";
-import {AddEditEngredientModalPage} from "../../modals/add-edit-engredient-modal/add-edit-engredient-modal";
-import {Recipe} from "../../models/Recipe";
-
-/**
- * Generated class for the AddEditRecipePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Recipe} from "../../../../models/Recipe";
+import {FireProvider} from "../../../../providers/fire";
+import {MessagesProvider} from "../../../../providers/messages";
+import {AddEditEngredientGroupModal} from "../add-edit-engredient-group-modal/add-edit-engredient-group-modal";
+import {AddEditEngredientModal} from "../add-edit-engredient-modal/add-edit-engredient-modal";
 
 @Component({
   selector: 'page-add-edit-recipe',
   templateUrl: 'add-edit-recipe.html',
 })
-export class AddEditRecipePage {
+export class AddEditRecipeModal {
 
   @ViewChild(Slides) slides: Slides;
 
@@ -75,7 +68,7 @@ export class AddEditRecipePage {
   }
 
   addEngredientCategory() {
-    const modal = this.modalCtrl.create(AddEditEngredientGroupModalPage, null, {cssClass: 'modal-xsmall'});
+    const modal = this.modalCtrl.create(AddEditEngredientGroupModal, null, {cssClass: 'modal-xsmall'});
     modal.onDidDismiss(data => {
       if (data) {
         this.recipe.Engredients.push({Name: data, Positions: []});
@@ -85,7 +78,7 @@ export class AddEditRecipePage {
   }
 
   editEngredientCategory(cat) {
-    const modal = this.modalCtrl.create(AddEditEngredientGroupModalPage, {value: cat.Name}, {cssClass: 'modal-xsmall'});
+    const modal = this.modalCtrl.create(AddEditEngredientGroupModal, {value: cat.Name}, {cssClass: 'modal-xsmall'});
     modal.onDidDismiss(data => {
       if (data) {
         cat.Name = data;
@@ -99,7 +92,7 @@ export class AddEditRecipePage {
   }
 
   addEngredient() {
-    const modal = this.modalCtrl.create(AddEditEngredientModalPage, null, {cssClass: 'modal-small'});
+    const modal = this.modalCtrl.create(AddEditEngredientModal, null, {cssClass: 'modal-small'});
     modal.onDidDismiss(data => {
       if (data) {
         this.recipe.Engredients[this.selectedEngredientGroup].Positions.push(data);
@@ -109,7 +102,7 @@ export class AddEditRecipePage {
 
   }
   editEngredient(groupIdx, engIdx, eng) {
-    const modal = this.modalCtrl.create(AddEditEngredientModalPage, eng, {cssClass: 'modal-small'});
+    const modal = this.modalCtrl.create(AddEditEngredientModal, eng, {cssClass: 'modal-small'});
     modal.onDidDismiss(data => {
       if (data) {
         this.recipe.Engredients[groupIdx].Positions[engIdx] = data;

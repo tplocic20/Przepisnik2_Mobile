@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, PopoverController} from 'ionic-angular';
-import {HeaderPopoverPage} from "../header-popover/header-popover";
-import {StartPage} from "../start/start";
-import {MessagesProvider} from "../../providers/messages";
+
 import {FireProvider} from "../../providers/fire";
+import {StartPage} from "../../pages/Main/start/start";
+import {HeaderPopoverComponent} from "../header-popover/header-popover";
 
 /**
  * Generated class for the HeaderPopoverButtonPage page.
@@ -16,13 +16,13 @@ import {FireProvider} from "../../providers/fire";
   selector: 'page-header-popover-button',
   templateUrl: 'header-popover-button.html',
 })
-export class HeaderPopoverButtonPage {
+export class HeaderPopoverButtonComponent {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private popoverCtrl: PopoverController, private srv: FireProvider) {
   }
 
   popoverClicked(ev) {
-    let popover = this.popoverCtrl.create(HeaderPopoverPage);
+    let popover = this.popoverCtrl.create(HeaderPopoverComponent);
 
     popover.onDidDismiss((logOut) => {
       if (logOut) {

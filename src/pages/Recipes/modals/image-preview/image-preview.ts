@@ -12,7 +12,7 @@ import {NavController, NavParams, ViewController} from 'ionic-angular';
   selector: 'page-image-preview',
   templateUrl: 'image-preview.html',
 })
-export class ImagePreviewPage {
+export class ImagePreviewModal {
 
   url: string;
   constructor(private viewCtrl: ViewController, public navParams: NavParams) {

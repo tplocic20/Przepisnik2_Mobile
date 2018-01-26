@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {Observable} from "rxjs/Observable";
-import {RecipeDetailsPage} from "../recipe-details/recipe-details";
+import {RecipeDetailsPage} from "../Recipes/recipe-details/recipe-details";
 
 /**
  * Generated class for the FavouritesPage page.

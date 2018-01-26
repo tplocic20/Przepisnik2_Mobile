@@ -104,7 +104,7 @@
     </ion-slide>
   </ion-slides>
   <ion-fab bottom left ion-fixed *ngIf="!isCookMode">
-    <button ion-fab color="secondary">
+    <button ion-fab color="secondary" (click)="share()">
       <ion-icon name="share"></ion-icon>
     </button>
   </ion-fab>
@@ -128,14 +128,14 @@
         </button>
       </div>
       <div *ngIf="activeSlide !== '2'">
+        <button ion-fab (click)="createNote()">
+          <ion-icon name="bookmarks"></ion-icon>
+        </button>
         <button ion-fab (click)="recipeRemove()">
           <ion-icon name="trash"></ion-icon>
         </button>
         <button ion-fab (click)="recipeEdit()">
           <ion-icon name="create"></ion-icon>
-        </button>
-        <button ion-fab (click)="createNote()">
-          <ion-icon name="bookmarks"></ion-icon>
         </button>
       </div>
     </ion-fab-list>

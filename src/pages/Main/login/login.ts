@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {FireProvider} from "../../providers/fire";
+import {FireProvider} from "../../../providers/fire";
 
 /**
  * Generated class for the LoginPage page.

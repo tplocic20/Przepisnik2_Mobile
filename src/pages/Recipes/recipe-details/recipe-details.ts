@@ -1,13 +1,15 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModalController, NavParams, Slides} from 'ionic-angular';
-import {FireProvider} from "../../providers/fire";
-import {ImagePreviewPage} from "../../modals/image-preview/image-preview";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
-import {Collapse} from "../../theme/animations/animations";
-import {Recipe} from "../../models/Recipe";
-import {MessagesProvider} from "../../providers/messages";
-import {AddEditRecipePage} from "../add-edit-recipe/add-edit-recipe";
+import {Collapse} from "../../../theme/animations/animations";
+import {Recipe} from "../../../models/Recipe";
+import {FireProvider} from "../../../providers/fire";
+import {MessagesProvider} from "../../../providers/messages";
+import {ImagePreviewModal} from "../modals/image-preview/image-preview";
+import {AddEditRecipeModal} from "../modals/add-edit-recipe/add-edit-recipe";
+import {ShareProvider} from "../../../providers/share";
+
 
 /**
  * Generated class for the RecipeDetailsPage page.
@@ -32,7 +34,8 @@ export class RecipeDetailsPage {
   isCookMode: boolean = false;
   isFavouritesDisabled: boolean = false;
 
-  constructor(public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser, private msg: MessagesProvider) {
+  constructor(public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser, private msg: MessagesProvider,
+              private shareProv: ShareProvider) {
   }
 
   ionViewDidLoad() {
@@ -57,7 +60,7 @@ export class RecipeDetailsPage {
 
   showImage(image) {
     if (this.selectedImages.length > 0) return;
-    const modal = this.modalCtrl.create(ImagePreviewPage, {url: image}, {cssClass: 'modal-full'});
+    const modal = this.modalCtrl.create(ImagePreviewModal, {url: image}, {cssClass: 'modal-full'});
     modal.present();
   }
 
@@ -152,16 +155,20 @@ export class RecipeDetailsPage {
   }
 
   recipeEdit() {
-    const modal = this.modalCtrl.create(AddEditRecipePage, {recId: this.recId}, {cssClass: 'modal-full'});
+    const modal = this.modalCtrl.create(AddEditRecipeModal, {recId: this.recId}, {cssClass: 'modal-full'});
     modal.present();
   }
 
   recipeRemove(){
-    this.msg.alert.confirm('Usuń '+ this.recipe.Name, ()=>this.srv.removeRecipe(this.recId), 'Czy na pewno chcesz usunąć przepiss?' +
+    this.msg.alert.confirm('Usuń '+ this.recipe.Name, ()=>this.srv.removeRecipe(this.recId), 'Czy na pewno chcesz usunąć przepis?' +
       '\nOperacji nie można cofnąć');
   }
 
   createNote() {
-    
+
+  }
+
+  share(){
+    console.log(this.shareProv.convertRecipeToText(this.recipe));
   }
 }
