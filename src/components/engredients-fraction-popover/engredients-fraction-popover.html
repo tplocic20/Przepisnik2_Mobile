@@ -1,0 +1,33 @@
+<ion-list radio-group [(ngModel)]="portion" >
+
+  <ion-list-header>
+    Podziel porcję
+  </ion-list-header>
+  <ion-item>
+    <ion-label>Cała</ion-label>
+    <ion-radio value="100" (ionSelect)="onChange()"></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Pół</ion-label>
+    <ion-radio value="50" (ionSelect)="onChange()"></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Ćwierć</ion-label>
+    <ion-radio value="25" (ionSelect)="onChange()"></ion-radio>
+  </ion-item>
+</ion-list>
+<ion-list>
+  <ion-item>
+    <ion-range min="10" max="100" step="5" snaps="true" [(ngModel)]="portion" (ionChange)="onChange()">
+      <ion-label range-left>10%</ion-label>
+      <ion-label range-right>100%</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    {{portion}}%
+    <button ion-button clear item-end (click)="close()">
+      <ion-icon item-start name="checkmark"></ion-icon>
+      OK
+    </button>
+  </ion-item>
+</ion-list>

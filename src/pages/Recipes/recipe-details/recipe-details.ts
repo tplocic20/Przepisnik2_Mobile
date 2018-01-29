@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {ModalController, NavParams, Slides} from 'ionic-angular';
+import {ModalController, NavParams, PopoverController, Slides} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {Collapse} from "../../../theme/animations/animations";
@@ -9,6 +9,7 @@ import {MessagesProvider} from "../../../providers/messages";
 import {ImagePreviewModal} from "../modals/image-preview/image-preview";
 import {AddEditRecipeModal} from "../modals/add-edit-recipe/add-edit-recipe";
 import {ShareProvider} from "../../../providers/share";
+import {EngredientsFractionPopoverComponent} from "../../../components/engredients-fraction-popover/engredients-fraction-popover";
 
 
 /**
@@ -33,9 +34,10 @@ export class RecipeDetailsPage {
   selectedImages = [];
   isCookMode: boolean = false;
   isFavouritesDisabled: boolean = false;
+  portionPart: number = 100;
 
   constructor(public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser, private msg: MessagesProvider,
-              private shareProv: ShareProvider) {
+              private shareProv: ShareProvider, private popoverCtrl: PopoverController) {
   }
 
   ionViewDidLoad() {
@@ -134,7 +136,7 @@ export class RecipeDetailsPage {
         this.msg.toast.info("Usunęto z ulubionych");
       }
       this.isFavouritesDisabled = false;
-    }).catch(() =>{
+    }).catch(() => {
       this.isFavouritesDisabled = false;
     });
   }
@@ -159,8 +161,8 @@ export class RecipeDetailsPage {
     modal.present();
   }
 
-  recipeRemove(){
-    this.msg.alert.confirm('Usuń '+ this.recipe.Name, ()=>this.srv.removeRecipe(this.recId), 'Czy na pewno chcesz usunąć przepis?' +
+  recipeRemove() {
+    this.msg.alert.confirm('Usuń ' + this.recipe.Name, () => this.srv.removeRecipe(this.recId), 'Czy na pewno chcesz usunąć przepis?' +
       '\nOperacji nie można cofnąć');
   }
 
@@ -168,7 +170,19 @@ export class RecipeDetailsPage {
 
   }
 
-  share(){
-    console.log(this.shareProv.convertRecipeToText(this.recipe));
+  engredientsFraction(ev) {
+    let popover = this.popoverCtrl.create(EngredientsFractionPopoverComponent, {
+      portion: this.portionPart, updateFn: (data) => {
+        this.portionPart = +data;
+      }
+    });
+
+    popover.present({
+      ev: ev
+    });
+  }
+
+  share() {
+    this.shareProv.share(this.recipe);
   }
 }

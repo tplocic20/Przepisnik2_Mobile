@@ -3,6 +3,9 @@
     <ion-navbar>
       <ion-title>{{title}}</ion-title>
       <ion-buttons end>
+        <button ion-button icon-only (click)="engredientsFraction($event)">
+          <ion-icon name="pie"></ion-icon>
+        </button>
         <button ion-button icon-only (click)="switchCookMode()">
           <ion-icon name="beaker" [color]="isCookMode ? 'primary' : ''"></ion-icon>
         </button>
@@ -46,26 +49,28 @@
         </ion-card-header>
         <ion-list *ngFor="let group of recipe?.Engredients">
           <div *ngVar="{isCollapsed: false} as scope">
-            <ion-item-divider>
+            <ion-item-divider (press)="scope.isCollapsed = !scope.isCollapsed">
               <p>{{group.Name}}</p>
-              <button item-end ion-button icon-only clear color="dark" (click)="scope.isCollapsed = !scope.isCollapsed">
-                <ion-icon *ngIf="!scope.isCollapsed" name="arrow-dropup"></ion-icon>
-                <ion-icon *ngIf="scope.isCollapsed" name="arrow-dropdown"></ion-icon>
-              </button>
+              <!--<button item-end ion-button icon-only clear color="dark">-->
+              <ion-icon (click)="scope.isCollapsed = !scope.isCollapsed" item-end *ngIf="!scope.isCollapsed"
+                        name="arrow-dropup"></ion-icon>
+              <ion-icon (click)="scope.isCollapsed = !scope.isCollapsed" item-end *ngIf="scope.isCollapsed"
+                        name="arrow-dropdown"></ion-icon>
+              <!--</button>-->
             </ion-item-divider>
             <div *ngIf="!scope.isCollapsed" [@collapse]>
               <div *ngFor="let eng of group.Positions">
                 <div *ngIf="isCookMode">
-                  <ion-item *ngVar="{isUsed: false} as scope" (click)="scope.isUsed = !scope.isUsed">
-                    <p [class.disabled]="isCookMode && scope.isUsed">
-                      <ion-icon *ngIf="isCookMode && scope.isUsed" name="checkmark"></ion-icon>
-                      {{eng.Name}}
-                    </p>
+                  <ion-item *ngVar="{isUsed: false} as scope" (click)="scope.isUsed = !scope.isUsed" >
+                    <ion-icon item-right *ngIf="isCookMode && scope.isUsed" name="checkmark"></ion-icon>
+                      <p [class.disabled]="isCookMode && scope.isUsed">{{eng.Name}}</p>
+                      <p [class.disabled]="isCookMode && scope.isUsed">{{eng.Qty}} {{eng.Unit}}</p>
                   </ion-item>
                 </div>
                 <div *ngIf="!isCookMode">
                   <ion-item>
                     <p>{{eng.Name}}</p>
+                    <p>{{eng.Qty | numberPart: portionPart }} {{eng.Unit}}</p>
                   </ion-item>
                 </div>
               </div>

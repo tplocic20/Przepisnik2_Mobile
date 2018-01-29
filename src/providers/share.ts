@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Recipe} from "../models/Recipe";
+import {SocialSharing} from "@ionic-native/social-sharing";
 
 /*
   Generated class for the ShareProvider provider.
@@ -12,39 +13,37 @@ import {Recipe} from "../models/Recipe";
 @Injectable()
 export class ShareProvider {
 
-  constructor() {
+  constructor(private socialShare: SocialSharing) {
 
   }
 
-  convertRecipeToText(recipe: Recipe) {
-    let text: string = "";
-    text += this.append(recipe.Name, 2);
+  share(object: Recipe) {
+    this.socialShare.share(this.convertRecipeToText(object));
+  }
+
+  convertRecipeToText(recipe: Recipe): string {
+    let text: string[] = [];
+    text.push(recipe.Name + ":");
     if (recipe.Temperature)
-      text += this.append("Temperatura: " + recipe.Temperature, 1);
+      text.push("Temperatura: " + recipe.Temperature);
     if (recipe.Time)
-      text += this.append("Czas: " + recipe.Time, 1);
-    text += this.append(this.engredientsToText(recipe.Engredients), 2);
-    text += this.append(recipe.Recipe);
+      text.push("Czas: " + recipe.Time);
+    text = text.concat(this.engredientsToText(recipe.Engredients));
+    text.push("\n");
+    text.push(recipe.Recipe);
 
-    return text;
+    return text.join("\n");
   }
 
-  private append(text: string, newLines: number = 0) {
-    let appendTo = text;
-    for (let i = 0; i < newLines; i++) {
-      appendTo += "/n";
-    }
-    return appendTo;
-  }
-
-  private engredientsToText(groups: any[]) {
-    let text: string = "";
+  private engredientsToText(groups: any[]): string[] {
+    let text: string[] = [];
     for (let i = 0; i < groups.length; i++) {
-      text += this.append("/n" + (i + 1) + ". " + groups[i].Name, 1);
+      text.push("\n");
+      text.push((i + 1) + ". " + groups[i].Name);
       for (let y = 0; y < groups[i].Positions.length; y++) {
 
         const eng = groups[i].Positions[y].Name + " " + groups[i].Positions[y].Qty + " " + groups[i].Positions[y].Unit;
-        text += this.append("- " + eng, 1);
+        text.push("- " + eng);
       }
     }
     return text;
