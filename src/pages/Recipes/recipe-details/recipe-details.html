@@ -64,7 +64,7 @@
                   <ion-item *ngVar="{isUsed: false} as scope" (click)="scope.isUsed = !scope.isUsed" >
                     <ion-icon item-right *ngIf="isCookMode && scope.isUsed" name="checkmark"></ion-icon>
                       <p [class.disabled]="isCookMode && scope.isUsed">{{eng.Name}}</p>
-                      <p [class.disabled]="isCookMode && scope.isUsed">{{eng.Qty}} {{eng.Unit}}</p>
+                      <p [class.disabled]="isCookMode && scope.isUsed">{{eng.Qty | numberPart: portionPart }} {{eng.Unit}}</p>
                   </ion-item>
                 </div>
                 <div *ngIf="!isCookMode">

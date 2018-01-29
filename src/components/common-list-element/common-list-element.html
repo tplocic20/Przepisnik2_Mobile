@@ -9,5 +9,8 @@
     <button ion-button color="danger" (click)="removeItem()">
       Usuń
     </button>
+    <button *ngIf="enableShare" ion-button icon-only color="secondary" (click)="shareItem()">
+      <ion-icon name="share"></ion-icon>
+    </button>
   </ion-item-options>
 </ion-item-sliding>

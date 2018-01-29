@@ -14,9 +14,11 @@ export class CommonListElementComponent {
 
   @Input() item = {Name: "Wszystkie"};
   @Input() blockSlide = false;
+  @Input() enableShare = false;
   @Output() onClick = new EventEmitter();
   @Output() onEdit = new EventEmitter();
   @Output() onRemove = new EventEmitter();
+  @Output() onShare = new EventEmitter();
 
   constructor() {
   }
@@ -31,6 +33,11 @@ export class CommonListElementComponent {
 
   removeItem(){
     this.onRemove.emit();
+  }
+
+  shareItem() {
+    if (this.enableShare)
+      this.onShare.emit();
   }
 
 }

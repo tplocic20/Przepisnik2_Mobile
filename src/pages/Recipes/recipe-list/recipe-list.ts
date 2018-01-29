@@ -6,6 +6,7 @@ import {Recipe} from "../../../models/Recipe";
 import {FireProvider} from "../../../providers/fire";
 import {MessagesProvider} from "../../../providers/messages";
 import {AddEditRecipeModal} from "../modals/add-edit-recipe/add-edit-recipe";
+import {ShareProvider} from "../../../providers/share";
 
 
 /**
@@ -26,7 +27,7 @@ export class RecipeListPage {
   recipes: Observable<Recipe[]>
   searchValue: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private msg: MessagesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private msg: MessagesProvider, private shareProv: ShareProvider) {
   }
 
   ionViewDidLoad() {
@@ -56,6 +57,10 @@ export class RecipeListPage {
   recipeRemove(recipe){
     this.msg.alert.confirm('Usuń '+ recipe.Name, ()=>this.srv.removeRecipe(recipe.$key), 'Czy na pewno chcesz usunąć przepiss?' +
       '\nOperacji nie można cofnąć');
+  }
+
+  recipeShare(recipe){
+    this.shareProv.share(recipe);
   }
 
 }
