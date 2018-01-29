@@ -35,6 +35,7 @@ import {TabsPage} from "../pages/Main/tabs/tabs";
 import { ShareProvider } from '../providers/share';
 import {SocialSharing} from "@ionic-native/social-sharing";
 import {GenerateNoteModal} from "../pages/Notes/modals/generate-note-modal/generate-note-modal";
+import {NoteDetailsPage} from "../pages/Notes/note-details/note-details";
 
 
 var fireBaseConfig = {
@@ -61,7 +62,8 @@ var fireBaseConfig = {
     AddEditEngredientModal,
     StartPage,
     LoginPage,
-    GenerateNoteModal
+    GenerateNoteModal,
+    NoteDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -92,7 +94,8 @@ var fireBaseConfig = {
     AddEditEngredientModal,
     StartPage,
     LoginPage,
-    GenerateNoteModal
+    GenerateNoteModal,
+    NoteDetailsPage
   ],
   providers: [
     StatusBar,

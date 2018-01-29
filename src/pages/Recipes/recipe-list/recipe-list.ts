@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {ModalController, NavController, NavParams} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
 import {RecipeDetailsPage} from "../recipe-details/recipe-details";
@@ -8,13 +8,6 @@ import {MessagesProvider} from "../../../providers/messages";
 import {AddEditRecipeModal} from "../modals/add-edit-recipe/add-edit-recipe";
 import {ShareProvider} from "../../../providers/share";
 
-
-/**
- * Generated class for the RecipeListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-recipe-list',

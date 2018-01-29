@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {FireProvider} from "../../../providers/fire";
 
 /**
  * Generated class for the NoteDetailsPage page.
@@ -14,11 +15,25 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class NoteDetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  note: any;
+  noteId: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NoteDetailsPage');
+    this.noteId = this.navParams.get('noteId');
+    this.srv.getNote(this.noteId).subscribe(res => this.note = res);
   }
 
+  noteEdit() {
+
+  }
+
+  noteRemove() {
+
+  }
+
+  share() {
+
+  }
 }

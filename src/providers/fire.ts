@@ -126,6 +126,10 @@ export class FireProvider {
     })
   }
 
+  getNote(noteId) {
+    return this.db.object(`Notes/${noteId}`).valueChanges();
+  }
+
   getFavourites() {
     return this.favouritesList.map(res => {
       return res;

@@ -12,8 +12,12 @@ export class FilterPipe implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */
-  transform(items: any[], filter: Object): any {
+  transform(items: any[], filter: string): any {
     if (!items || !filter) {
+      return items;
+    }
+
+    if (filter.length < 3) {
       return items;
     }
 

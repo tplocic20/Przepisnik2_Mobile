@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {FireProvider} from "../../../providers/fire";
+import {NoteDetailsPage} from "../note-details/note-details";
 
 /**
  * Generated class for the NoteListPage page.
@@ -24,7 +25,7 @@ export class NoteListPage {
   }
 
   noteClicked(note){
-
+    this.navCtrl.push(NoteDetailsPage, {noteId: note.$key});
   }
 
   noteEdit(note){
