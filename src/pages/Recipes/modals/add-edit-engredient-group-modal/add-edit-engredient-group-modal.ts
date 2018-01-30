@@ -1,12 +1,5 @@
-import {Component, EventEmitter, Output, Renderer} from '@angular/core';
-import {NavController, NavParams, ViewController} from 'ionic-angular';
-
-/**
- * Generated class for the AddEditEngredientGroupModalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Component} from '@angular/core';
+import {NavParams, ViewController} from 'ionic-angular';
 
 @Component({
   selector: 'page-add-edit-engredient-group-modal',
@@ -17,7 +10,7 @@ export class AddEditEngredientGroupModal {
   inputValue: "";
   title: string = "Nowa kategoria";
 
-  constructor(private viewCtrl: ViewController, private navParams: NavParams, private renderer: Renderer) {
+  constructor(private viewCtrl: ViewController, private navParams: NavParams) {
     this.inputValue = this.navParams.get('value');
     if (this.inputValue) {
       this.title = 'Edycja "' + this.inputValue + ' "';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
+import {ModalController, NavController, NavParams} from 'ionic-angular';
 import {FireProvider} from "../../../providers/fire";
 import {MessagesProvider} from "../../../providers/messages";
 import {AddEditNoteModal} from "../modals/add-edit-note-modal/add-edit-note-modal";

@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Keyboard, ModalController, NavController, NavParams, Slides, ViewController} from 'ionic-angular';
+import {ModalController, NavController, NavParams, Slides, ViewController} from 'ionic-angular';
 import {Recipe} from "../../../../models/Recipe";
 import {FireProvider} from "../../../../providers/fire";
 import {MessagesProvider} from "../../../../providers/messages";
@@ -27,7 +27,7 @@ export class AddEditRecipeModal {
   private nameValid: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController,
-              private keyboard: Keyboard, private viewCtrl: ViewController) {
+              private viewCtrl: ViewController) {
     this.categories = this.srv.getCategories();
   }
 
@@ -45,12 +45,6 @@ export class AddEditRecipeModal {
         this.selectedCategories.push(cat);
       }
       this.recipe.Engredients = [{Name: "Składniki", Positions: []}];
-    }
-  }
-
-  keyboardClosed() {
-    if (this.textareaFocused) {
-      this.msg.toast.info('k');
     }
   }
 

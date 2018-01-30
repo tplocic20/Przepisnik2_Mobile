@@ -136,7 +136,7 @@ export class FireProvider {
     return this.notesRef.update(key, note);
   }
 
-  removeNote(key){
+  removeNote(key) {
     return this.notesRef.remove(key);
 
   }
@@ -163,7 +163,7 @@ export class FireProvider {
     return this.recipesRef.update(key, recipe);
   }
 
-  removeRecipe(key){
+  removeRecipe(key) {
     return this.recipesRef.remove(key);
   }
 

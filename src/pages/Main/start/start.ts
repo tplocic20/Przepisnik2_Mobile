@@ -4,15 +4,7 @@ import {LoginPage} from "../login/login";
 import {TabsPage} from "../tabs/tabs";
 import {FireProvider} from "../../../providers/fire";
 import {SettingsProvider} from "../../../providers/settings";
-import {MessagesProvider} from "../../../providers/messages";
 
-
-/**
- * Generated class for the StartPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-start',
@@ -23,7 +15,7 @@ export class StartPage {
   selectedTheme: string;
   needsSignIn: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private srv: FireProvider, private settings: SettingsProvider, private msg: MessagesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private srv: FireProvider, private settings: SettingsProvider) {
     settings.getActiveTheme().subscribe(theme => this.selectedTheme = theme);
   }
 
