@@ -1,18 +1,50 @@
-<!--
-  Generated template for the GenerateNoteModalPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>GenerateNoteModal</ion-title>
+    <ion-title>Generowanie notatki</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="saveChanges()">
+        <ion-icon name="checkmark"></ion-icon>
+        Zapisz
+      </button>
+      <button ion-button icon-only (click)="discardChanges()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      Notatka na podstawie przepisu <strong>{{recipe?.Name}}</strong>
+    </ion-item>
+    <ion-item *ngIf="recipe.Temperature && recipe.Temperature !== '-'">
+      <ion-label>Załącz Temperaturę</ion-label>
+      <ion-checkbox [(ngModel)]="attachTemperature"></ion-checkbox>
+    </ion-item>
+    <ion-item *ngIf="recipe.Time && recipe.Time !== '-'">
+      <ion-label>Załącz Czas gotowania</ion-label>
+      <ion-checkbox [(ngModel)]="attachTime"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Załącz składniki</ion-label>
+      <ion-checkbox [(ngModel)]="attachTEngredients" (ionChange)="engredientsChanged()"></ion-checkbox>
+    </ion-item>
+    <div *ngIf="attachTEngredients" [@collapse]>
+      <ion-list>
+        <ion-item-divider>Kategorie składników</ion-item-divider>
+        <ion-item *ngFor="let cat of categoires">
+          <ion-label>{{cat.Name}}</ion-label>
+          <ion-checkbox [(ngModel)]="cat.isChecked"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
 
+    <ion-item text-wrap>
+      {{recipe?.Recipe}}
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -6,6 +6,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/storage';
 import {MessagesProvider} from "./messages";
 import {Storage} from "@ionic/storage";
+import {Note} from "../models/Note";
+import {Recipe} from "../models/Recipe";
 
 /*
   Generated class for the FireProvider provider.
@@ -130,6 +132,19 @@ export class FireProvider {
     return this.db.object(`Notes/${noteId}`).valueChanges();
   }
 
+  addNote(note: Note) {
+    return this.notesRef.push(note);
+  }
+
+  updateNote(key, note: Note) {
+    return this.notesRef.update(key, note);
+  }
+
+  removeNote(key){
+    return this.notesRef.remove(key);
+
+  }
+
   getFavourites() {
     return this.favouritesList.map(res => {
       return res;
@@ -142,11 +157,11 @@ export class FireProvider {
     })
   }
 
-  addRecipe(recipe) {
+  addRecipe(recipe: Recipe) {
     return this.recipesRef.push(recipe);
   }
 
-  updateRecipe(key, recipe) {
+  updateRecipe(key, recipe: Recipe) {
     return this.recipesRef.update(key, recipe);
   }
 

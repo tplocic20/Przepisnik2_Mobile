@@ -12,11 +12,13 @@
 
 
 <ion-content>
-<ion-card>
-  <ion-card-content>
-    {{note?.Content}}
-  </ion-card-content>
-</ion-card>
+  <ion-card>
+    <ion-card-content>
+      <p>
+        {{note?.Content}}
+      </p>
+    </ion-card-content>
+  </ion-card>
   <ion-fab bottom left>
     <button ion-fab color="secondary" (click)="share()">
       <ion-icon name="share"></ion-icon>
@@ -27,12 +29,12 @@
       <ion-icon name="more"></ion-icon>
     </button>
     <ion-fab-list side="top">
-        <button ion-fab (click)="noteRemove()">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-        <button ion-fab (click)="noteEdit()">
-          <ion-icon name="create"></ion-icon>
-        </button>
+      <button ion-fab (click)="noteRemove()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button ion-fab (click)="noteEdit()">
+        <ion-icon name="create"></ion-icon>
+      </button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>

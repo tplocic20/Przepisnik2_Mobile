@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <ion-input type="text" placeholder="Nazwa notatki" [(ngModel)]="note.Name" [class.placeholder-warning]="!nameValid">
+      </ion-input>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="saveChanges()">
+        <ion-icon name="checkmark"></ion-icon>
+        Zapisz
+      </button>
+      <button ion-button icon-only (click)="discardChanges()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content >
+<ion-card>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-label floating [class.label-warning]="!contentValid">Tekst</ion-label>
+        <ion-textarea [(ngModel)]="note.Content" required ></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+</ion-content>

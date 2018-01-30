@@ -15,7 +15,7 @@ export class NumberPartPipe implements PipeTransform {
   transform(value: string, percentValue: number) {
     const num = +value;
     if (!isNaN(num)){
-      return (num * (percentValue / 100)).toString();
+      return (num * (percentValue / 100)).toFixed(2);
     }else {
       return value;
     }

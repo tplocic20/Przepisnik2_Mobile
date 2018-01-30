@@ -36,6 +36,8 @@ import { ShareProvider } from '../providers/share';
 import {SocialSharing} from "@ionic-native/social-sharing";
 import {GenerateNoteModal} from "../pages/Notes/modals/generate-note-modal/generate-note-modal";
 import {NoteDetailsPage} from "../pages/Notes/note-details/note-details";
+import {Insomnia} from "@ionic-native/insomnia";
+import {AddEditNoteModal} from "../pages/Notes/modals/add-edit-note-modal/add-edit-note-modal";
 
 
 var fireBaseConfig = {
@@ -63,7 +65,8 @@ var fireBaseConfig = {
     StartPage,
     LoginPage,
     GenerateNoteModal,
-    NoteDetailsPage
+    NoteDetailsPage,
+    AddEditNoteModal
   ],
   imports: [
     BrowserModule,
@@ -95,7 +98,8 @@ var fireBaseConfig = {
     StartPage,
     LoginPage,
     GenerateNoteModal,
-    NoteDetailsPage
+    NoteDetailsPage,
+    AddEditNoteModal
   ],
   providers: [
     StatusBar,
@@ -108,7 +112,8 @@ var fireBaseConfig = {
     FileChooser,
     SettingsProvider,
     ShareProvider,
-    SocialSharing
+    SocialSharing,
+    Insomnia
   ]
 })
 export class AppModule {}

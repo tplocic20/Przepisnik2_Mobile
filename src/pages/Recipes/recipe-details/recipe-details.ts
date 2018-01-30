@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {ModalController, NavParams, PopoverController, Slides} from 'ionic-angular';
+import {ModalController, NavController, NavParams, PopoverController, Slides} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {Collapse} from "../../../theme/animations/animations";
@@ -10,14 +10,8 @@ import {ImagePreviewModal} from "../modals/image-preview/image-preview";
 import {AddEditRecipeModal} from "../modals/add-edit-recipe/add-edit-recipe";
 import {ShareProvider} from "../../../providers/share";
 import {EngredientsFractionPopoverComponent} from "../../../components/engredients-fraction-popover/engredients-fraction-popover";
-
-
-/**
- * Generated class for the RecipeDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Insomnia} from "@ionic-native/insomnia";
+import {GenerateNoteModal} from "../../Notes/modals/generate-note-modal/generate-note-modal";
 
 @Component({
   selector: 'page-recipe-details',
@@ -36,14 +30,19 @@ export class RecipeDetailsPage {
   isFavouritesDisabled: boolean = false;
   portionPart: number = 100;
 
-  constructor(public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser, private msg: MessagesProvider,
-              private shareProv: ShareProvider, private popoverCtrl: PopoverController) {
+  constructor(public navParams: NavParams, public navCtrl: NavController, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser, private msg: MessagesProvider,
+              private shareProv: ShareProvider, private popoverCtrl: PopoverController, private insomnia: Insomnia) {
   }
 
   ionViewDidLoad() {
     this.recId = this.navParams.get('recId');
     this.title = this.navParams.get('recName');
     this.srv.getRecipe(this.recId).subscribe(res => this.recipe = res);
+    this.insomnia.keepAwake();
+  }
+
+  ionViewWillLeave() {
+    this.insomnia.allowSleepAgain();
   }
 
   onSlideChanged() {
@@ -162,12 +161,13 @@ export class RecipeDetailsPage {
   }
 
   recipeRemove() {
-    this.msg.alert.confirm('Usuń ' + this.recipe.Name, () => this.srv.removeRecipe(this.recId), 'Czy na pewno chcesz usunąć przepis?' +
+    this.msg.alert.confirm('Usuń ' + this.recipe.Name, () => this.navCtrl.pop().then(() => this.srv.removeRecipe(this.recId)), 'Czy na pewno chcesz usunąć przepis?' +
       '\nOperacji nie można cofnąć');
   }
 
   createNote() {
-
+    const modal = this.modalCtrl.create(GenerateNoteModal, {recId: this.recId}, {cssClass: 'modal-full'});
+    modal.present();
   }
 
   engredientsFraction(ev) {

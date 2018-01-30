@@ -96,6 +96,11 @@ ion-modal {
   }
 }
 
+.label-warning{
+  color: #f53d3d !important;
+  text-decoration: underline;
+}
+
 ion-item {
   .disabled {
     color: lightgray;

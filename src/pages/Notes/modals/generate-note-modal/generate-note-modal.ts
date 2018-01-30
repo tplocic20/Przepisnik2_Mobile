@@ -1,24 +1,96 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the GenerateNoteModalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Component} from '@angular/core';
+import {NavController, NavParams, ViewController} from 'ionic-angular';
+import {Recipe} from "../../../../models/Recipe";
+import {FireProvider} from "../../../../providers/fire";
+import {Collapse} from "../../../../theme/animations/animations";
+import {MessagesProvider} from "../../../../providers/messages";
 
 @Component({
   selector: 'page-generate-note-modal',
+  animations: [Collapse(300)],
   templateUrl: 'generate-note-modal.html',
 })
 export class GenerateNoteModal {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  recipe: Recipe = {
+    Temperature: null,
+    Time: null
+  };
+  attachTemperature: boolean = false;
+  attachTime: boolean = false;
+  attachTEngredients: boolean = false;
+  categoires: Array<any> = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private srv: FireProvider, private msg: MessagesProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GenerateNoteModalPage');
+    const recId = this.navParams.get('recId');
+    this.srv.getRecipe(recId).subscribe(res => this.prepareData(res));
+  }
+
+  prepareData(data: Recipe) {
+    this.recipe = data;
+    for (let i = 0; i < data.Engredients.length; i++) {
+      this.categoires.push({
+        id: i,
+        Name: data.Engredients[i].Name,
+        isChecked: true
+      });
+    }
+  }
+
+  engredientsChanged() {
+    if (this.attachTEngredients) {
+      for (let i = 0; i < this.categoires.length; i++) {
+        this.categoires[i].isChecked = true;
+      }
+    }
+  }
+
+  saveChanges() {
+    this.srv.addNote({
+      Name: this.recipe.Name,
+      Content: this.convertRecipeToText()
+    }).then(()=> this.viewCtrl.dismiss());
+  }
+
+  discardChanges() {
+    this.msg.alert.confirm('', () => this.viewCtrl.dismiss(), 'Czy na pewno chcesz anulować zmiany');
+  }
+
+  private convertRecipeToText(): string {
+    let text: string[] = [];
+    if (this.attachTemperature)
+      text.push(`Temperatura: ${this.recipe.Temperature}`);
+    if (this.attachTime)
+      text.push(`Czas: ${this.recipe.Time}`);
+    text = text.concat(this.engredientsToText(this.recipe.Engredients));
+    text.push(this.recipe.Recipe);
+
+    return text.join("\n");
+  }
+
+  private engredientsToText(groups: any[]): string[] {
+    const allowedGroups = this.categoires.map(item => item.id);
+    let text: string[] = [];
+    for (let i = 0; i < groups.length; i++) {
+      if (allowedGroups.indexOf(i) > -1) {
+        text.push(`${(i + 1)}. ${groups[i].Name}`);
+        if (groups[i].Positions) {
+          for (let y = 0; y < groups[i].Positions.length; y++) {
+
+            const name = groups[i].Positions[y].Name;
+            const qty = groups[i].Positions[y].Qty ? groups[i].Positions[y].Qty : "";
+            const unit = groups[i].Positions[y].Unit ? groups[i].Positions[y].Unit : "";
+            const eng = `${name} ${qty} ${unit}`;
+            text.push(`- ${eng}`);
+          }
+        }
+        text.push("\n");
+      }
+    }
+    return text;
   }
 
 }

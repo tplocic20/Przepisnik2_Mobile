@@ -17,7 +17,7 @@
   <ion-list>
     <common-list-element *ngFor="let note of notes | async" [item]="note" (onClick)="noteClicked(note)" (onEdit)="noteEdit(note)" (onRemove)="noteRemove(note)"></common-list-element>
   </ion-list>
-  <ion-fab bottom right>
+  <ion-fab bottom right (click)="addNote()">
     <button ion-fab><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 </ion-content>
