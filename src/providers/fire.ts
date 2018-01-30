@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {AngularFireAuth} from "angularfire2/auth";
-import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
+import {AngularFireDatabase} from "angularfire2/database";
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
 import {MessagesProvider} from "./messages";
@@ -9,12 +9,6 @@ import {Storage} from "@ionic/storage";
 import {Note} from "../models/Note";
 import {Recipe} from "../models/Recipe";
 
-/*
-  Generated class for the FireProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class FireProvider {
 
@@ -123,7 +117,9 @@ export class FireProvider {
   }
 
   getNotes() {
+    this.msg.loading.show("Pobieranie danych");
     return this.notesList.map(res => {
+      this.msg.loading.close();
       return res;
     })
   }
@@ -152,7 +148,9 @@ export class FireProvider {
   }
 
   getRecipes(categoryId) {
+    this.msg.loading.show("Pobieranie danych");
     return this.recipesList.map(data => {
+      this.msg.loading.close();
       return data.filter(x => x.Categories.indexOf(categoryId || "") > -1)
     })
   }
