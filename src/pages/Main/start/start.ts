@@ -4,6 +4,7 @@ import {LoginPage} from "../login/login";
 import {TabsPage} from "../tabs/tabs";
 import {FireProvider} from "../../../providers/fire";
 import {SettingsProvider} from "../../../providers/settings";
+import {MessagesProvider} from "../../../providers/messages";
 
 
 @Component({
@@ -15,12 +16,13 @@ export class StartPage {
   selectedTheme: string;
   needsSignIn: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private srv: FireProvider, private settings: SettingsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private srv: FireProvider, private settings: SettingsProvider, private msg: MessagesProvider) {
     settings.getActiveTheme().subscribe(theme => this.selectedTheme = theme);
   }
 
   ionViewWillEnter() {
-     this.autoSignIn();
+    this.msg.loading.show("Ładowanie");
+    this.autoSignIn();
   }
 
   autoSignIn() {
@@ -32,9 +34,11 @@ export class StartPage {
           this.navCtrl.setRoot(TabsPage);
         } else {
           this.needsSignIn = true;
+          this.msg.loading.close();
         }
-      }, () =>{
+      }, () => {
         this.needsSignIn = true;
+        this.msg.loading.close();
       })
     }
   }

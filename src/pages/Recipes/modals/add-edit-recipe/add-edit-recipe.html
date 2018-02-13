@@ -1,8 +1,9 @@
-<ion-header >
+<ion-header>
   <ion-toolbar>
     <ion-navbar>
       <ion-title>
-        <ion-input type="text" placeholder="Nazwa przepisu" [(ngModel)]="recipe.Name" [class.placeholder-warning]="!nameValid">
+        <ion-input type="text" placeholder="Nazwa przepisu" [(ngModel)]="recipe.Name"
+                   [class.placeholder-warning]="!nameValid">
         </ion-input>
       </ion-title>
       <ion-buttons end>
@@ -18,13 +19,13 @@
     <ion-segment [(ngModel)]="activeSlide" (ionChange)="onSegmentChanged($event)">
       <ion-segment-button [class.segment-warning]="!firstSlideValid" value="0">
         <ion-icon *ngIf="!firstSlideValid" name="warning"></ion-icon>
-       Kategorie
+        Kategorie
       </ion-segment-button>
       <ion-segment-button [class.segment-warning]="!secondSlideValid" value="1">
         <ion-icon *ngIf="!secondSlideValid" color="danger" name="warning"></ion-icon>
         Składniki
       </ion-segment-button>
-      <ion-segment-button [class.segment-warning]="!thirdSlideValid"  value="2">
+      <ion-segment-button [class.segment-warning]="!thirdSlideValid" value="2">
         <ion-icon *ngIf="!thirdSlideValid" color="danger" name="warning"></ion-icon>
         Przepis
       </ion-segment-button>
@@ -34,45 +35,65 @@
 
 
 <ion-content>
-  <ion-slides (ionSlideWillChange)="onSlideChanged()">
-    <ion-slide> <!-- Categories -->
-      <ion-list no-lines  (click)="addCategory()">
+  <div [ngSwitch]="activeSlide">
+    <div *ngSwitchCase="0" [@slide]="slidesDirection"> <!-- Categories -->
+      <ion-list no-lines (click)="addCategory()">
         <button ion-item>
           <ion-icon item-start name="add"></ion-icon>
           Nowa Kategoria
         </button>
         <ion-item *ngFor="let cat of categories | async">
           <ion-label>{{cat.Name}}</ion-label>
-          <ion-checkbox [checked]="selectedCategories.indexOf(cat.$key)>-1" (click)="addRemoveCategory(cat.$key)"></ion-checkbox>
+          <ion-checkbox [checked]="selectedCategories.indexOf(cat.$key)>-1"
+                        (click)="addRemoveCategory(cat.$key)"></ion-checkbox>
         </ion-item>
       </ion-list>
-    </ion-slide>
-    <ion-slide>  <!-- Engredients -->
-      <ion-list radio-group *ngFor="let group of recipe?.Engredients; let groupIdx = index" [(ngModel)]="selectedEngredientGroup">
-        <ion-list-header> <!-- Group -->
-          <ion-radio [value]="groupIdx" item-left></ion-radio>
-          <ion-label>{{group?.Name}}</ion-label>
+    </div>
+    <div *ngSwitchCase="1" [@slide]="slidesDirection">  <!-- Engredients -->
+      <ion-list radio-group *ngFor="let group of recipe?.Engredients; let groupIdx = index"
+                [(ngModel)]="selectedEngredientGroup">
+        <div *ngVar="{isReorder: false} as scope">
+          <ion-list-header> <!-- Group -->
+            <ion-radio [value]="groupIdx" item-left></ion-radio>
+            <ion-label>{{group?.Name}}</ion-label>
 
-          <button item-end clear ion-button icon-only (click)="editEngredientCategory(group)">
-            <ion-icon name="create"></ion-icon>
-          </button>
-          <button item-end clear ion-button icon-only color="danger" *ngIf="recipe?.Engredients?.length > 1" (click)="removeEngredientCategory(group, groupIdx)">
-            <ion-icon name="trash"></ion-icon>
-          </button>
-        </ion-list-header>
-        <ion-item *ngFor="let eng of group?.Positions; let engIdx = index"> <!-- Positions -->
-          <h2>{{eng.Name}}</h2>
-          <p>{{eng.Qty}} {{eng.Unit}}</p>
-          <button item-end clear ion-button icon-only (click)="editEngredient(groupIdx, engIdx, eng)" *ngIf="selectedEngredientGroup == groupIdx">
-            <ion-icon name="create"></ion-icon>
-          </button>
-          <button item-end clear ion-button icon-only  (click)="removeEngredient(groupIdx, engIdx, eng)" color="danger" *ngIf="selectedEngredientGroup == groupIdx">
-            <ion-icon name="trash"></ion-icon>
-          </button>
-        </ion-item>
+            <button item-end clear ion-button icon-only (click)="editEngredientCategory(group)">
+              <ion-icon name="create"></ion-icon>
+            </button>
+            <button item-end clear ion-button icon-only color="danger" *ngIf="recipe?.Engredients?.length > 1"
+                    (click)="removeEngredientCategory(group, groupIdx)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+            <button item-end clear ion-button icon-only color="dark" *ngIf="selectedEngredientGroup == groupIdx"
+                    (click)="scope.isReorder = !scope.isReorder" [@slideR]>
+              <ion-icon name="reorder"></ion-icon>
+            </button>
+          </ion-list-header>
+          <ion-item-group [reorder]="scope.isReorder && selectedEngredientGroup === groupIdx"
+                          (ionItemReorder)="reorderPositions(groupIdx, $event)">
+            <ion-item *ngFor="let eng of group?.Positions; let engIdx = index"> <!-- Positions -->
+              <h2>{{eng.Name}}</h2>
+              <p>{{eng.Qty}} {{eng.Unit}}</p>
+              <button item-end clear ion-button icon-only (click)="editEngredient(groupIdx, engIdx, eng)"
+                      *ngIf="!scope.isReorder && selectedEngredientGroup == groupIdx" [@slideR]>
+                <ion-icon name="create"></ion-icon>
+              </button>
+              <button [disabled]="true" item-end clear ion-button icon-only (click)="removeEngredient(groupIdx, engIdx, eng)"
+                      color="danger"
+                      *ngIf="!scope.isReorder && selectedEngredientGroup == groupIdx" [@slideR]>
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-item>
+          </ion-item-group>
+        </div>
       </ion-list>
-    </ion-slide>
-    <ion-slide class="no-scroll">  <!-- Recipe details -->
+      <ion-fab *ngIf="beforeSlide == 1" bottom right (tap)="addEngredient()" (press)="addEngredientCategory()">
+        <button ion-fab color="positive">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+    <div *ngSwitchCase="2" class="no-scroll" [@slide]="slidesDirection">  <!-- Recipe details -->
       <ion-list>
         <ion-item *ngIf="!textareaFocused">
           <ion-label floating>Temperatura</ion-label>
@@ -84,14 +105,10 @@
         </ion-item>
         <ion-item>
           <ion-label floating>Przepis</ion-label>
-          <ion-textarea (focus)="textAreaFocus()" (blur)="textAreaBlur()" [(ngModel)]="recipe.Recipe" [class.selected]="textareaFocused"></ion-textarea>
+          <ion-textarea (focus)="textAreaFocus()" (blur)="textAreaBlur()" [(ngModel)]="recipe.Recipe"
+                        [class.selected]="textareaFocused"></ion-textarea>
         </ion-item>
       </ion-list>
-    </ion-slide>
-  </ion-slides>
-  <ion-fab *ngIf="activeSlide == 1" bottom right (tap)="addEngredient()" (press)="addEngredientCategory()">
-    <button ion-fab color="positive">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
+    </div>
+  </div>
 </ion-content>

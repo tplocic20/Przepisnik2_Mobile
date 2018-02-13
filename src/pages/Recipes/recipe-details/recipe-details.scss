@@ -34,6 +34,10 @@ page-recipe-details {
   .wide-button{
     width: 100px;
   }
+  .item-hidden {
+    opacity: 0 !important;
+    height:0 !important;
+  }
 }
 
 

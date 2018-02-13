@@ -52,7 +52,7 @@ export class GenerateNoteModal {
     this.srv.addNote({
       Name: this.recipe.Name,
       Content: this.convertRecipeToText()
-    }).then(()=> this.viewCtrl.dismiss());
+    }).then(() => this.viewCtrl.dismiss());
   }
 
   discardChanges() {
@@ -72,17 +72,18 @@ export class GenerateNoteModal {
   }
 
   private engredientsToText(groups: any[]): string[] {
-    const allowedGroups = this.categoires.map(item => item.id);
+    const allowedGroups = this.categoires.filter(cat => cat.isChecked).map(item => item.id);
     let text: string[] = [];
-    for (let i = 0; i < groups.length; i++) {
-      if (allowedGroups.indexOf(i) > -1) {
-        text.push(`${(i + 1)}. ${groups[i].Name}`);
-        if (groups[i].Positions) {
-          for (let y = 0; y < groups[i].Positions.length; y++) {
+    for (let i = 0; i < allowedGroups.length; i++) {
+      const group = groups[allowedGroups[i]];
+      if (group != null) {
+        text.push(`${(i + 1)}. ${group.Name}`);
+        if (group.Positions) {
+          for (let y = 0; y < group.Positions.length; y++) {
 
-            const name = groups[i].Positions[y].Name;
-            const qty = groups[i].Positions[y].Qty ? groups[i].Positions[y].Qty : "";
-            const unit = groups[i].Positions[y].Unit ? groups[i].Positions[y].Unit : "";
+            const name = group.Positions[y].Name;
+            const qty = group.Positions[y].Qty ? group.Positions[y].Qty : "";
+            const unit = group.Positions[y].Unit ? group.Positions[y].Unit : "";
             const eng = `${name} ${qty} ${unit}`;
             text.push(`- ${eng}`);
           }

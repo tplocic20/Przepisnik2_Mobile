@@ -1,0 +1,11 @@
+<ion-list no-lines (click)="addCategory()">
+  <button ion-item>
+    <ion-icon item-start name="add"></ion-icon>
+    Nowa Kategoria
+  </button>
+  <ion-item *ngFor="let cat of categories | async">
+    <ion-label>{{cat.Name}}</ion-label>
+    <ion-checkbox [checked]="selectedCategories.indexOf(cat.$key)>-1"
+                  (click)="addRemoveCategory(cat.$key)"></ion-checkbox>
+  </ion-item>
+</ion-list>

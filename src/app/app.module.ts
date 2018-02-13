@@ -38,6 +38,7 @@ import {GenerateNoteModal} from "../pages/Notes/modals/generate-note-modal/gener
 import {NoteDetailsPage} from "../pages/Notes/note-details/note-details";
 import {Insomnia} from "@ionic-native/insomnia";
 import {AddEditNoteModal} from "../pages/Notes/modals/add-edit-note-modal/add-edit-note-modal";
+import {AddEditRecipeCategoriesPartial} from "../pages/Recipes/partials/add-edit-recipe-categories/add-edit-recipe-categories";
 
 
 var fireBaseConfig = {
@@ -66,7 +67,8 @@ var fireBaseConfig = {
     LoginPage,
     GenerateNoteModal,
     NoteDetailsPage,
-    AddEditNoteModal
+    AddEditNoteModal,
+    AddEditRecipeCategoriesPartial
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ var fireBaseConfig = {
     LoginPage,
     GenerateNoteModal,
     NoteDetailsPage,
-    AddEditNoteModal
+    AddEditNoteModal,
+    AddEditRecipeCategoriesPartial
   ],
   providers: [
     StatusBar,

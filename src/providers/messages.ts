@@ -2,12 +2,6 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {AlertController, LoadingController, ToastController} from "ionic-angular";
 
-/*
-  Generated class for the MessagesProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class MessagesProvider {
 
@@ -57,12 +51,18 @@ export class MessagesProvider {
   }
 
   private showLoading(message: string) {
-    this.loader = this.loadingCtrl.create({content: message});
-    this.loader.present();
+    if (this.loader)
+      this.loader.setContent(message);
+    else {
+      this.loader = this.loadingCtrl.create({content: message});
+      this.loader.present();
+    }
   }
 
   private closeLoading() {
-    this.loader.dismiss();
+    if (this.loader)
+    this.loader.dismissAll();
+    this.loader = null;
   }
 
   private showInfoToast(message: string, duration: number = 3000, position: string = 'bottom') {

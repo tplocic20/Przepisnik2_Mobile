@@ -61,10 +61,10 @@
             <div *ngIf="!scope.isCollapsed" [@collapse]>
               <div *ngFor="let eng of group.Positions">
                 <div *ngIf="isCookMode">
-                  <ion-item *ngVar="{isUsed: false} as scope" (click)="scope.isUsed = !scope.isUsed" >
-                    <ion-icon item-right *ngIf="isCookMode && scope.isUsed" name="checkmark"></ion-icon>
-                      <p [class.disabled]="isCookMode && scope.isUsed">{{eng.Name}}</p>
-                      <p [class.disabled]="isCookMode && scope.isUsed">{{eng.Qty | numberPart: portionPart }} {{eng.Unit}}</p>
+                  <ion-item (click)="eng.isUsed = !eng.isUsed" >
+                    <ion-icon item-right *ngIf="isCookMode && eng.isUsed" name="checkmark"></ion-icon>
+                      <p [class.disabled]="isCookMode && eng.isUsed">{{eng.Name}}</p>
+                      <p [class.disabled]="isCookMode && eng.isUsed">{{eng.Qty | numberPart: portionPart }} {{eng.Unit}}</p>
                   </ion-item>
                 </div>
                 <div *ngIf="!isCookMode">

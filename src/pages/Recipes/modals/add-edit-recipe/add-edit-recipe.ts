@@ -1,35 +1,39 @@
-import {Component, ViewChild} from '@angular/core';
-import {ModalController, NavController, NavParams, Slides, ViewController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Recipe} from "../../../../models/Recipe";
 import {FireProvider} from "../../../../providers/fire";
 import {MessagesProvider} from "../../../../providers/messages";
 import {AddEditEngredientGroupModal} from "../add-edit-engredient-group-modal/add-edit-engredient-group-modal";
 import {AddEditEngredientModal} from "../add-edit-engredient-modal/add-edit-engredient-modal";
+import {Slide, SlideLeft, SlideRight} from "../../../../theme/animations/animations";
 
 @Component({
   selector: 'page-add-edit-recipe',
+  animations: [SlideRight(200), SlideLeft(500), Slide(300)],
   templateUrl: 'add-edit-recipe.html',
 })
 export class AddEditRecipeModal {
 
-  @ViewChild(Slides) slides: Slides;
 
   private recipe: Recipe = {Name: ""};
   private recipeId: string;
   private selectedCategories = [];
   private categories: any;
   private activeSlide: string = "0";
+  private beforeSlide: string = "0";
   private textareaFocused: boolean = false;
   private selectedEngredientGroup: number = 0;
   private firstSlideValid: boolean = true;
   private secondSlideValid: boolean = true;
   private thirdSlideValid: boolean = true;
   private nameValid: boolean = true;
+  private slidesDirection: string = "none";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController,
               private viewCtrl: ViewController) {
     this.categories = this.srv.getCategories();
   }
+
 
   ionViewDidLoad() {
     this.recipeId = this.navParams.get('recId');
@@ -48,13 +52,18 @@ export class AddEditRecipeModal {
     }
   }
 
-  onSlideChanged() {
-    const idx = this.slides.getActiveIndex();
-    this.activeSlide = idx.toString();
+  onSegmentChanged(ev) {
+    if (this.beforeSlide < this.activeSlide)
+      this.slidesDirection = "next";
+    if (this.beforeSlide > this.activeSlide)
+      this.slidesDirection = "prev";
+    this.beforeSlide = ev.value;
   }
 
-  onSegmentChanged(ev) {
-    this.slides.slideTo(ev.value);
+  reorderPositions(groupIdx, indexes){
+    let element = this.recipe.Engredients[groupIdx].Positions[indexes.from];
+    this.recipe.Engredients[groupIdx].Positions.splice(indexes.from, 1);
+    this.recipe.Engredients[groupIdx].Positions.splice(indexes.to, 0, element);
   }
 
   addCategory() {

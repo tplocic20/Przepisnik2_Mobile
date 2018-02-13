@@ -1,3 +1,5 @@
+import {EngredientGroup} from "./EngredientGroup";
+
 export interface Recipe {
     Name?: string;
     Temperature?: string;
@@ -5,6 +7,6 @@ export interface Recipe {
     Recipe?: string;
     Favourite?: boolean;
     Categories?: string;
-    Engredients?: any[];
+    Engredients?: EngredientGroup[];
     Gallery?: any[];
 }
