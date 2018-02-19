@@ -1,8 +1,8 @@
 {
   "name": "Przepisnik-v2",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "version": "1.1.0",
+  "author": "Tomasz Płocic",
+  "homepage": "https://github.com/Shogun666",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
