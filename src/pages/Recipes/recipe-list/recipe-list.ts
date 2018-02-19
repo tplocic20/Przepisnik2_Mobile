@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {ModalController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {List, ModalController, NavController, NavParams} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
 import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 import {Recipe} from "../../../models/Recipe";
@@ -15,6 +15,7 @@ import {ShareProvider} from "../../../providers/share";
 })
 export class RecipeListPage {
 
+  @ViewChild(List) list: List;
   title: string;
   cat: string;
   recipes: Observable<Recipe[]>
@@ -32,6 +33,7 @@ export class RecipeListPage {
   }
 
   recipeClicked(recipe) {
+    this.list.closeSlidingItems();
     this.navCtrl.push(RecipeDetailsPage, {recId: recipe.$key, recName: recipe.Name});
   }
 

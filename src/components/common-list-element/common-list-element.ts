@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Item, ItemSliding} from "ionic-angular";
 
 /**
  * Generated class for the CommonListElementComponent component.
@@ -39,5 +40,4 @@ export class CommonListElementComponent {
     if (this.enableShare)
       this.onShare.emit();
   }
-
 }

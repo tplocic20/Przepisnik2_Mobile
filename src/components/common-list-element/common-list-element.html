@@ -1,5 +1,5 @@
-<ion-item-sliding>
-  <button ion-item detail-push (click)="itemClicked()">
+<ion-item-sliding #slidingItem>
+  <button ion-item detail-push (tap)="itemClicked()">
   {{item.Name}}
   </button>
   <ion-item-options side="left" *ngIf="blockSlide == false">

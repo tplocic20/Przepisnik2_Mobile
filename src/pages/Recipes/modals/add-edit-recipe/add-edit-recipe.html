@@ -34,7 +34,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="full-content">
   <div [ngSwitch]="activeSlide">
     <div *ngSwitchCase="0" [@slide]="slidesDirection"> <!-- Categories -->
       <ion-list no-lines (click)="addCategory()">
@@ -78,7 +78,8 @@
                       *ngIf="!scope.isReorder && selectedEngredientGroup == groupIdx" [@slideR]>
                 <ion-icon name="create"></ion-icon>
               </button>
-              <button [disabled]="true" item-end clear ion-button icon-only (click)="removeEngredient(groupIdx, engIdx, eng)"
+              <button [disabled]="true" item-end clear ion-button icon-only
+                      (click)="removeEngredient(groupIdx, engIdx, eng)"
                       color="danger"
                       *ngIf="!scope.isReorder && selectedEngredientGroup == groupIdx" [@slideR]>
                 <ion-icon name="trash"></ion-icon>
@@ -87,28 +88,29 @@
           </ion-item-group>
         </div>
       </ion-list>
-      <ion-fab *ngIf="beforeSlide == 1" bottom right (tap)="addEngredient()" (press)="addEngredientCategory()">
-        <button ion-fab color="positive">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-fab>
     </div>
-    <div *ngSwitchCase="2" class="no-scroll" [@slide]="slidesDirection">  <!-- Recipe details -->
-      <ion-list>
-        <ion-item *ngIf="!textareaFocused">
+    <div *ngSwitchCase="2" class="full-content no-scroll" [@slide]="slidesDirection"> <!-- Recipe details -->
+      <ion-list class="flex-list">
+        <ion-item class="simple-input" *ngIf="!textareaFocused">
           <ion-label floating>Temperatura</ion-label>
           <ion-input [(ngModel)]="recipe.Temperature"></ion-input>
         </ion-item>
-        <ion-item *ngIf="!textareaFocused">
+        <ion-item class="simple-input" *ngIf="!textareaFocused">
           <ion-label floating>Czas gotowania</ion-label>
           <ion-input [(ngModel)]="recipe.Time"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item class="full-input">
           <ion-label floating>Przepis</ion-label>
           <ion-textarea (focus)="textAreaFocus()" (blur)="textAreaBlur()" [(ngModel)]="recipe.Recipe"
                         [class.selected]="textareaFocused"></ion-textarea>
         </ion-item>
+
       </ion-list>
     </div>
   </div>
+  <ion-fab *ngIf="beforeSlide == 1" bottom right (tap)="addEngredient()" (press)="addEngredientCategory()">
+    <button ion-fab color="positive">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {ModalController, NavController} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {List, ModalController, NavController} from 'ionic-angular';
 import {FireProvider} from "../../providers/fire";
 import {Observable} from "rxjs/Observable";
 import {MessagesProvider} from "../../providers/messages";
@@ -19,6 +19,7 @@ import {AddEditRecipeModal} from "../Recipes/modals/add-edit-recipe/add-edit-rec
 })
 export class CategoriesPage {
 
+  @ViewChild(List) list: List;
   items: Observable<any>;
   searchValue: "";
 
@@ -34,6 +35,7 @@ export class CategoriesPage {
   }
 
   categoryClicked(category) {
+    this.list.closeSlidingItems();
     this.navCtrl.push(RecipeListPage, {catId: category.$key, catName: category.Name});
   }
 

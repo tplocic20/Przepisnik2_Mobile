@@ -82,7 +82,7 @@
 
     <ion-slide>
       <ion-card>
-        <ion-card-content>
+        <ion-card-content class="pre-line">
           {{recipe?.Recipe}}
         </ion-card-content>
       </ion-card>
@@ -108,11 +108,11 @@
       </ion-grid>
     </ion-slide>
   </ion-slides>
-  <ion-fab bottom left ion-fixed *ngIf="!isCookMode">
-    <button ion-fab color="secondary" (click)="share()">
-      <ion-icon name="share"></ion-icon>
-    </button>
-  </ion-fab>
+  <!--<ion-fab bottom left ion-fixed *ngIf="!isCookMode">-->
+    <!--<button ion-fab color="secondary" (click)="share()">-->
+      <!--<ion-icon name="share"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
   <ion-fab bottom right ion-fixed *ngIf="!isCookMode">
     <button ion-fab [color]="activeSlide === '2' && selectedImages.length > 0 ? 'danger' : 'primary'"
             (click)="removeImages()">
@@ -133,14 +133,18 @@
         </button>
       </div>
       <div *ngIf="activeSlide !== '2'">
-        <button ion-fab (click)="createNote()">
-          <ion-icon name="bookmarks"></ion-icon>
+        <button ion-fab color="secondary" (click)="share()">
+          <ion-icon name="share"></ion-icon>
         </button>
-        <button ion-fab (click)="recipeRemove()">
+
+        <button ion-fab color="danger" (click)="recipeRemove()">
           <ion-icon name="trash"></ion-icon>
         </button>
-        <button ion-fab (click)="recipeEdit()">
+        <button ion-fab color="primary" (click)="recipeEdit()">
           <ion-icon name="create"></ion-icon>
+        </button>
+        <button ion-fab (click)="createNote()">
+          <ion-icon name="bookmarks"></ion-icon>
         </button>
       </div>
     </ion-fab-list>

@@ -1,14 +1,13 @@
 page-add-edit-recipe {
   textarea {
     resize: none;
-    height: 80vh;
   }
 
-  ion-textarea:not(.selected) {
-    textarea {
-      height: calc(100vh - 360px)
-    }
-  }
+  //ion-textarea {
+  //  textarea {
+  //    height: calc(100vh - 360px)
+  //  }
+  //}
 
   ion-list,
   ion-item {
@@ -16,6 +15,21 @@ page-add-edit-recipe {
     padding: 0;
   }
 
+  .simple-input {
+    flex: 0 1 auto;
+  }
+
+  .full-input {
+    flex: 1 1 auto;
+    height: 70%;
+    ion-textarea {
+      height: 90%;
+      textarea {
+        height: 95%;
+      }
+    }
+  }
 
 }
+
 //#f53d3d

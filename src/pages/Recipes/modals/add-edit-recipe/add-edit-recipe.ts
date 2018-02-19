@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
+import {ModalController, NavController, NavParams, Platform, ViewController} from 'ionic-angular';
 import {Recipe} from "../../../../models/Recipe";
 import {FireProvider} from "../../../../providers/fire";
 import {MessagesProvider} from "../../../../providers/messages";
@@ -28,14 +28,16 @@ export class AddEditRecipeModal {
   private thirdSlideValid: boolean = true;
   private nameValid: boolean = true;
   private slidesDirection: string = "none";
+  private unregisterBackButtonAction: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController,
-              private viewCtrl: ViewController) {
+              private viewCtrl: ViewController, private platform: Platform) {
     this.categories = this.srv.getCategories();
   }
 
 
   ionViewDidLoad() {
+    this.initializeBackButtonCustomHandler();
     this.recipeId = this.navParams.get('recId');
     if (this.recipeId) {
       this.srv.getRecipe(this.recipeId).subscribe((res: Recipe) => {
@@ -50,6 +52,10 @@ export class AddEditRecipeModal {
       }
       this.recipe.Engredients = [{Name: "Składniki", Positions: []}];
     }
+  }
+
+  ionViewWillLeave() {
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction();
   }
 
   onSegmentChanged(ev) {
@@ -183,6 +189,14 @@ export class AddEditRecipeModal {
 
   discardChanges() {
     this.msg.alert.confirm('', ()=>this.viewCtrl.dismiss(), 'Czy na pewno chcesz anulować zmiany');
+  }
 
+  public initializeBackButtonCustomHandler(): void {
+    this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+      this.customHandleBackButton();
+    }, 10);
+  }
+  private customHandleBackButton(): void {
+    this.discardChanges();
   }
 }
