@@ -102,12 +102,47 @@ ion-item {
 }
 
 .full-content {
-  div {
+  .scroll-content {
+    height: calc(100% - 108px);
+  }
+  .scroll-content > div {
     height: 100%;
+    .full-div {
+      height: 100%;
+    }
+  }
+  .scroll-content > div ~ div {
+    height: auto;
   }
   .flex-list {
     display: flex;
     flex-flow: column;
-    height: calc(100% - 108px);
+    height: 100%;
+  }
+}
+
+.button-group {
+  .col {
+    &:first-child:not(:last-child) {
+      padding-right: 0;
+      .button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+    &:not(:first-child):not(:last-child) {
+      padding-right: 0;
+      padding-left: 0;
+      .button {
+        border-radius: 0;
+      }
+    }
+    &:last-child:not(:first-child) {
+      padding-left: 0;
+      .button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
   }
 }

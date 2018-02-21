@@ -78,7 +78,7 @@
                       *ngIf="!scope.isReorder && selectedEngredientGroup == groupIdx" [@slideR]>
                 <ion-icon name="create"></ion-icon>
               </button>
-              <button [disabled]="true" item-end clear ion-button icon-only
+              <button item-end clear ion-button icon-only
                       (click)="removeEngredient(groupIdx, engIdx, eng)"
                       color="danger"
                       *ngIf="!scope.isReorder && selectedEngredientGroup == groupIdx" [@slideR]>
@@ -89,7 +89,7 @@
         </div>
       </ion-list>
     </div>
-    <div *ngSwitchCase="2" class="full-content no-scroll" [@slide]="slidesDirection"> <!-- Recipe details -->
+    <div *ngSwitchCase="2" class="full-div no-scroll" [@slide]="slidesDirection"> <!-- Recipe details -->
       <ion-list class="flex-list">
         <ion-item class="simple-input" *ngIf="!textareaFocused">
           <ion-label floating>Temperatura</ion-label>

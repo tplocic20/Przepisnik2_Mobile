@@ -10,17 +10,16 @@ export class EngredientsFractionPopoverComponent {
   portion: any;
   updateFn: any;
 
-  test = 100;
-    constructor(private viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(private viewCtrl: ViewController, public navParams: NavParams) {
     this.portion = this.navParams.get('portion');
     this.updateFn = this.navParams.get('updateFn');
   }
 
   onChange() {
-      this.updateFn(this.portion);
+    this.updateFn(this.portion);
   }
 
   close() {
-      this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss();
   }
 }

@@ -1,16 +1,16 @@
-<ion-item-sliding #slidingItem>
-  <button ion-item detail-push (tap)="itemClicked()">
+<!--<ion-item-sliding #slidingItem>-->
+  <button ion-item detail-push (tap)="itemClicked()" (press)="showOptions($event)">
   {{item.Name}}
   </button>
-  <ion-item-options side="left" *ngIf="blockSlide == false">
-    <button ion-button color="primary" (click)="editItem()">
-      Edytuj
-    </button>
-    <button ion-button color="danger" (click)="removeItem()">
-      Usuń
-    </button>
-    <button *ngIf="enableShare" ion-button icon-only color="secondary" (click)="shareItem()">
-      <ion-icon name="share"></ion-icon>
-    </button>
-  </ion-item-options>
-</ion-item-sliding>
+  <!--<ion-item-options side="left" *ngIf="blockSlide == false">-->
+    <!--<button ion-button color="primary" (click)="editItem()">-->
+      <!--Edytuj-->
+    <!--</button>-->
+    <!--<button ion-button color="danger" (click)="removeItem()">-->
+      <!--Usuń-->
+    <!--</button>-->
+    <!--<button *ngIf="enableShare" ion-button icon-only color="secondary" (click)="shareItem()">-->
+      <!--<ion-icon name="share"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-item-options>-->
+<!--</ion-item-sliding>-->

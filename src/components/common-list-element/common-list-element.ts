@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Item, ItemSliding} from "ionic-angular";
+import {Item, ItemSliding, PopoverController} from "ionic-angular";
+import {CommonListOptionsComponent} from "../common-list-options/common-list-options";
 
 /**
  * Generated class for the CommonListElementComponent component.
@@ -21,18 +22,31 @@ export class CommonListElementComponent {
   @Output() onRemove = new EventEmitter();
   @Output() onShare = new EventEmitter();
 
-  constructor() {
+  constructor(private popoverCtrl: PopoverController) {
   }
 
   itemClicked() {
     this.onClick.emit();
   }
 
+  showOptions(ev) {
+    if (this.blockSlide) return;
+    let popover = this.popoverCtrl.create(CommonListOptionsComponent, {
+      edit: () => this.editItem(),
+      remove: () => this.removeItem(),
+      share: () => this.shareItem(),
+      enableShare: this.enableShare
+    });
+    popover.present({
+      ev: ev
+    });
+  }
+
   editItem() {
     this.onEdit.emit();
   }
 
-  removeItem(){
+  removeItem() {
     this.onRemove.emit();
   }
 

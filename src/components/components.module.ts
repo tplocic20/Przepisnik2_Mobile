@@ -4,13 +4,16 @@ import {IonicModule} from "ionic-angular";
 import {HeaderPopoverComponent} from "./header-popover/header-popover";
 import {HeaderPopoverButtonComponent} from "./header-popover-button/header-popover-button";
 import { EngredientsFractionPopoverComponent } from './engredients-fraction-popover/engredients-fraction-popover';
+import { CommonListOptionsComponent } from './common-list-options/common-list-options';
 
 @NgModule({
 	declarations: [ CommonListElementComponent, HeaderPopoverComponent, HeaderPopoverButtonComponent,
-    EngredientsFractionPopoverComponent ],
+    EngredientsFractionPopoverComponent,
+    CommonListOptionsComponent ],
   imports: [ IonicModule.forRoot([ CommonListElementComponent ])],
-  entryComponents: [HeaderPopoverComponent, EngredientsFractionPopoverComponent],
+  entryComponents: [HeaderPopoverComponent, EngredientsFractionPopoverComponent, CommonListOptionsComponent],
 	exports: [ CommonListElementComponent, HeaderPopoverComponent, HeaderPopoverButtonComponent,
-    EngredientsFractionPopoverComponent  ]
+    EngredientsFractionPopoverComponent,
+    CommonListOptionsComponent  ]
 })
 export class ComponentsModule {}

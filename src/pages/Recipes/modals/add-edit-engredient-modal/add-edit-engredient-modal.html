@@ -9,11 +9,19 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Ilość</ion-label>
-      <ion-input [(ngModel)]="qty"></ion-input>
+      <ion-input type="number" [(ngModel)]="qty"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Jednostka</ion-label>
-      <ion-input [(ngModel)]="unit"></ion-input>
+      <ion-select [(ngModel)]="unit" interface="popover">
+        <ion-option value="szt">Sztuka</ion-option>
+        <ion-option value="g">Gram</ion-option>
+        <ion-option value="łyżka">Łyżka</ion-option>
+        <ion-option value="łyżeczka">Łyżeczka</ion-option>
+        <ion-option value="szklanka">Szklanka</ion-option>
+        <ion-option value="garść">Garść</ion-option>
+      </ion-select>
+      <!--<ion-input [(ngModel)]="unit"></ion-input>-->
     </ion-item>
     <ion-item>
       <button ion-button item-end clear color="danger" (click)="close()">

@@ -1,10 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-/**
- * Generated class for the NumberPartPipe pipe.
- *
- * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
- */
 @Pipe({
   name: 'numberPart',
 })
@@ -14,8 +9,10 @@ export class NumberPartPipe implements PipeTransform {
    */
   transform(value: string, percentValue: number) {
     const num = +value;
-    if (!isNaN(num)){
-      return (num * (percentValue / 100)).toFixed(2);
+
+    if (!isNaN(num)) {
+      const calc =  (num * (percentValue / 100));
+      return calc;
     }else {
       return value;
     }
