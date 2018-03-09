@@ -44,7 +44,8 @@ export class MessagesProvider {
      * @param {string} [successBtnText] Optional - Success button text
      */
     input: (title, callback, placeholder?, initialInputValue?, successBtnText?) => this.showInputAlert(title, callback, placeholder, initialInputValue, successBtnText),
-    confirm: (title, callback, message?) => this.showConfirmAlert(title, callback, message)
+    confirm: (title, callback, message?) => this.showConfirmAlert(title, callback, message),
+    info: (tittle, message?) => this.showInfoAlert(tittle, message)
   };
 
   constructor(private toastCtrl: ToastController, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
@@ -116,6 +117,13 @@ export class MessagesProvider {
           }
         }
       ]
+    });
+    alert.present();
+  }
+  private showInfoAlert(title: string, message: string = ''){
+    const alert = this.alertCtrl.create({
+      title: title,
+      message: message
     });
     alert.present();
   }

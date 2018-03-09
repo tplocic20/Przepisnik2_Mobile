@@ -16,8 +16,8 @@ export class LoginPage {
 
   constructor(private viewCtrl: ViewController, private formBuilder: FormBuilder, private srv: FireProvider) {
     this.loginForm = this.formBuilder.group({
-      login: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required]
+      login: ['tplocic20@gmail.com', Validators.compose([Validators.required, Validators.email])],
+      password: ['Shogun123', Validators.required]
     })
   }
 

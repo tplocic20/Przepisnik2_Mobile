@@ -1,6 +1,6 @@
 {
   "name": "Przepisnik-v2",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Tomasz Płocic",
   "homepage": "https://github.com/Shogun666",
   "private": true,
@@ -21,6 +21,7 @@
     "@angular/http": "4.4.3",
     "@angular/platform-browser": "4.4.3",
     "@angular/platform-browser-dynamic": "4.4.3",
+    "@ionic-native/app-version": "^4.5.3",
     "@ionic-native/camera": "^4.3.2",
     "@ionic-native/core": "4.3.0",
     "@ionic-native/file-chooser": "^4.3.2",
@@ -31,6 +32,7 @@
     "@ionic/storage": "^2.0.1",
     "android-versions": "^1.3.0",
     "angularfire2": "^5.0.0-rc.3",
+    "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-device": "1.1.4",
     "cordova-plugin-filechooser": "^1.0.1",
@@ -40,11 +42,13 @@
     "cordova-plugin-whitelist": "1.3.1",
     "cordova-plugin-x-socialsharing": "^5.2.1",
     "cordova-sqlite-storage": "^2.2.0",
+    "dragula": "^3.7.2",
     "es6-promise-plugin": "^4.1.0",
     "firebase": "^4.6.0",
     "ionic-angular": "3.7.1",
     "ionic-plugin-keyboard": "~2.2.1",
     "ionicons": "3.0.0",
+    "ng2-dragula": "^1.5.0",
     "promise-polyfill": "^6.0.2",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
@@ -66,7 +70,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-app-version": {}
     }
   }
 }

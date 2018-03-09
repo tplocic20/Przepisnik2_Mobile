@@ -31,12 +31,22 @@ page-recipe-details {
   .image-selected ion-icon {
     color: greenyellow;
   }
-  .wide-button{
+  .wide-button {
     width: 100px;
   }
   .item-hidden {
     opacity: 0 !important;
-    height:0 !important;
+    height: 0 !important;
+  }
+  ion-item {
+    .icon-25 {
+      width: 25px;
+      padding-left: 8px;
+    }
+    .item-button {
+      margin: 9px 6px 9px 0 !important;
+      font-size: 1.55rem !important;
+    }
   }
 }
 

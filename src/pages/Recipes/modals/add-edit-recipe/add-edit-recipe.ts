@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-import {ModalController, NavController, NavParams, Platform, ViewController} from 'ionic-angular';
+import {ModalController, NavController, NavParams, Platform, ViewController, AlertController} from 'ionic-angular';
 import {Recipe} from "../../../../models/Recipe";
 import {FireProvider} from "../../../../providers/fire";
 import {MessagesProvider} from "../../../../providers/messages";
 import {AddEditEngredientGroupModal} from "../add-edit-engredient-group-modal/add-edit-engredient-group-modal";
 import {AddEditEngredientModal} from "../add-edit-engredient-modal/add-edit-engredient-modal";
 import {Slide, SlideLeft, SlideRight} from "../../../../theme/animations/animations";
+import {DragulaService} from "ng2-dragula";
 
 @Component({
   selector: 'page-add-edit-recipe',
@@ -31,8 +32,15 @@ export class AddEditRecipeModal {
   private unregisterBackButtonAction: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController,
-              private viewCtrl: ViewController, private platform: Platform) {
+              private viewCtrl: ViewController, private platform: Platform, private dragulaSrv: DragulaService) {
     this.categories = this.srv.getCategories();
+
+    dragulaSrv.drag.subscribe((value) => {
+      console.log(value);
+    });
+    dragulaSrv.dropModel.subscribe((value) => {
+      console.log(value);
+    });
   }
 
 
@@ -66,7 +74,7 @@ export class AddEditRecipeModal {
     this.beforeSlide = ev.value;
   }
 
-  reorderPositions(groupIdx, indexes){
+  reorderPositions(groupIdx, indexes) {
     let element = this.recipe.Engredients[groupIdx].Positions[indexes.from];
     this.recipe.Engredients[groupIdx].Positions.splice(indexes.from, 1);
     this.recipe.Engredients[groupIdx].Positions.splice(indexes.to, 0, element);
@@ -110,6 +118,7 @@ export class AddEditRecipeModal {
     modal.present();
 
   }
+
   editEngredient(groupIdx, engIdx, eng) {
     const modal = this.modalCtrl.create(AddEditEngredientModal, eng, {cssClass: 'modal-small'});
     modal.onDidDismiss(data => {
@@ -188,7 +197,7 @@ export class AddEditRecipeModal {
   }
 
   discardChanges() {
-    this.msg.alert.confirm('', ()=>this.viewCtrl.dismiss(), 'Czy na pewno chcesz anulować zmiany');
+    this.msg.alert.confirm('', () => this.viewCtrl.dismiss(), 'Czy na pewno chcesz anulować zmiany');
   }
 
   public initializeBackButtonCustomHandler(): void {
@@ -196,6 +205,7 @@ export class AddEditRecipeModal {
       this.customHandleBackButton();
     }, 10);
   }
+
   private customHandleBackButton(): void {
     this.discardChanges();
   }

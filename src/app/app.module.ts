@@ -11,7 +11,7 @@ import {AngularFireDatabase, AngularFireDatabaseModule} from "angularfire2/datab
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {ComponentsModule} from "../components/components.module";
 import { FireProvider } from '../providers/fire';
-import {CategoriesPage} from "../pages/categories/categories";
+import {CategoriesPage} from "../pages/Recipes/categories/categories";
 import {FavouritesPage} from "../pages/favourites/favourites";
 import {Camera} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
@@ -39,6 +39,9 @@ import {NoteDetailsPage} from "../pages/Notes/note-details/note-details";
 import {Insomnia} from "@ionic-native/insomnia";
 import {AddEditNoteModal} from "../pages/Notes/modals/add-edit-note-modal/add-edit-note-modal";
 import {AddEditRecipeCategoriesPartial} from "../pages/Recipes/partials/add-edit-recipe-categories/add-edit-recipe-categories";
+import {DragulaModule} from "ng2-dragula";
+import {SettingsRootPage} from "../pages/Settings/settings-root/settings-root";
+import {AppVersion} from "@ionic-native/app-version";
 
 
 var fireBaseConfig = {
@@ -68,7 +71,8 @@ var fireBaseConfig = {
     GenerateNoteModal,
     NoteDetailsPage,
     AddEditNoteModal,
-    AddEditRecipeCategoriesPartial
+    AddEditRecipeCategoriesPartial,
+    SettingsRootPage
   ],
   imports: [
     BrowserModule,
@@ -76,6 +80,7 @@ var fireBaseConfig = {
     IonicModule.forRoot(MyApp, {
       scrollAssist: false
     }),
+    DragulaModule,
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(fireBaseConfig),
     AngularFireDatabaseModule,
@@ -102,7 +107,8 @@ var fireBaseConfig = {
     GenerateNoteModal,
     NoteDetailsPage,
     AddEditNoteModal,
-    AddEditRecipeCategoriesPartial
+    AddEditRecipeCategoriesPartial,
+    SettingsRootPage
   ],
   providers: [
     StatusBar,
@@ -116,7 +122,8 @@ var fireBaseConfig = {
     SettingsProvider,
     ShareProvider,
     SocialSharing,
-    Insomnia
+    Insomnia,
+    AppVersion
   ]
 })
 export class AppModule {}

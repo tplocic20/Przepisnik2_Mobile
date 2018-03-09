@@ -1,17 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
 import {List, ModalController, NavController} from 'ionic-angular';
-import {FireProvider} from "../../providers/fire";
+import {FireProvider} from "../../../providers/fire";
 import {Observable} from "rxjs/Observable";
-import {MessagesProvider} from "../../providers/messages";
-import {RecipeListPage} from "../Recipes/recipe-list/recipe-list";
-import {AddEditRecipeModal} from "../Recipes/modals/add-edit-recipe/add-edit-recipe";
+import {MessagesProvider} from "../../../providers/messages";
+import {RecipeListPage} from "../recipe-list/recipe-list";
+import {AddEditRecipeModal} from "../modals/add-edit-recipe/add-edit-recipe";
 
-/**
- * Generated class for the CategoriesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-categories',

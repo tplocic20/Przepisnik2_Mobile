@@ -85,7 +85,7 @@ export class RecipeDetailsPage {
     this.cam.getPicture(options).then(imageData => {
       let newPhoto = {id: "", url: "", isUploading: true};
       if (this.recipe.Gallery) {
-        this.recipe.Gallery = [newPhoto, ...this.recipe.Gallery];
+        this.recipe.Gallery.push(newPhoto);
       }
       else {
         this.recipe.Gallery = [newPhoto];
@@ -95,7 +95,8 @@ export class RecipeDetailsPage {
           newPhoto.url = savedPicture.downloadURL;
           newPhoto.id = refs[refs.length - 1];
           delete newPhoto.isUploading;
-          this.srv.updateRecipe(this.recipe, this.recId);
+          this.msg.toast.info("Zdjęcie dodane");
+          this.srv.updateRecipe(this.recId, this.recipe);
         }
       )
     }, err => this.cam.cleanup()).catch(err => this.cam.cleanup());
@@ -144,12 +145,12 @@ export class RecipeDetailsPage {
     if (this.selectedImages.length > 0) {
       let newPhotos = this.recipe.Gallery.filter(item => {
         return this.selectedImages.indexOf(item.id) < 0;
-      })
+      });
       this.recipe.Gallery = newPhotos;
-      this.srv.updateRecipe(this.recipe, this.recId).then(() => {
+      this.srv.updateRecipe(this.recId, this.recipe).then(() => {
         this.selectedImages.forEach(image => {
           this.srv.removeImage(image);
-        })
+        });
         this.selectedImages = [];
       })
     }
