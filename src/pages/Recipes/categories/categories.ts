@@ -25,7 +25,6 @@ export class CategoriesPage {
   }
 
   viewWillUnload() {
-    console.log("categories unload");
   }
 
   categoryClicked(category) {
