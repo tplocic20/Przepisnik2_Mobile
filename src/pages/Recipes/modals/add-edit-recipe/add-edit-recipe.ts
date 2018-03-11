@@ -6,7 +6,6 @@ import {MessagesProvider} from "../../../../providers/messages";
 import {AddEditEngredientGroupModal} from "../add-edit-engredient-group-modal/add-edit-engredient-group-modal";
 import {AddEditEngredientModal} from "../add-edit-engredient-modal/add-edit-engredient-modal";
 import {Slide, SlideLeft, SlideRight} from "../../../../theme/animations/animations";
-import {DragulaService} from "ng2-dragula";
 
 @Component({
   selector: 'page-add-edit-recipe',
@@ -32,15 +31,8 @@ export class AddEditRecipeModal {
   private unregisterBackButtonAction: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController,
-              private viewCtrl: ViewController, private platform: Platform, private dragulaSrv: DragulaService) {
+              private viewCtrl: ViewController, private platform: Platform) {
     this.categories = this.srv.getCategories();
-
-    dragulaSrv.drag.subscribe((value) => {
-      console.log(value);
-    });
-    dragulaSrv.dropModel.subscribe((value) => {
-      console.log(value);
-    });
   }
 
 

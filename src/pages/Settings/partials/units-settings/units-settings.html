@@ -1,0 +1,39 @@
+<ion-list no-lines>
+  <ion-item-divider sticky>
+    Jednostki
+    <button item-end ion-button color="secondary" [outline]="!editUnits" (click)="makeUnitsEditable()" *ngIf="!moreThanOneSelected">Edytuj</button>
+    <button item-end ion-button color="dark" outline icon-start (click)="addUnit()" *ngIf="editUnits && !moreThanOneSelected">
+      <ion-icon name='add'></ion-icon>
+      Dodaj
+    </button>
+    <button item-end ion-button outline (click)="unselectAll()" *ngIf="moreThanOneSelected">
+      Odznacz
+    </button>
+    <button item-end ion-button color="danger" (click)="removeSelectedPropmpt()" *ngIf="moreThanOneSelected">
+      Usuń
+    </button>
+  </ion-item-divider>
+  <div *ngIf="editUnits">
+    <div *ngFor="let unit of units | async">
+      <ion-item *ngIf="!unit.isEditable" (press)="addRemoveUnit(unit)" (tap)="addRemoveUnitClick(unit)">
+        <ion-icon name="checkmark" item-start *ngIf="selectedUnits.indexOf(unit.$key) > -1"></ion-icon>
+          {{unit.Name}}
+          <button item-end clear ion-button icon-only (click)="editUnit(unit)" *ngIf="editUnits && !moreThanOneSelected">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button item-end clear ion-button icon-only (click)="removeUnit(unit)" color="danger" *ngIf="editUnits && !moreThanOneSelected">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+      </ion-item>
+      <ion-item *ngIf="unit.isEditable">
+        <ion-input placeholder="Jednostka" type="text" [(ngModel)]="unit.editName" required></ion-input>
+        <button item-end clear ion-button icon-only (click)="acceptChanges(unit)" color="secondary" *ngIf="editUnits">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+        <button item-end clear ion-button icon-only (click)="undoChanges(unit)" color="danger" *ngIf="editUnits">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-item>
+    </div>
+  </div>
+</ion-list>

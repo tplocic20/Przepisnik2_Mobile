@@ -18,7 +18,7 @@ export class RecipeListPage {
   @ViewChild(List) list: List;
   title: string;
   cat: string;
-  recipes: Observable<Recipe[]>
+  recipes: Observable<Recipe[]>;
   searchValue: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private msg: MessagesProvider, private shareProv: ShareProvider) {
@@ -29,7 +29,6 @@ export class RecipeListPage {
     this.title = this.navParams.get('catName') || "Wszystkie";
     this.searchValue = this.navParams.get('search');
     this.recipes = this.srv.getRecipes(this.cat);
-
   }
 
   recipeClicked(recipe) {

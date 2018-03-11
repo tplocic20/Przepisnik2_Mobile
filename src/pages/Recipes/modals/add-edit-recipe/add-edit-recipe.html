@@ -64,7 +64,7 @@
               <ion-icon name="trash"></ion-icon>
             </button>
           </ion-list-header>
-          <ion-item-group *ngIf="group" [dragula]="'eng'" [dragulaModel]="group.Positions">
+          <ion-item-group *ngIf="group">
             <ion-item *ngFor="let eng of group.Positions; let engIdx = index"> <!-- Positions -->
               <h2>{{eng.Name}}</h2>
               <p>{{eng.Qty}} {{eng.Unit}}</p>

@@ -39,9 +39,9 @@ import {NoteDetailsPage} from "../pages/Notes/note-details/note-details";
 import {Insomnia} from "@ionic-native/insomnia";
 import {AddEditNoteModal} from "../pages/Notes/modals/add-edit-note-modal/add-edit-note-modal";
 import {AddEditRecipeCategoriesPartial} from "../pages/Recipes/partials/add-edit-recipe-categories/add-edit-recipe-categories";
-import {DragulaModule} from "ng2-dragula";
 import {SettingsRootPage} from "../pages/Settings/settings-root/settings-root";
 import {AppVersion} from "@ionic-native/app-version";
+import {UnitsSettingsPartial} from "../pages/Settings/partials/units-settings/units-settings";
 
 
 var fireBaseConfig = {
@@ -72,7 +72,8 @@ var fireBaseConfig = {
     NoteDetailsPage,
     AddEditNoteModal,
     AddEditRecipeCategoriesPartial,
-    SettingsRootPage
+    SettingsRootPage,
+    UnitsSettingsPartial
   ],
   imports: [
     BrowserModule,
@@ -80,7 +81,6 @@ var fireBaseConfig = {
     IonicModule.forRoot(MyApp, {
       scrollAssist: false
     }),
-    DragulaModule,
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(fireBaseConfig),
     AngularFireDatabaseModule,
@@ -108,7 +108,8 @@ var fireBaseConfig = {
     NoteDetailsPage,
     AddEditNoteModal,
     AddEditRecipeCategoriesPartial,
-    SettingsRootPage
+    SettingsRootPage,
+    UnitsSettingsPartial
   ],
   providers: [
     StatusBar,

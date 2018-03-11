@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {AppVersion} from "@ionic-native/app-version";
+import {UnitsSettingsPartial} from "../partials/units-settings/units-settings";
 
-/**
- * Generated class for the SettingsRootPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-settings-root',
@@ -16,11 +11,16 @@ import {AppVersion} from "@ionic-native/app-version";
 export class SettingsRootPage {
 
   version: string;
+  @ViewChild(UnitsSettingsPartial) unitsSettings: UnitsSettingsPartial;
   constructor(public navCtrl: NavController, public navParams: NavParams, private appVersion: AppVersion) {
     appVersion.getVersionNumber().then(res => this.version = `v${res}`).catch(err => this.version = null);
   }
 
   ionViewDidLoad() {
+  }
+
+  ionViewWillLeave(){
+    this.unitsSettings.editUnits = false;
   }
 
 }

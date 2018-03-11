@@ -34,6 +34,9 @@ export class FireProvider {
   private notesRef = this.db.list("Notes");
   private notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
 
+  private unitsRef = this.db.list("Units");
+  private unitsList = this.unitsRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+
   private imagesRef = firebase.storage();
 
   get isSignedIn() {
@@ -177,5 +180,21 @@ export class FireProvider {
 
   removeImage(imageKey: string) {
     return this.imagesRef.ref(imageKey).delete();
+  }
+
+  getUnits(){
+    return this.unitsList.map(data => data);
+  }
+
+  addUnit(unit){
+    return this.unitsRef.push(unit);
+  }
+
+  updateUnit(key, unit){
+    return this.unitsRef.update(key, unit);
+  }
+
+  removeUnit(key) {
+    return this.unitsRef.remove(key);
   }
 }
