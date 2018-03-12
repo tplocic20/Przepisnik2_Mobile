@@ -21,7 +21,7 @@ export class CategoriesPage {
   }
 
   ionViewDidLoad() {
-    this.items = this.srv.getCategories();
+    this.items = this.srv.categories;
   }
 
   viewWillUnload() {

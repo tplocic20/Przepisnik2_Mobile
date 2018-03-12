@@ -20,7 +20,7 @@ export class UnitsSettingsPartial {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider) {
-    this.units = this.srv.getUnits();
+    this.units = this.srv.units;
   }
 
   addUnit() {

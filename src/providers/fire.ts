@@ -8,6 +8,8 @@ import {MessagesProvider} from "./messages";
 import {Storage} from "@ionic/storage";
 import {Note} from "../models/Note";
 import {Recipe} from "../models/Recipe";
+import {ObserveOnMessage} from "rxjs/operator/observeOn";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class FireProvider {
@@ -39,6 +41,27 @@ export class FireProvider {
 
   private imagesRef = firebase.storage();
 
+
+  private unitsLoaded: Observable<any[]>;
+
+  get units() {
+    if (!this.unitsLoaded)
+      this.unitsLoaded = this.getUnits();
+    return this.unitsLoaded;
+  }
+
+  private categoriesLoaded: Observable<any[]>;
+  get categories() {
+    if (!this.categoriesLoaded) {
+      this.msg.loading.show("Pobieranie danych");
+      this.categoriesLoaded = this.getCategories();
+    }
+    this.msg.loading.close();
+    return this.categoriesLoaded;
+  }
+
+
+
   get isSignedIn() {
     return this.authState != null;
   }
@@ -48,6 +71,7 @@ export class FireProvider {
   }
 
   public autoSignIn() {
+    console.log("auto sign in");
     return this.storage.get('credentials').then(c => {
       if (c) {
         const d = JSON.parse(atob(c));
@@ -100,9 +124,9 @@ export class FireProvider {
 
   getCategories() {
     if (!this.categoriesList) return null;
-    this.msg.loading.show("Pobieranie danych");
+    // this.msg.loading.show("Pobieranie danych");
     return this.categoriesList.map(res => {
-      this.msg.loading.close();
+      // this.msg.loading.close();
       return res;
     })
   }
@@ -182,15 +206,15 @@ export class FireProvider {
     return this.imagesRef.ref(imageKey).delete();
   }
 
-  getUnits(){
+  getUnits() {
     return this.unitsList.map(data => data);
   }
 
-  addUnit(unit){
+  addUnit(unit) {
     return this.unitsRef.push(unit);
   }
 
-  updateUnit(key, unit){
+  updateUnit(key, unit) {
     return this.unitsRef.update(key, unit);
   }
 

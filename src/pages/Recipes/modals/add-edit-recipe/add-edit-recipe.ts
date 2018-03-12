@@ -32,7 +32,7 @@ export class AddEditRecipeModal {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController,
               private viewCtrl: ViewController, private platform: Platform) {
-    this.categories = this.srv.getCategories();
+    this.categories = this.srv.categories;
   }
 
 
