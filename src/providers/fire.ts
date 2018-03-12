@@ -15,8 +15,10 @@ import {Observable} from "rxjs/Observable";
 export class FireProvider {
 
   private authState = null;
+  authCtx: Observable<any> = null;
 
   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private msg: MessagesProvider, private storage: Storage) {
+    this.authCtx = this.auth.authState;
     this.auth.authState.subscribe(user => {
       if (user) {
         this.authState = user;

@@ -15,6 +15,7 @@ export class StartPage {
 
   selectedTheme: string;
   needsSignIn: boolean = false;
+  autoLogInTimer: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private srv: FireProvider, private settings: SettingsProvider, private msg: MessagesProvider) {
     settings.getActiveTheme().subscribe(theme => this.selectedTheme = theme);
@@ -22,16 +23,20 @@ export class StartPage {
 
   ionViewWillEnter() {
     this.msg.loading.show("Ładowanie");
-    this.autoSignIn();
+    this.autoLogInTimer = setTimeout(() => this.autoSignIn(), 2000);
+    this.srv.authCtx.subscribe(user => {
+      if (user) {
+        clearTimeout(this.autoLogInTimer);
+        this.navCtrl.setRoot(TabsPage);
+      }
+    });
   }
 
   autoSignIn() {
     if (this.srv.isSignedIn) {
-      this.navCtrl.setRoot(TabsPage);
     } else {
       this.srv.autoSignIn().then(val => {
         if (val) {
-          this.navCtrl.setRoot(TabsPage);
         } else {
           this.needsSignIn = true;
           this.msg.loading.close();
