@@ -146,3 +146,10 @@ ion-item {
     }
   }
 }
+.no-bottom-margin {
+  .fixed-content,
+  .scroll-content {
+    margin-bottom: 0 !important;
+  }
+
+}

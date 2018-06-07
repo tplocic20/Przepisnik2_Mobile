@@ -15,16 +15,13 @@ export class CategoriesPage {
 
   @ViewChild(List) list: List;
   items: Observable<any>;
-  searchValue: "";
 
   constructor(public navCtrl: NavController, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController) {
-  }
-
-  ionViewDidLoad() {
     this.items = this.srv.categories;
   }
 
-  viewWillUnload() {
+  ionViewDidLoad() {
+    this.msg.loading.close();
   }
 
   categoryClicked(category) {
@@ -51,12 +48,6 @@ export class CategoriesPage {
 
   categoryAdd() {
     this.msg.alert.input("Nowa kategoria", data => this.srv.addCategory(data), "Nazwa kategorii");
-  }
-
-  onSearchInput(ev) {
-    if (this.searchValue.length >= 3) {
-      this.navCtrl.push(RecipeListPage, {search: this.searchValue});
-    }
   }
 
 }

@@ -42,6 +42,8 @@ import {AddEditRecipeCategoriesPartial} from "../pages/Recipes/partials/add-edit
 import {SettingsRootPage} from "../pages/Settings/settings-root/settings-root";
 import {AppVersion} from "@ionic-native/app-version";
 import {UnitsSettingsPartial} from "../pages/Settings/partials/units-settings/units-settings";
+import {RecipeMainPage} from "../pages/Recipes/recipe-main/recipe-main";
+import { SearchProvider } from '../providers/search';
 
 
 var fireBaseConfig = {
@@ -73,7 +75,8 @@ var fireBaseConfig = {
     AddEditNoteModal,
     AddEditRecipeCategoriesPartial,
     SettingsRootPage,
-    UnitsSettingsPartial
+    UnitsSettingsPartial,
+    RecipeMainPage
   ],
   imports: [
     BrowserModule,
@@ -109,7 +112,8 @@ var fireBaseConfig = {
     AddEditNoteModal,
     AddEditRecipeCategoriesPartial,
     SettingsRootPage,
-    UnitsSettingsPartial
+    UnitsSettingsPartial,
+    RecipeMainPage
   ],
   providers: [
     StatusBar,
@@ -124,7 +128,8 @@ var fireBaseConfig = {
     ShareProvider,
     SocialSharing,
     Insomnia,
-    AppVersion
+    AppVersion,
+    SearchProvider
   ]
 })
 export class AppModule {}

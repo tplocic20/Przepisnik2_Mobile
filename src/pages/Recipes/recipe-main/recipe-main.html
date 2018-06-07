@@ -1,0 +1,15 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-searchbar start [animated]="true" [debounce]="500" (ionInput)="onSearchInput($event)" placeholder="Szukaj przepisu"
+                   [(ngModel)]="search.value" #searchBar></ion-searchbar>
+    <ion-buttons end>
+      <page-header-popover-button></page-header-popover-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-nav #recipesNav [root]="recipesNestedRoot"></ion-nav>
+</ion-content>

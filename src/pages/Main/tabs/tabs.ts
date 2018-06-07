@@ -4,6 +4,7 @@ import {CategoriesPage} from "../../Recipes/categories/categories";
 import {NoteListPage} from "../../Notes/note-list/note-list";
 import {FireProvider} from "../../../providers/fire";
 import {SettingsRootPage} from "../../Settings/settings-root/settings-root";
+import {RecipeMainPage} from "../../Recipes/recipe-main/recipe-main";
 
 
 @Component({
@@ -12,7 +13,7 @@ import {SettingsRootPage} from "../../Settings/settings-root/settings-root";
 export class TabsPage {
 
   tab1Root = FavouritesPage;
-  tab2Root = CategoriesPage;
+  tab2Root = RecipeMainPage;
   tab3Root = NoteListPage;
   tab4Root = SettingsRootPage;
 

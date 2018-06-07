@@ -22,7 +22,7 @@ export class StartPage {
   }
 
   ionViewWillEnter() {
-    this.msg.loading.show("Ładowanie");
+    // this.msg.loading.show("Ładowanie");
     this.autoLogInTimer = setTimeout(() => this.autoSignIn(), 2000);
     this.srv.authCtx.subscribe(user => {
       if (user) {

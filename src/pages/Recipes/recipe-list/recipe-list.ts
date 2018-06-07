@@ -1,12 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
 import {List, ModalController, NavController, NavParams} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
-import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 import {Recipe} from "../../../models/Recipe";
 import {FireProvider} from "../../../providers/fire";
 import {MessagesProvider} from "../../../providers/messages";
 import {AddEditRecipeModal} from "../modals/add-edit-recipe/add-edit-recipe";
 import {ShareProvider} from "../../../providers/share";
+import {SearchProvider} from "../../../providers/search";
 
 
 @Component({
@@ -18,22 +18,23 @@ export class RecipeListPage {
   @ViewChild(List) list: List;
   title: string;
   cat: string;
+  searchCall: boolean;
   recipes: Observable<Recipe[]>;
-  searchValue: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private msg: MessagesProvider, private shareProv: ShareProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private modalCtrl: ModalController, private msg: MessagesProvider, private shareProv: ShareProvider, public search: SearchProvider) {
   }
 
   ionViewDidLoad() {
     this.cat = this.navParams.get('catId');
+    this.searchCall = this.navParams.get('searchCall') || false;
     this.title = this.navParams.get('catName') || "Wszystkie";
-    this.searchValue = this.navParams.get('search');
-    this.recipes = this.srv.getRecipes(this.cat);
+    this.recipes = this.srv.getRecipes(this.cat, this.searchCall);
   }
 
   recipeClicked(recipe) {
     this.list.closeSlidingItems();
-    this.navCtrl.push(RecipeDetailsPage, {recId: recipe.$key, recName: recipe.Name});
+    // this.navCtrl.push(RecipeDetailsPage, {recId: recipe.$key, recName: recipe.Name});
+    this.search.selectRecipe({recId: recipe.$key, recName: recipe.Name});
   }
 
   recipeAdd() {

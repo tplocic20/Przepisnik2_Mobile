@@ -53,15 +53,13 @@ export class FireProvider {
   }
 
   private categoriesLoaded: Observable<any[]>;
+
   get categories() {
     if (!this.categoriesLoaded) {
-      this.msg.loading.show("Pobieranie danych");
       this.categoriesLoaded = this.getCategories();
     }
-    this.msg.loading.close();
     return this.categoriesLoaded;
   }
-
 
 
   get isSignedIn() {
@@ -126,9 +124,7 @@ export class FireProvider {
 
   getCategories() {
     if (!this.categoriesList) return null;
-    // this.msg.loading.show("Pobieranie danych");
     return this.categoriesList.map(res => {
-      // this.msg.loading.close();
       return res;
     })
   }
@@ -176,8 +172,10 @@ export class FireProvider {
     });
   }
 
-  getRecipes(categoryId) {
-    this.msg.loading.show("Pobieranie danych");
+  getRecipes(categoryId, searchCall = false) {
+    if (!searchCall) {
+      this.msg.loading.show("Pobieranie danych");
+    }
     return this.recipesList.map(data => {
       this.msg.loading.close();
       return data.filter(x => x.Categories.indexOf(categoryId || "") > -1)

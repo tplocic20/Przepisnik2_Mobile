@@ -1,24 +1,12 @@
-<!--
-  Generated template for the RecipeListPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>{{title}}</ion-title>
-    <ion-buttons end>
-      <page-header-popover-button></page-header-popover-button>
-    </ion-buttons>
   </ion-navbar>
-  <ion-toolbar>
-    <ion-searchbar [animated]="true" placeholder="Szukaj przepisu" [(ngModel)]="searchValue"></ion-searchbar>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-bottom-margin">
   <ion-list #list>
-    <common-list-element *ngFor="let rec of recipes | async | filter:searchValue | orderByProperty:'Name'" [item]="rec" enableShare="true"
+    <common-list-element *ngFor="let rec of recipes | async | filter:search.value | orderByProperty:'Name'" [item]="rec" enableShare="true"
                          (onClick)="recipeClicked(rec)" (onEdit)="recipeEdit(rec.$key)"
                          (onRemove)="recipeRemove(rec)" (onShare)="recipeShare(rec)"></common-list-element>
   </ion-list>
