@@ -34,6 +34,7 @@ export class CommonListElementComponent {
   }
 
   showOptions(ev) {
+    ev.stopPropagation();
     if (this.blockSlide) return;
     this.popover = this.popoverCtrl.create(CommonListOptionsComponent, {
       edit: () => this.editItem(),
