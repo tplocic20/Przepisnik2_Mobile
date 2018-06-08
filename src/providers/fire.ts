@@ -8,7 +8,6 @@ import {MessagesProvider} from "./messages";
 import {Storage} from "@ionic/storage";
 import {Note} from "../models/Note";
 import {Recipe} from "../models/Recipe";
-import {ObserveOnMessage} from "rxjs/operator/observeOn";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
