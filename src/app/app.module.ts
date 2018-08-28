@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import {NgModule, ErrorHandler, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -47,12 +47,12 @@ import { SearchProvider } from '../providers/search';
 
 
 var fireBaseConfig = {
-  apiKey: "AIzaSyAIHYAHC6ykzoTnO25vEpxwkXm9_fS_Jeo",
-  authDomain: "przepisnik.firebaseapp.com",
-  databaseURL: "https://przepisnik.firebaseio.com",
-  projectId: "firebase-przepisnik",
-  storageBucket: "firebase-przepisnik.appspot.com",
-  messagingSenderId: "457833981759"
+  apiKey: "AIzaSyDlCSFFdJ2kdm8-2ZkKPZasVWHqc0bfotg",
+  authDomain: "przepisnik-v2.firebaseapp.com",
+  databaseURL: "https://przepisnik-v2.firebaseio.com",
+  projectId: "przepisnik-v2",
+  storageBucket: "przepisnik-v2.appspot.com",
+  messagingSenderId: "529215752695"
 };
 
 @NgModule({
@@ -130,6 +130,7 @@ var fireBaseConfig = {
     Insomnia,
     AppVersion,
     SearchProvider
-  ]
+  ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule {}

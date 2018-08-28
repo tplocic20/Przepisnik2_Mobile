@@ -29,6 +29,7 @@ export class RecipeDetailsPage {
   isCookMode: boolean = false;
   isFavouritesDisabled: boolean = false;
   portionPart: number = 100;
+  cookModeTimeout = null;
 
   constructor(public navParams: NavParams, public navCtrl: NavController, private srv: FireProvider, private modalCtrl: ModalController, private cam: Camera, private fileChooser: FileChooser, private msg: MessagesProvider,
               private shareProv: ShareProvider, private popoverCtrl: PopoverController, private insomnia: Insomnia) {
@@ -56,7 +57,24 @@ export class RecipeDetailsPage {
 
   switchCookMode() {
     this.isCookMode = !this.isCookMode;
+    if (this.isCookMode) { // właśnie włączono
+      if (this.cookModeTimeout) {
+        clearTimeout(this.cookModeTimeout);
+      }
+    } else { // właśnie wyłączono
+      this.cookModeTimeout = setTimeout(() => {
+        this.resetCookMode();
+      }, 30 * 1000);
+    }
     this.msg.toast.info("Tryb szefa kuchni " + (this.isCookMode ? "aktywny" : "nieaktywny"));
+  }
+
+  private resetCookMode() {
+    this.recipe.Engredients.forEach((group)=> {
+      group.Positions.forEach((pos:any) => {
+        pos.isUsed = false;
+      })
+    })
   }
 
   showImage(image) {
