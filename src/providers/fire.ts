@@ -21,24 +21,45 @@ export class FireProvider {
     this.auth.authState.subscribe(user => {
       if (user) {
         this.authState = user;
+
+        this.userRef = this.db.object("Users/" + user.uid);
+        this.userObj = this.userRef.valueChanges();
+
+        this.categoriesRef = this.db.list(`Categories/${user.uid}`);
+        this.categoriesList = this.categoriesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+
+        this.recipesRef = this.db.list(`Recipes/${user.uid}`);
+        this.recipesList = this.recipesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+
+        this.favouritesRef = this.db.list(`Recipes/${user.uid}`, query => query.orderByChild('Favourite').equalTo(true));
+        this.favouritesList = this.favouritesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+
+        this.notesRef = this.db.list(`Notes/${user.uid}`);
+        this.notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+
+        this.unitsRef = this.db.list(`Units/${user.uid}`);
+        this.unitsList = this.unitsRef.snapshotChanges().map(actions => this.mapWithKey(actions));
       }
     });
   }
 
-  private categoriesRef = this.db.list("Categories");
-  private categoriesList = this.categoriesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private unitsRef: any;
+  private unitsList: Observable<any>;
 
-  private recipesRef = this.db.list("Recipes");
-  private recipesList = this.recipesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private categoriesRef: any;
+  public categoriesList: Observable<any>;
 
-  private favouritesRef = this.db.list("Recipes", query => query.orderByChild('Favourite').equalTo(true));
-  private favouritesList = this.favouritesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private recipesRef: any;
+  private recipesList: Observable<any>;
 
-  private notesRef = this.db.list("Notes");
-  private notesList = this.notesRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private favouritesRef: any;
+  private favouritesList: Observable<any>;
 
-  private unitsRef = this.db.list("Units");
-  private unitsList = this.unitsRef.snapshotChanges().map(actions => this.mapWithKey(actions));
+  private notesRef: any;
+  private notesList: Observable<any>;
+
+  private userRef = null;
+  private userObj = null;
 
   private imagesRef = firebase.storage();
 
@@ -149,7 +170,7 @@ export class FireProvider {
   }
 
   getNote(noteId) {
-    return this.db.object(`Notes/${noteId}`).valueChanges();
+    return this.db.object(`Notes/${this.authState.uid}/${noteId}`).valueChanges();
   }
 
   addNote(note: Note) {
@@ -194,7 +215,7 @@ export class FireProvider {
   }
 
   getRecipe(recipeId) {
-    return this.db.object(`Recipes/${recipeId}`).valueChanges();
+    return this.db.object(`Recipes/${this.authState.uid}/${recipeId}`).valueChanges();
   }
 
   uploadImage(imageData, contentType) {
