@@ -20,14 +20,14 @@
       <ion-card-title text-center>
         Przepiśnik 2
       </ion-card-title>
-      <p text-center ion-text >
+      <p text-center ion-text>
         {{version}}
       </p>
-      <p text-center ion-text >
+      <p text-center ion-text>
         Autor: Tomasz Płocic
       </p>
-      <p text-center >
-        <a ion-text  href="tomaszplocic.pl">tomaszplocic.pl</a>
+      <p text-center>
+        <a ion-text href="tomaszplocic.pl">tomaszplocic.pl</a>
       </p>
       <div text-center>
         <a ion-button color="dark" clear icon-only href="https://github.com/Shogun666">
@@ -40,6 +40,17 @@
           <ion-icon name='logo-linkedin' is-active="false"></ion-icon>
         </a>
       </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      Wygląd opcji listy
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Opcje jako popover</ion-label>
+        <ion-toggle [(ngModel)]="settings.popoverOptions" (ngModelChange)="popoverOptionsChanged($event)"></ion-toggle>
+      </ion-item>
     </ion-card-content>
   </ion-card>
   <ion-card>

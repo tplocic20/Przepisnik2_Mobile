@@ -2,36 +2,30 @@
   <ion-item>
     Witaj {{name}}
   </ion-item>
-  <!--<ion-row>-->
+
+  <!--<ion-item>-->
+    <!--<ion-range min="-100" step="10" snaps="true" [(ngModel)]="text">-->
+      <!--<ion-label range-left class="text-smaller">A</ion-label>-->
+      <!--<ion-label range-right class="text-larger">A</ion-label>-->
+    <!--</ion-range>-->
+  <!--</ion-item>-->
+  <!--<ion-row class="row-dots">-->
     <!--<ion-col>-->
-      <!--<button ion-item detail-none class="text-button text-smaller">A</button>-->
+      <!--<button ion-button="dot" (click)="changeBackground('light-theme')" class="dot-white"-->
+              <!--[class.selected]="selectedTheme == 'light-theme'"></button>-->
     <!--</ion-col>-->
     <!--<ion-col>-->
-      <!--<button ion-item detail-none class="text-button text-larger">A</button>-->
+      <!--<button ion-button="dot" (click)="changeBackground('yellow-theme')" class="dot-tan" [class.selected]="selectedTheme == 'yellow-theme'"></button>-->
+    <!--</ion-col>-->
+    <!--<ion-col>-->
+      <!--<button ion-button="dot" (click)="changeBackground('grey-theme')" class="dot-grey" [class.selected]="selectedTheme == 'grey-theme'"></button>-->
+    <!--</ion-col>-->
+    <!--<ion-col>-->
+      <!--<button ion-button="dot" (click)="changeBackground('dark-theme')" class="dot-black"-->
+              <!--[class.selected]="selectedTheme == 'dark-theme'"></button>-->
     <!--</ion-col>-->
   <!--</ion-row>-->
-  <ion-item>
-    <ion-range min="-100" step="10" snaps="true" [(ngModel)]="text">
-      <ion-label range-left class="text-smaller">A</ion-label>
-      <ion-label range-right class="text-larger">A</ion-label>
-    </ion-range>
-  </ion-item>
-  <ion-row class="row-dots">
-    <ion-col>
-      <button ion-button="dot" (click)="changeBackground('light-theme')" class="dot-white"
-              [class.selected]="selectedTheme == 'light-theme'"></button>
-    </ion-col>
-    <ion-col>
-      <button ion-button="dot" (click)="changeBackground('yellow-theme')" class="dot-tan" [class.selected]="selectedTheme == 'yellow-theme'"></button>
-    </ion-col>
-    <ion-col>
-      <button ion-button="dot" (click)="changeBackground('grey-theme')" class="dot-grey" [class.selected]="selectedTheme == 'grey-theme'"></button>
-    </ion-col>
-    <ion-col>
-      <button ion-button="dot" (click)="changeBackground('dark-theme')" class="dot-black"
-              [class.selected]="selectedTheme == 'dark-theme'"></button>
-    </ion-col>
-  </ion-row>
+
   <button ion-item (click)="signOut()">
     <ion-icon name="log-out" item-start></ion-icon>
     <span>Wyloguj</span>

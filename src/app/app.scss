@@ -146,10 +146,25 @@ ion-item {
     }
   }
 }
+
 .no-bottom-margin {
   .fixed-content,
   .scroll-content {
     margin-bottom: 0 !important;
   }
-
+}
+.red-action-sheet-item {
+  .button-inner {
+    color: #f53d3d;
+  }
+}
+.green-action-sheet-item {
+  .button-inner {
+    color: #32db64;
+  }
+}
+.default-action-sheet-item {
+  .button-inner {
+    color: #488aff;
+  }
 }
