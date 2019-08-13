@@ -1,0 +1,11 @@
+<ion-content padding>
+
+  <!--<div *ngIf="!needsSignIn">-->
+    <!--<img class="image" src="../../../../resources/ico.png" height="128" width="128"/>-->
+  <!--</div>-->
+  <div *ngIf="needsSignIn">
+    <img class="image" src="../../../../../assets/ico.png" height="128" width="128"/>
+    <h2 text-center>Witaj w przepisniku</h2>
+    <button ion-button full (click)="signIn()">Zaloguj się</button>
+  </div>
+</ion-content>

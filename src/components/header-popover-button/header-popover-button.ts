@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, PopoverController} from 'ionic-angular';
 
 import {FireProvider} from "../../providers/fire";
-import {StartPage} from "../../pages/Main/start/start";
+import {StartPage} from "../../app/modules/main/components/start/start";
 import {HeaderPopoverComponent} from "../header-popover/header-popover";
 
 /**
