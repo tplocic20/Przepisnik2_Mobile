@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {StartPage} from "./components/start/start";
 import {LoginPage} from "./components/login/login";
 import {HomePage} from "./components/home/home.page";
-import {RoutingModule} from "./routing/routing.module";
+import {MainRouting} from "./routing/main.routing";
 
 
 @NgModule({
@@ -14,7 +14,7 @@ import {RoutingModule} from "./routing/routing.module";
   ],
   imports: [
     CommonModule,
-    RoutingModule
+    MainRouting
   ]
 })
 export class MainModule {
