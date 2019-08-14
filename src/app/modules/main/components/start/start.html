@@ -3,9 +3,9 @@
   <!--<div *ngIf="!needsSignIn">-->
     <!--<img class="image" src="../../../../resources/ico.png" height="128" width="128"/>-->
   <!--</div>-->
-  <div *ngIf="needsSignIn">
-    <img class="image" src="../../../../../assets/ico.png" height="128" width="128"/>
+    <img style="width: 100%" src="../../../../../assets/ico.png"/>
+
     <h2 text-center>Witaj w przepisniku</h2>
-    <button ion-button full (click)="signIn()">Zaloguj się</button>
-  </div>
+    <ion-button expand="block" shape="round" size="large" color="tertiary">Zacznij</ion-button>
+    <ion-button class="ion-margin-top" expand="block" shape="round" size="large" fill="outline" color="tertiary" (click)="signIn()">Zaloguj się</ion-button>
 </ion-content>

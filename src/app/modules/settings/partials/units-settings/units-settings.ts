@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams} from '@ionic/angular';
 import {FireProvider} from "../../../../../providers/fire";
-import {Observable} from "rxjs/Observable";
+import {Observable} from "rxjs";
 import {MessagesProvider} from "../../../../../providers/messages";
 
 @Component({
@@ -20,18 +20,13 @@ export class UnitsSettingsPartial {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider) {
-    this.units = this.srv.units;
   }
 
   addUnit() {
-    this.msg.alert.input("Nowa jednostka", (data) => {
-      this.srv.addUnit({Name: data});
-    }, "Jednostka");
+
   }
 
   removeUnit(unit) {
-    this.msg.alert.confirm(`Usuń ${unit.Name}`, () => this.srv.removeUnit(unit.$key), 'Czy na pewno chcesz usunąć jednostkę?' +
-      '\nOperacji nie można cofnąć');
   }
 
   editUnit(unit) {
@@ -60,7 +55,6 @@ export class UnitsSettingsPartial {
       delete item.editName;
       delete item.isEditable;
       delete item.$key;
-      this.srv.updateUnit(key, item);
     }
   }
 
@@ -91,14 +85,9 @@ export class UnitsSettingsPartial {
   }
 
   removeSelectedPropmpt() {
-    this.msg.alert.confirm(`Usuń zaznaczone`, () => this.removeSelected(), 'Czy na pewno chcesz usunąć zaznaczone elementy?' +
-      '\nOperacji nie można cofnąć');
   }
 
   removeSelected() {
-    this.selectedUnits.forEach(item => {
-      this.srv.removeUnit(item);
-    });
   }
 
 }

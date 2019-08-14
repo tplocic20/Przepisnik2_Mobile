@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavParams, ViewController} from 'ionic-angular';
+import {NavParams, } from '@ionic/angular';
 
 @Component({
   selector: 'page-image-preview',
@@ -8,11 +8,10 @@ import {NavParams, ViewController} from 'ionic-angular';
 export class ImagePreviewModal {
 
   url: string;
-  constructor(private viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(  public navParams: NavParams) {
     this.url = this.navParams.get('url');
   }
 
   close(){
-    this.viewCtrl.dismiss();
   }
 }

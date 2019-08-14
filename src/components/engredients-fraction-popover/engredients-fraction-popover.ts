@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavParams, ViewController} from "ionic-angular";
+import {NavParams} from "@ionic/angular";
 
 @Component({
   selector: 'engredients-fraction-popover',
@@ -10,7 +10,7 @@ export class EngredientsFractionPopoverComponent {
   portion: any;
   updateFn: any;
 
-  constructor(private viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(public navParams: NavParams) {
     this.portion = this.navParams.get('portion');
     this.updateFn = this.navParams.get('updateFn');
   }
@@ -20,6 +20,5 @@ export class EngredientsFractionPopoverComponent {
   }
 
   close() {
-    this.viewCtrl.dismiss();
   }
 }

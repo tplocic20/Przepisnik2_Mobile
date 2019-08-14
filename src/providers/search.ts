@@ -1,5 +1,4 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class SearchProvider {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, ViewController} from 'ionic-angular';
+import {NavController, NavParams} from '@ionic/angular';
 import {FireProvider} from "../../../../../providers/fire";
 import {Note} from "../../../../../models/Note";
 import {MessagesProvider} from "../../../../../providers/messages";
@@ -14,13 +14,12 @@ export class AddEditNoteModal {
   note: Note = {Name: ""};
   nameValid: boolean = true;
   contentValid: boolean = true;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider) {
   }
 
   ionViewDidLoad() {
     this.noteId = this.navParams.get('noteId');
     if (this.noteId){
-      this.srv.getNote(this.noteId).subscribe((res: Note) => this.note = res);
     }
     console.log(this.noteId);
   }
@@ -36,15 +35,11 @@ export class AddEditNoteModal {
     }
     if (this.nameValid && this.contentValid){
       if (this.noteId){
-        this.srv.updateNote(this.noteId, this.note).then(() => this.viewCtrl.dismiss());
-      } else {
-        this.srv.addNote(this.note).then(()=>this.viewCtrl.dismiss());
       }
     }
   }
 
   discardChanges() {
-    this.msg.alert.confirm('', ()=>this.viewCtrl.dismiss(), 'Czy na pewno chcesz anulować zmiany');
   }
 
 }

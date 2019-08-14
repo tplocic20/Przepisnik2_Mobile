@@ -1,14 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ActionSheetController, Popover, PopoverController} from "ionic-angular";
-import {CommonListOptionsComponent} from "../common-list-options/common-list-options";
+import {ActionSheetController, PopoverController} from '@ionic/angular';
 import {SettingsProvider} from "../../providers/settings";
 
-/**
- * Generated class for the CommonListElementComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'common-list-element',
   templateUrl: 'common-list-element.html'
@@ -22,7 +15,7 @@ export class CommonListElementComponent {
   @Output() onEdit = new EventEmitter();
   @Output() onRemove = new EventEmitter();
   @Output() onShare = new EventEmitter();
-  private popover: Popover;
+  private popover: any;
 
   constructor(private popoverCtrl: PopoverController, private actionSheet: ActionSheetController, private settings: SettingsProvider) {
   }
@@ -34,16 +27,12 @@ export class CommonListElementComponent {
     this.onClick.emit();
   }
 
-  showOptions(ev) {
+  async showOptions(ev) {
     ev.stopPropagation();
-    if (this.settings.popoverOptions) {
-      this.showPopover(ev);
-    } else {
-      this.showActionSheet(ev);
-    }
+    await this.showActionSheet(ev);
   }
 
-  private showActionSheet(ev) {
+  private async showActionSheet(ev) {
     const buttons = [
       {
         text: 'Edytuj',
@@ -72,25 +61,12 @@ export class CommonListElementComponent {
         }
       });
     }
-    const as = this.actionSheet.create({
-      title: this.item.Name,
+    const as = await this.actionSheet.create({
+      header: this.item.Name,
       cssClass: 'action-sheets-basic-page',
       buttons: buttons
     });
-    as.present();
-  }
-
-  private showPopover(ev) {
-    if (this.blockSlide) return;
-    this.popover = this.popoverCtrl.create(CommonListOptionsComponent, {
-      edit: () => this.editItem(),
-      remove: () => this.removeItem(),
-      share: () => this.shareItem(),
-      enableShare: this.enableShare
-    });
-    this.popover.present({
-      ev: ev
-    });
+    await as.present();
   }
 
   editItem() {

@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
-import {List, ModalController, NavController, NavParams} from 'ionic-angular';
-import {Observable} from "rxjs/Observable";
+import {ModalController, NavController, NavParams} from '@ionic/angular';
+import {Observable} from "rxjs";
 import {Recipe} from "../../../../models/Recipe";
 import {FireProvider} from "../../../../providers/fire";
 import {MessagesProvider} from "../../../../providers/messages";
@@ -15,7 +15,7 @@ import {SearchProvider} from "../../../../providers/search";
 })
 export class RecipeListPage {
 
-  @ViewChild(List) list: List;
+  // @ViewChild(List) list: List;
   title: string;
   cat: string;
   searchCall: boolean;
@@ -28,34 +28,26 @@ export class RecipeListPage {
     this.cat = this.navParams.get('catId');
     this.searchCall = this.navParams.get('searchCall') || false;
     this.title = this.navParams.get('catName') || "Wszystkie";
-    this.recipes = this.srv.getRecipes(this.cat, this.searchCall);
   }
 
   recipeClicked(recipe) {
-    this.list.closeSlidingItems();
     // this.navCtrl.push(RecipeDetailsPage, {recId: recipe.$key, recName: recipe.Name});
     this.search.selectRecipe({recId: recipe.$key, recName: recipe.Name});
   }
 
   recipeAdd() {
-    const modal = this.modalCtrl.create(AddEditRecipeModal, {selectedCategory: this.cat}, {cssClass: 'modal-full'});
-    modal.present();
     // this.navCtrl.push(AddEditRecipePage, {selectedCategory: this.cat});
   }
 
   recipeEdit(key) {
-    const modal = this.modalCtrl.create(AddEditRecipeModal, {recId: key}, {cssClass: 'modal-full'});
-    modal.present();
     // this.navCtrl.push(AddEditRecipePage, {recId: key});
   }
 
   recipeRemove(recipe){
-    this.msg.alert.confirm('Usuń '+ recipe.Name, ()=>this.srv.removeRecipe(recipe.$key), 'Czy na pewno chcesz usunąć przepiss?' +
-      '\nOperacji nie można cofnąć');
   }
 
   recipeShare(recipe){
-    this.shareProv.share(recipe);
+    // this.shareProv.share(recipe);
   }
 
 }

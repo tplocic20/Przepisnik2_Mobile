@@ -1,15 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import {FireProvider} from "../../../providers/fire";
-import {Observable} from "rxjs/Observable";
-import {RecipeDetailsPage} from "../recipes/recipe-details/recipe-details";
-
-/**
- * Generated class for the FavouritesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'page-favourites',
@@ -18,14 +9,12 @@ import {RecipeDetailsPage} from "../recipes/recipe-details/recipe-details";
 export class FavouritesPage {
 
   favourites: Observable<any[]>;
-  constructor(public navCtrl: NavController, private srv: FireProvider) {
+  constructor(private srv: FireProvider) {
   }
 
   ionViewDidLoad() {
-    this.favourites = this.srv.getFavourites();
   }
 
   favouriteClicked(recipe) {
-    this.navCtrl.push(RecipeDetailsPage, {recId: recipe.$key, recName: recipe.Name});
   }
 }

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ModalController, NavController, NavParams, Platform, ViewController, AlertController} from 'ionic-angular';
+import {ModalController, NavController, NavParams, Platform, AlertController} from '@ionic/angular';
 import {Recipe} from "../../../../../models/Recipe";
 import {FireProvider} from "../../../../../providers/fire";
 import {MessagesProvider} from "../../../../../providers/messages";
@@ -31,8 +31,7 @@ export class AddEditRecipeModal {
   private unregisterBackButtonAction: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController,
-              private viewCtrl: ViewController, private platform: Platform) {
-    this.categories = this.srv.categories;
+                private platform: Platform) {
   }
 
 
@@ -40,10 +39,7 @@ export class AddEditRecipeModal {
     this.initializeBackButtonCustomHandler();
     this.recipeId = this.navParams.get('recId');
     if (this.recipeId) {
-      this.srv.getRecipe(this.recipeId).subscribe((res: Recipe) => {
-        this.recipe = res;
-        this.selectedCategories = this.recipe.Categories.split(',');
-      });
+
     }
     else {
       const cat = this.navParams.get('selectedCategory');
@@ -73,66 +69,32 @@ export class AddEditRecipeModal {
   }
 
   addCategory() {
-    this.msg.alert.input("Nowa kategoria", data => this.srv.addCategory(data), "Nazwa kategorii");
   }
 
   addEngredientCategory() {
-    const modal = this.modalCtrl.create(AddEditEngredientGroupModal, null, {cssClass: 'modal-xsmall'});
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.recipe.Engredients.push({Name: data, Positions: []});
-      }
-    });
-    modal.present();
+
   }
 
   editEngredientCategory(cat) {
-    const modal = this.modalCtrl.create(AddEditEngredientGroupModal, {value: cat.Name}, {cssClass: 'modal-xsmall'});
-    modal.onDidDismiss(data => {
-      if (data) {
-        cat.Name = data;
-      }
-    });
-    modal.present();
+
   }
 
   removeEngredientCategory(cat, index) {
-    this.msg.alert.confirm("Usuwanie " + cat.Name, () => this.recipe.Engredients.splice(index, 1), "Czy na pewno chcesz usunąc kategorię? Operacji nie da się cofnąć");
   }
 
   addEngredient() {
-    const modal = this.modalCtrl.create(AddEditEngredientModal, null, {cssClass: 'modal-small'});
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.recipe.Engredients[this.selectedEngredientGroup].Positions.push(data);
-      }
-    });
-    modal.present();
 
   }
 
   editEngredient(groupIdx, engIdx, eng) {
-    const modal = this.modalCtrl.create(AddEditEngredientModal, eng, {cssClass: 'modal-small'});
-    modal.onDidDismiss(data => {
-      if (data) {
-        this.recipe.Engredients[groupIdx].Positions[engIdx] = data;
-      }
-    });
-    modal.present();
+
   }
 
   removeEngredient(groupIdx, engIdx, eng) {
-    this.msg.alert.confirm("Usuwanie " + eng.Name, () => this.recipe.Engredients[groupIdx].Positions.splice(engIdx, 1), "Czy na pewno chcesz usunąc składnik? Operacji nie da się cofnąć");
   }
 
   addRemoveCategory(key) {
-    const idx = this.selectedCategories.indexOf(key);
-    if (idx > -1) {
-      this.selectedCategories.splice(idx, 1);
-    }
-    else {
-      this.selectedCategories.push(key);
-    }
+
   }
 
   textAreaFocus() {
@@ -175,27 +137,18 @@ export class AddEditRecipeModal {
     if (this.recipeValid) {
       this.recipe.Categories = this.selectedCategories.toString();
       if (this.recipeId) {
-        this.srv.updateRecipe(this.recipeId, this.recipe).then(() => {
-          this.msg.toast.info("Przepis zaaktualizowany");
-          this.navCtrl.pop();
-        });
+
       } else {
-        this.srv.addRecipe(this.recipe).then(() => {
-          this.msg.toast.info("Przepis dodany");
-          this.navCtrl.pop();
-        });
+
       }
     }
   }
 
   discardChanges() {
-    this.msg.alert.confirm('', () => this.viewCtrl.dismiss(), 'Czy na pewno chcesz anulować zmiany');
   }
 
   public initializeBackButtonCustomHandler(): void {
-    this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
-      this.customHandleBackButton();
-    }, 10);
+
   }
 
   private customHandleBackButton(): void {

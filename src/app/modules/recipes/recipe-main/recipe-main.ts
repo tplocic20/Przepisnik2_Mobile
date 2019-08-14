@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, Searchbar} from 'ionic-angular';
+import {NavController, NavParams} from '@ionic/angular';
 import {CategoriesPage} from "../categories/categories";
 import {SearchProvider} from "../../../../providers/search";
 import {RecipeListPage} from "../recipe-list/recipe-list";
@@ -19,8 +19,8 @@ import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 export class RecipeMainPage {
 
   recipesNestedRoot: any = CategoriesPage;
-  @ViewChild('recipesNav') nav: NavController;
-  @ViewChild('searchBar') searchBar: Searchbar;
+  // @ViewChild('recipesNav') nav: NavController;
+  // @ViewChild('searchBar') searchBar: Searchbar;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public search: SearchProvider) {
@@ -28,14 +28,13 @@ export class RecipeMainPage {
 
   ionViewDidLoad() {
     this.search.recipeSelected.subscribe(res=> {
-      this.navCtrl.push(RecipeDetailsPage, res);
     })
   }
   onSearchInput(ev) {
-    if (this.nav.last().component === CategoriesPage && this.search.value.length >= 3) {
-      this.nav.push(RecipeListPage, {searchCall: true}).then(()=>{
-        this.searchBar.setFocus();
-      });
-    }
+    // if (this.nav.last().component === CategoriesPage && this.search.value.length >= 3) {
+    //   this.nav.push(RecipeListPage, {searchCall: true}).then(()=>{
+    //     this.searchBar.setFocus();
+    //   });
+    // }
   }
 }

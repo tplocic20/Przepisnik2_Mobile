@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ViewController} from 'ionic-angular';
+import {NavController, NavParams} from '@ionic/angular';
 import {Recipe} from "../../../../../models/Recipe";
 import {FireProvider} from "../../../../../providers/fire";
 import {Collapse} from "../../../../../theme/animations/animations";
@@ -21,12 +21,11 @@ export class GenerateNoteModal {
   attachTEngredients: boolean = false;
   categoires: Array<any> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private srv: FireProvider, private msg: MessagesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private srv: FireProvider, private msg: MessagesProvider) {
   }
 
   ionViewDidLoad() {
     const recId = this.navParams.get('recId');
-    this.srv.getRecipe(recId).subscribe(res => this.prepareData(res));
   }
 
   prepareData(data: Recipe) {
@@ -49,14 +48,9 @@ export class GenerateNoteModal {
   }
 
   saveChanges() {
-    this.srv.addNote({
-      Name: this.recipe.Name,
-      Content: this.convertRecipeToText()
-    }).then(() => this.viewCtrl.dismiss());
   }
 
   discardChanges() {
-    this.msg.alert.confirm('', () => this.viewCtrl.dismiss(), 'Czy na pewno chcesz anulować zmiany');
   }
 
   private convertRecipeToText(): string {

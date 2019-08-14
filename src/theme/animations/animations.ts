@@ -1,4 +1,4 @@
-import {trigger, state, style, transition, animate, keyframes} from '@angular/core';
+import {trigger, state, style, transition, animate, keyframes} from '@angular/animations';
 
 export function Collapse(duration: number = 300) {
   return trigger('collapse', [
