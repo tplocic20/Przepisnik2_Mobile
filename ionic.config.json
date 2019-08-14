@@ -1,8 +1,5 @@
 {
-  "name": "Przepisnik-v2",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "ionic-angular",
-  "pro_id": "f25d7645"
+  "name": "elo",
+  "integrations": {},
+  "type": "angular"
 }
