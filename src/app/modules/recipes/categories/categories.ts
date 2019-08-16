@@ -15,7 +15,7 @@ export class CategoriesPage {
 
   items: Observable<any>;
 
-  constructor(public navCtrl: NavController, private srv: FireProvider, private msg: MessagesProvider, private modalCtrl: ModalController) {
+  constructor() {
   }
 
   ionViewDidLoad() {

@@ -4,6 +4,7 @@ import {IonicModule} from "@ionic/angular";
 import {HeaderPopoverComponent} from "./header-popover/header-popover";
 import {HeaderPopoverButtonComponent} from "./header-popover-button/header-popover-button";
 import {EngredientsFractionPopoverComponent} from './engredients-fraction-popover/engredients-fraction-popover';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -12,7 +13,11 @@ import {EngredientsFractionPopoverComponent} from './engredients-fraction-popove
     HeaderPopoverButtonComponent,
     EngredientsFractionPopoverComponent,
   ],
-  imports: [],
+  imports: [
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   entryComponents: [
     HeaderPopoverComponent,
     EngredientsFractionPopoverComponent,

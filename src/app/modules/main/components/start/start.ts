@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 
 
 
@@ -12,7 +13,7 @@ export class StartPage {
   needsSignIn: boolean = false;
   autoLogInTimer: any;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ionViewWillEnter() {
@@ -25,7 +26,7 @@ export class StartPage {
   }
 
   signIn() {
-
+    this.router.navigate(['/nav']);
   }
 
 

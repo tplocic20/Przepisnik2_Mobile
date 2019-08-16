@@ -17,7 +17,7 @@ export class CommonListElementComponent {
   @Output() onShare = new EventEmitter();
   private popover: any;
 
-  constructor(private popoverCtrl: PopoverController, private actionSheet: ActionSheetController, private settings: SettingsProvider) {
+  constructor(private popoverCtrl: PopoverController, private actionSheet: ActionSheetController) {
   }
 
   itemClicked() {
