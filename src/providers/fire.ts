@@ -13,8 +13,6 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class FireProvider {
 //
-//   private authState = null;
-//   authCtx: Observable<any> = null;
 //
 //   constructor(private auth: AngularFireAuth, private db: AngularFireDatabase, private msg: MessagesProvider, private storage: Storage) {
 //     this.authCtx = this.auth.authState;
@@ -58,8 +56,7 @@ export class FireProvider {
 //   private notesRef: any;
 //   private notesList: Observable<any>;
 //
-//   private userRef = null;
-//   private userObj = null;
+
 //
 //   private imagesRef = firebase.storage();
 //
@@ -82,13 +79,8 @@ export class FireProvider {
 //   }
 //
 //
-//   get isSignedIn() {
-//     return this.authState != null;
-//   }
+
 //
-//   get userName() {
-//     return this.authState != null ? (this.authState.displayName ? this.authState.displayName : this.authState.email) : null;
-//   }
 //
 //   public autoSignIn() {
 //     console.log("auto sign in");
@@ -116,15 +108,7 @@ export class FireProvider {
 //     this.storage.set('credentials', encoded);
 //   }
 //
-//   public signIn(email, pass) {
-//     return this.auth.auth.signInWithEmailAndPassword(email, pass);
-//   }
-//
-//   public signOut() {
-//     this.storage.remove('credentials');
-//     this.authState = null;
-//     return this.auth.auth.signOut();
-//   }
+
 //
 //   private mapWithKey(actions) {
 //     let list = [];
