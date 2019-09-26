@@ -13,17 +13,17 @@ export function Collapse(duration: number = 300) {
       overflow: 'hidden'
     })),
     transition('void => *', [
-      animate(duration+'ms ease', keyframes([
+      animate(duration + 'ms ease', keyframes([
         style({opacity: '1'}),
         style({height: '*'})
       ]))
     ]),
     transition('* => void', [
-      animate(duration+'ms ease', style({height: '0'}))
+      animate(duration + 'ms ease', style({height: '0'}))
     ])
   ]);
 }
-export function SlideRight(duration: number = 300){
+export function SlideRight(duration: number = 300) {
   return trigger('slideR', [
     state('void', style({
       transform: 'translateX(200%)',
@@ -36,13 +36,13 @@ export function SlideRight(duration: number = 300){
       overflow: 'hidden'
     })),
     transition('void => *', [
-      animate(duration+'ms 400ms ease-in-out', keyframes([
+      animate(duration + 'ms 400ms ease-in-out', keyframes([
         style({opacity: '1'}),
         style({transform: 'translateX(0)'})
       ]))
     ]),
     transition('* => void', [
-      animate(duration+'ms ease-in-out', keyframes([
+      animate(duration + 'ms ease-in-out', keyframes([
         style({opacity: '0'}),
         style({transform: 'translateX(-100%)'})
       ]))
@@ -50,7 +50,7 @@ export function SlideRight(duration: number = 300){
   ]);
 }
 
-export function SlideLeft(duration: number = 300){
+export function SlideLeft(duration: number = 300) {
   return trigger('slideL', [
     state('void', style({
       transform: 'translateX(-100%)',
@@ -63,7 +63,7 @@ export function SlideLeft(duration: number = 300){
       overflow: 'hidden'
     })),
     transition('void => *', [
-      animate(duration+'ms ease', keyframes([
+      animate(duration + 'ms ease', keyframes([
         style({opacity: '1'}),
         style({transform: 'translateX(0)'})
       ]))
@@ -73,10 +73,10 @@ export function SlideLeft(duration: number = 300){
 
 export function Slide(duration: number = 300) {
   return trigger(
-    "slide",
+    'slide',
     [
       transition(
-        "void => prev", // ---> Entering --->
+        'void => prev', // ---> Entering --->
         [
           style({
             transform: 'translateX(-100%)',
@@ -84,7 +84,7 @@ export function Slide(duration: number = 300) {
             zIndex: 2
           }),
           animate(
-            duration+"ms ease-in-out",
+            duration + 'ms ease-in-out',
             style({
               transform: 'translateX(0)',
               opacity: 1.0,
@@ -94,7 +94,7 @@ export function Slide(duration: number = 300) {
         ]
       ),
       transition(
-        "void => next", // <--- Entering <---
+        'void => next', // <--- Entering <---
         [
           style({
             transform: 'translateX(100%)',
@@ -102,7 +102,7 @@ export function Slide(duration: number = 300) {
             zIndex: 2
           }),
           animate(
-            duration+"ms ease-in-out",
+            duration + 'ms ease-in-out',
             style({
               transform: 'translateX(0)',
               opacity: 1.0,
@@ -112,5 +112,5 @@ export function Slide(duration: number = 300) {
         ]
       )
     ]
-  )
+  );
 }

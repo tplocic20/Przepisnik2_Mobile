@@ -1,18 +1,3 @@
-<!--<ion-header>-->
-
-<!--<ion-navbar>-->
-    <!--<ion-title>Kategorie</ion-title>-->
-    <!--<ion-buttons end>-->
-      <!--<page-header-popover-button></page-header-popover-button>-->
-    <!--</ion-buttons>-->
-  <!--</ion-navbar>-->
-  <!--<ion-toolbar>-->
-    <!--<ion-searchbar [animated]="true" [debounce]="500" (ionInput)="onSearchInput($event)" placeholder="Szukaj przepisu"-->
-                   <!--[(ngModel)]="searchValue"></ion-searchbar>-->
-  <!--</ion-toolbar>-->
-<!--</ion-header>-->
-
-
   <ion-list #list>
     <common-list-element [blockSlide]="true" (onClick)="categoryClicked({})"></common-list-element>
     <common-list-element *ngFor="let cat of items | async" [item]="cat" (onClick)="categoryClicked(cat)"

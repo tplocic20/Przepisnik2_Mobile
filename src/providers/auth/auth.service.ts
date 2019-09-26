@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/auth";
-import {Observable} from "rxjs";
-import {AngularFireDatabase} from "@angular/fire/database";
+import {AngularFireAuth} from '@angular/fire/auth';
+import {Observable} from 'rxjs';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class AuthService {
       if (user) {
         this.authState = user;
 
-        this.userRef = this.db.object("Users/" + user.uid);
+        this.userRef = this.db.object('Users/' + user.uid);
         this.userObj = this.userRef.valueChanges();
 
       }

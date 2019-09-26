@@ -5,11 +5,15 @@ import {RouterModule} from "@angular/router";
 import {RecipesRouting} from "./recipes.routing";
 import {ComponentsModule} from "../../../components/components.module";
 import {IonicModule} from "@ionic/angular";
+import {RecipeListPage} from "./recipe-list/recipe-list";
 
 
 
 @NgModule({
-  declarations: [CategoriesPage],
+  declarations: [
+    CategoriesPage,
+    RecipeListPage
+  ],
   imports: [
     CommonModule,
     RecipesRouting,

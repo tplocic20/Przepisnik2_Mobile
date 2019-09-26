@@ -7,12 +7,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRouting } from './app.routing';
 import { AppComponent } from './app.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AngularFireModule} from "@angular/fire";
-import {environment} from "../environments/environment";
-import {AngularFireAuthModule} from "@angular/fire/auth";
-import {AuthService} from "../providers/auth/auth.service";
-import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AuthService} from '../providers/auth/auth.service';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 @NgModule({
   declarations: [AppComponent],

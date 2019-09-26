@@ -1,20 +1,18 @@
-<ion-tabs >
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="schedule">
-      <ion-icon name="star"></ion-icon>
-      <ion-label>Ulubione</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="recipes">
-      <ion-icon name="book"></ion-icon>
-      <ion-label>Przepisy</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="notes">
-      <ion-icon name="bookmarks"></ion-icon>
-      <ion-label>Notatki</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="settings">
-      <ion-icon name="settings"></ion-icon>
-      <ion-label>Ustawiena</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+<div class="mobile-page-background">
+  <div class="mobile-page-header">
+    <ion-back-button></ion-back-button>
+    Page name
+    <ion-icon (click)="openMenu = !openMenu" name="menu" class="ion-float-right"></ion-icon>
+    <div *ngIf="openMenu" [@collapse]>
+      <div class="mobile-page-header-nav-item">
+        Bążur
+      </div>
+      <div class="mobile-page-header-nav-item">
+        Bążur
+      </div>
+    </div>
+  </div>
+  <div class="mobile-page-body">
+    <router-outlet></router-outlet>
+  </div>
+</div>

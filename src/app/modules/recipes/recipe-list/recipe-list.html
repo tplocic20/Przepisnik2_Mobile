@@ -1,18 +1,16 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>{{title}}</ion-title>
-  </ion-navbar>
-</ion-header>
+<div class="page-content">
+  Recipe list working
 
-<ion-content class="no-bottom-margin">
-  <ion-list #list>
-    <common-list-element *ngFor="let rec of recipes | async | filter:search.value | orderByProperty:'Name'" [item]="rec" enableShare="true"
-                         (onClick)="recipeClicked(rec)" (onEdit)="recipeEdit(rec.$key)"
-                         (onRemove)="recipeRemove(rec)" (onShare)="recipeShare(rec)"></common-list-element>
-  </ion-list>
-  <ion-fab bottom right>
-    <button ion-fab (click)="recipeAdd()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
-</ion-content>
+</div>
+<div class="footer-actions-container ion-text-center">
+  <ion-button fill="clear" color="dark" class="ion-float-left">
+    <ion-icon name="more" class=""></ion-icon>
+  </ion-button>
+  <ion-button shape="round" color="tertiary" class="footer-main-action-btn">
+    <ion-icon slot="start" name="add"></ion-icon>
+    Nowy przepis
+  </ion-button>
+  <ion-button fill="clear" color="dark" class="ion-float-right">
+    <ion-icon name="search" class=""></ion-icon>
+  </ion-button>
+</div>
