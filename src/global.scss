@@ -194,9 +194,12 @@ ion-item {
 }
 
 .mobile-page-header {
-  padding: 10px;
+  padding: 10px 0 10px 10px;
   .mobile-page-header-nav-item {
-    padding: 10px;
+    padding: 10px 20px;
+  }
+  .mobile-page-header-menu-btn {
+    margin-top: -10px;
   }
 }
 

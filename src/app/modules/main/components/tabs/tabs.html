@@ -1,8 +1,12 @@
 <div class="mobile-page-background">
   <div class="mobile-page-header">
     <ion-back-button></ion-back-button>
-    Page name
-    <ion-icon (click)="openMenu = !openMenu" name="menu" class="ion-float-right"></ion-icon>
+    <span >Page name</span>
+    <ion-button fill="clear" color="dark" class="ion-float-right mobile-page-header-menu-btn"
+                (click)="openMenu = !openMenu">
+      <ion-icon name="menu"></ion-icon>
+    </ion-button>
+
     <div *ngIf="openMenu" [@collapse]>
       <div class="mobile-page-header-nav-item">
         Bążur
