@@ -3,8 +3,6 @@ import {RouterModule, Routes} from "@angular/router";
 import {HomePage} from "./components/home/home.page";
 import {StartPage} from "./components/start/start";
 import {LoginPage} from "./components/login/login";
-import {TabsPage} from "./components/tabs/tabs";
-import {RecipesModule} from "../recipes/recipes.module";
 
 const routes: Routes = [
   {
@@ -21,7 +19,6 @@ const routes: Routes = [
   },
   {
     path: 'nav',
-    component: TabsPage,
     children: [
       {
         path: 'recipes',

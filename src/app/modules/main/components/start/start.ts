@@ -29,5 +29,10 @@ export class StartPage {
     this.router.navigate(['/nav']);
   }
 
+  start() {
+    this.router.navigate(['/home']);
+  }
+
+
 
 }

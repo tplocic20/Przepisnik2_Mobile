@@ -1,0 +1,22 @@
+  <div class="mobile-page-background">
+    <div class="mobile-page-header">
+      <ion-back-button></ion-back-button>
+      <span>Page name</span>
+      <ion-button fill="clear" color="dark" class="ion-float-right mobile-page-header-menu-btn"
+                  (click)="openMenu = !openMenu">
+        <ion-icon name="menu"></ion-icon>
+      </ion-button>
+
+      <div *ngIf="openMenu" [@collapse]>
+        <div class="mobile-page-header-nav-item">
+          Bążur
+        </div>
+        <div class="mobile-page-header-nav-item">
+          Bążur
+        </div>
+      </div>
+    </div>
+    <div class="mobile-page-body">
+      <ng-content></ng-content>
+    </div>
+  </div>

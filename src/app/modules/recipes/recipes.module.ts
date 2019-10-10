@@ -6,6 +6,7 @@ import {RecipesRouting} from "./recipes.routing";
 import {ComponentsModule} from "../../../components/components.module";
 import {IonicModule} from "@ionic/angular";
 import {RecipeListPage} from "./recipe-list/recipe-list";
+import {LayoutModule} from '../shared/layout/layout.module';
 
 
 
@@ -18,7 +19,8 @@ import {RecipeListPage} from "./recipe-list/recipe-list";
     CommonModule,
     RecipesRouting,
     ComponentsModule,
-    IonicModule
+    IonicModule,
+    LayoutModule
   ]
 })
 export class RecipesModule { }

@@ -6,7 +6,6 @@ import {HomePage} from "./components/home/home.page";
 import {MainRouting} from "./main.routing";
 import {IonicModule} from "@ionic/angular";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {TabsPage} from "./components/tabs/tabs";
 
 
 @NgModule({
@@ -14,7 +13,6 @@ import {TabsPage} from "./components/tabs/tabs";
     StartPage,
     LoginPage,
     HomePage,
-    TabsPage
   ],
   imports: [
     CommonModule,
